@@ -10,6 +10,7 @@ const useApi = (endpoint) => {
       .then(res => res.data);
   }
 
+
   return { getObjects }
 }
 
