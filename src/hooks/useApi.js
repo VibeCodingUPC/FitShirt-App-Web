@@ -10,7 +10,13 @@ const useApi = (endpoint) => {
       .then(res => res.data);
   }
 
-  return { getObjects }
+  const getObjectById = (id) => {
+    return axiosInstance
+      .get(`${endpoint}/${id}`)
+      .then(res => res.data);
+  }
+
+  return { getObjects, getObjectById }
 }
 
 export default useApi;
