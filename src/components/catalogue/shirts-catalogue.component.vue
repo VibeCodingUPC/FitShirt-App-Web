@@ -2,7 +2,7 @@
   import { onMounted, ref } from 'vue';
   import filters from './shirt-filters.component.vue';
   import shirtCard from './shirt-card.component.vue';
-import { ShirtsApiService } from '@/services/shirts-api.service';
+  import { ShirtsApiService } from '@/services/shirts-api.service';
 
   let shirts=ref([]);
   const shirtsService = new ShirtsApiService();
@@ -17,7 +17,9 @@ import { ShirtsApiService } from '@/services/shirts-api.service';
 </script>
 
 <template>
-  <div class="catalogue-container">
+  <div 
+    class="catalogue-container"
+    aria-describedby="Interactive jerseys catalogue with filters to browse">
     <filters/>
     <div class="shirts-container">
       <shirt-card

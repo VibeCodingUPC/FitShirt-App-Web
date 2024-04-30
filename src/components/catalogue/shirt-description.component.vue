@@ -29,49 +29,61 @@
 </script>
 
 <template>
-  <div class="shirt-description-container">
+  <div 
+    class="shirt-description-container"
+    aria-describedby="Contains jersey description like name, price, seller, size, color and stock">
     <div class="shirt-details">
       <div class="shirt-detail" id="category">
-        <h3>/{{ shirtInformation["idCategory"] }} Jersey</h3>
+        <h3 aria-describedby="Jersey category">/{{ shirtInformation["idCategory"] }} Jersey</h3>
       </div>
       <div class="shirt-detail" id="name">
-        <h1>{{ shirtInformation["name"] }}</h1>
+        <h1 aria-describedby="Jersey name">{{ shirtInformation["name"] }}</h1>
       </div>
       <div class="shirt-detail" id="price">
-        <h2>S/.{{ shirtInformation["price"]?.toFixed(2) }}</h2>
+        <h2 aria-describedby="Jersey price">S/.{{ shirtInformation["price"]?.toFixed(2) }}</h2>
       </div>
 
       <div class="shirt-detail" id="size">
         <label for="size-selection">Available sizes</label>
-        <select v-model="selectedSize">
+        <select v-model="selectedSize" id="size-selection">
           <option 
             v-for="size in shirtInformation['sizes']"
-            :value="size"
-            id="size-selection">
+            :value="size">
             {{size}}
           </option>
         </select>
       </div>
       
       <div class="shirt-detail">
-        <h2><b>Color:</b> {{ shirtInformation["color"] }}</h2>
+        <h2 aria-describedby="Jersey color"><b>Color:</b> {{ shirtInformation["color"] }}</h2>
       </div>
       
       <div class="shirt-detail">
-        <h2><b>Stock:</b> {{ shirtInformation["stock"] }} availables</h2>
+        <h2 aria-describedby="Jersey stock"><b>Stock:</b> {{ shirtInformation["stock"] }} availables</h2>
       </div>
 
       <div class="shirt-detail" id="quantity-detail">
         <h2><b>Quantity to buy:</b></h2>
         <div className="quantity">
-            <button class="quantity-minus" :onClick="reduceSelectedQuantity">-</button>
-            <span>{{ selectedQuantity }}</span>
-            <button class="quantity-plus" :onClick="increaseSelectedQuantity">+</button>
+            <button 
+              class="quantity-minus" 
+              :onClick="reduceSelectedQuantity"
+              aria-label="Reduce quantity by one">
+              -
+            </button>
+            <span aria-label="Quantity to purchase">{{ selectedQuantity }}</span>
+            <button 
+              class="quantity-plus" 
+              :onClick="increaseSelectedQuantity"
+              aria-label="Increase quantity by one"
+              >
+              +
+            </button>
           </div>
       </div>
 
       <div class="shirt-detail" id="card-detail">
-        <button>Add to cart</button>
+        <button aria-label="Add to cart">Add to cart</button>
       </div>
 
       <div class="shirt-detail" id="seller-detail">
@@ -81,6 +93,8 @@
     <div class="shirt-image">
       <img
         :src="shirtInformation['image']"
+        :alt="shirtInformation['name'] + ' image'"
+        :aria-label="shirtInformation['name'] + ' image'"
       >
     </div>
   </div>

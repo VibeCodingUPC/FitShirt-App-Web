@@ -24,35 +24,33 @@ const colors = ref([
 </script>
 
 <template>
-  <div class="filter-container">
+  <div class="filter-container" aria-describedby="Browser filters">
     <form class="filter-form">
-      <div class="input-container">
+      <div class="input-container" aria-describedby="Category filter">
         <label for="category-input">  
           Category: 
         </label>
-        <select v-model="selectedCategory">
+        <select v-model="selectedCategory" id="category-input">
           <option 
             v-for="category in categories" 
             :value="category.name" 
-            :key="category.id"
-            id="category-input">
+            :key="category.id">
             {{ category.name }}
           </option>
         </select>
       </div>
-      <div class="input-container">
+      <div class="input-container" aria-describedby="Color filter">
         <label for="color-input">Color: </label>
-        <select v-model="selectedColor">
+        <select v-model="selectedColor" id="color-input">
           <option 
             v-for="color in colors" 
             :value="color.name" 
-            :key="color.id"
-            id="color-input">
+            :key="color.id">
             {{ color.name }}
           </option>
         </select>
       </div>
-      <button class="form-button">
+      <button class="form-button" aria-label="Apply filters">
         Filter
       </button>
     </form>

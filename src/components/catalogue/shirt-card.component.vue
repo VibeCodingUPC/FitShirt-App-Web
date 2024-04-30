@@ -16,16 +16,20 @@
 </script>
 
 <template>
-  <router-link :to="{name: 'shirtDescription', params: {id: props.id}}">
+  <router-link 
+    :to="{name: 'shirtDescription', params: {id: props.id}}" 
+    :aria-label="`Read more about `+$props.name">
     <pv-card class="shirt-card">
       <template #header>
         <img 
         :alt="$props.name + ' image'"
+        :aria-label="$props.name + ' image'"
         :src="$props.imageSrc"
         />
       </template>
       <template #title>
-        <h1>
+        <h1
+        :aria-label="$props.name">
           {{ props.name }}
         </h1>
       </template>
