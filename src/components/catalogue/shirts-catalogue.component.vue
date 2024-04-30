@@ -33,13 +33,12 @@ import { ShirtsApiService } from '@/services/shirts-api.service';
 
 <style scoped>
   .catalogue-container {
-    width: 90vw;
     margin: auto;
   }
   .catalogue-container .shirts-container {
     display: flex;
     justify-content: space-around;
-    gap: 12px;
+    gap: 8px;
     margin: auto;
     flex-wrap: wrap;
   }
