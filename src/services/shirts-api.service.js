@@ -14,3 +14,12 @@ export class ShirtsApiService {
   }
 
 }
+export class CartApiService {
+
+  async getCarItems() {
+    let {getObjects} = useApi('/cart.data.json');
+
+    return await getObjects();
+  }
+
+}
