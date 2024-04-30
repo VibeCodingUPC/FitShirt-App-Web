@@ -2,40 +2,56 @@
 </script>
 
 <template>
-  <div class="icons-container">
+  <div class="toolbar-container">
     <router-link to="/profile">
-      <div>
-        <img src="/icons/ProfileIcon.png" alt="profile-Image" class="icon-container"></div></router-link>
+      <div class="icon-container">
+        <img src="/icons/ProfileIcon.png" alt="profile-Image">
+      </div>
+    </router-link>
     <router-link to="/catalogue">
-      <div>
-        <img src="/icons/CatalogoIcon.png" alt="catalogue-Image" class="icon-container"></div></router-link>
+      <div class="icon-container">
+        <img src="/icons/CatalogoIcon.png" alt="catalogue-Image">
+      </div>
+    </router-link>
     <router-link to="/">
-      <div>
-        <img src="/icons/ShopIcon.png" alt="shop-Image" class="icon-container"></div></router-link>
+      <div  class="icon-container">
+        <img src="/icons/ShopIcon.png" alt="shop-Image">
+      </div>
+    </router-link>
     <router-link to="/">
-      <div>
-        <img src="/icons/DesignIcon.png" alt="design-Image" class="icon-container"></div></router-link>
+      <div  class="icon-container">
+        <img src="/icons/DesignIcon.png" alt="design-Image" >
+      </div>
+    </router-link>
     <router-link to="/cart">
-      <div>
-        <img src="/icons/CartIcon.png" alt="cart-Image" class="icon-container"></div></router-link>
+      <div  class="icon-container">
+        <img src="/icons/CartIcon.png" alt="cart-Image">
+      </div>
+    </router-link>
     <router-link to="/">
-      <div>
-        <img src="/icons/OremiumIcon.png" alt="premium-Image" class="icon-container"></div></router-link>
-
-
-
-
-
-
+      <div  class="icon-container">
+        <img src="/icons/OremiumIcon.png" alt="premium-Image">
+      </div>
+    </router-link>
   </div>
 </template>
 
 <style scoped>
-.icons-container{
+.toolbar-container{
   background-color: #cacaca;
+  padding: .4em .6em;
+  border-radius: 8px;
+  margin-right: .8em;
 }
 .icon-container{
-  height: 60px;
-  width: 60px;
+  height: 36px;
+  width: 36px;
+  margin: .8em 0;
+}
+.icon-container img {
+  width: 100%;
+  height: 100%;
+  border-radius: 4px;
+  object-fit: contain;
 }
 </style>

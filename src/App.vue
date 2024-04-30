@@ -1,4 +1,5 @@
 <script setup>
+  import theToolbar from './components/shared/the-toolbar.component.vue';
 </script>
 
 <template>
