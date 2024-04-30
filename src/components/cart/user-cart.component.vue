@@ -59,7 +59,6 @@
   flex-direction: row;
   width: auto;
   display: flex;
-  flex-wrap: wrap;
 }
 .subitem-container{
   background-color: #cacaca;
@@ -80,7 +79,6 @@
   flex-direction: row;
   width: auto;
   display: flex;
-  flex-wrap: wrap;
   justify-content: center;
   align-items: center;
 }
@@ -105,7 +103,7 @@
 .cart-container {
   background-color: #dadada;
   padding: 20px;
-  flex-direction: column;
+  flex-direction: row;
   width: auto;
   display: flex;
   flex-wrap: wrap;
