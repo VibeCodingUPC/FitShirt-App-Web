@@ -1,7 +1,7 @@
 * {
   box-sizing: border-box;
   margin: 0;
-  /* i deleted padding cause it was causing problems - Agustin*/
+  padding: 0;
   border: 0;
 }
 
