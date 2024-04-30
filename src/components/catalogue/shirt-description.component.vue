@@ -7,10 +7,19 @@
   const shirtsService = new ShirtsApiService();
 
   let shirtInformation = ref({})
+  let selectedSize = ref('S');
+  let selectedQuantity = ref(1);
+
+  const reduceSelectedQuantity = () => {
+    if (selectedQuantity.value>1) selectedQuantity.value--;  
+  }
+
+  const increaseSelectedQuantity = () => {
+    if (selectedQuantity.value<shirtInformation.value["stock"]) selectedQuantity.value++;  
+  }
 
   const fetchShirtInformation = async () => {
     shirtInformation.value = await shirtsService.getShirtById(route.params.id);
-    console.log(shirtInformation);
   }
 
   onBeforeMount(() => {
@@ -29,12 +38,12 @@
         <h1>{{ shirtInformation["name"] }}</h1>
       </div>
       <div class="shirt-detail" id="price">
-        <h2>S/.{{ shirtInformation["price"].toFixed(2) }}</h2>
+        <h2>S/.{{ shirtInformation["price"]?.toFixed(2) }}</h2>
       </div>
 
       <div class="shirt-detail" id="size">
         <label for="size-selection">Available sizes</label>
-        <select>
+        <select v-model="selectedSize">
           <option 
             v-for="size in shirtInformation['sizes']"
             :value="size"
@@ -55,9 +64,9 @@
       <div class="shirt-detail" id="quantity-detail">
         <h2><b>Quantity to buy:</b></h2>
         <div className="quantity">
-            <button class="quantity-minus">-</button>
-            <span>1</span>
-            <button class="quantity-plus">+</button>
+            <button class="quantity-minus" :onClick="reduceSelectedQuantity">-</button>
+            <span>{{ selectedQuantity }}</span>
+            <button class="quantity-plus" :onClick="increaseSelectedQuantity">+</button>
           </div>
       </div>
 
@@ -84,7 +93,6 @@
     align-items: center;
     height: 84vh;
     width: 100%;
-
   }
   .shirt-details {
     flex: 1;
@@ -172,6 +180,27 @@
     height: 300px;
     margin: auto;
     object-fit: contain;
+  }
+  @media (max-width: 768px) {
+    .shirt-description-container {
+      flex-direction: column-reverse;
+      height: 800px;
+    }
+
+    .shirt-details,
+    .shirt-image {
+      width: 100%;
+      padding: 10px;
+    }
+
+    .shirt-image {
+      margin: 0;
+      height: 300px;
+    }
+    .shirt-image img {
+      height: 100%;
+
+    }
   }
   
 </style>
