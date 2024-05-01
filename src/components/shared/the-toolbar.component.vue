@@ -5,6 +5,7 @@ const visible = ref(false);
 </script>
 
 <template>
+  <div class="sidebar-container">
   <pv_button class="button-style" icon="pi pi-bars" @click="visible = true"></pv_button>
     <pv_sidebar v-model:visible="visible">
       <template #container>
@@ -70,6 +71,7 @@ const visible = ref(false);
         </div>
       </template>
     </pv_sidebar>
+  </div>
 </template>
 
 <style scoped>
@@ -91,7 +93,10 @@ const visible = ref(false);
 .flex {
   display: flex;
 }
-
+.sidebar-container{
+  background-color: #dadada;
+  justify-content: left;
+}
 .flex-column {
   flex-direction: column;
 }

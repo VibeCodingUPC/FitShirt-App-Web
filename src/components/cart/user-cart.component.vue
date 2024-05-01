@@ -17,9 +17,7 @@
 </script>
 
 <template>
-    <div class="sidebar-container">
       <the-toolbar/>
-    </div>
   <div class="card-container">
     <div class="header-container">
         <p>Subtotal:&nbsp </p>
@@ -55,10 +53,6 @@
 </template>
 
 <style scoped>
-.sidebar-container{
-  background-color: #dadada;
-  justify-content: left;
-}
 .subitem-container{
   background-color: #cacaca;
   padding: 20px;
