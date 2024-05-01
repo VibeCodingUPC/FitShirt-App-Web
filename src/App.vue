@@ -5,12 +5,7 @@
 </script>
 
 <template>
-  <the-header/>
-  <main class="main">
-    <the-toolbar/>
     <router-view></router-view>
-  </main>
-  <the-footer/>
 </template>
 
 <style scoped>

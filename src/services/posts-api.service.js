@@ -1,10 +1,16 @@
 import useApi from '../hooks/useApi'
 
 export class PostsApiService {
-    async getPostItems() {
-        let {getObjects} = useApi('/posts.data.json');
+    constructor() {
+        this.apiMehods = useApi('/posts');
+    }
 
-        return await getObjects();
+    async getShirts() {
+        return await this.apiMehods.getObjects();
+    }
+
+    async getShirtById(id) {
+        return await this.apiMehods.getObjectById(id);
     }
 
 }
