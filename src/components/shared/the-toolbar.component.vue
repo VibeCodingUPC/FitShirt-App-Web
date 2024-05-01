@@ -6,8 +6,8 @@ const visible = ref(false);
 
 <template>
   <div class="sidebar-container">
-  <pv_button class="button-style" icon="pi pi-bars" @click="visible = true"></pv_button>
-    <pv_sidebar v-model:visible="visible">
+  <pv-button class="button-style" icon="pi pi-bars" @click="visible = true"></pv-button>
+    <pv-sidebar v-model:visible="visible">
       <template #container>
         <div class="flex flex-column h-full">
           <div class="overflow-y-auto">
@@ -62,22 +62,29 @@ const visible = ref(false);
                       </a>
                     </li>
                   </router-link>
-
-
                 </ul>
               </li>
             </ul>
           </div>
         </div>
       </template>
-    </pv_sidebar>
+    </pv-sidebar>
   </div>
 </template>
 
 <style scoped>
+.sidebar-container {
+  position: relative;
+  flex: .05;
+}
 .button-style {
-  width: 9rem;
-  border-radius: 0;
+  width: 36px;
+  height: 36px;
+  padding: .8em;
+  border-radius: 12px;
+  background-color: #cacaca;
+  position: absolute;
+  cursor: pointer;
 }
 .icons-container{
   display:flex;
@@ -93,16 +100,12 @@ const visible = ref(false);
 .flex {
   display: flex;
 }
-.sidebar-container{
-  background-color: #dadada;
-  justify-content: left;
-}
+
 .flex-column {
   flex-direction: column;
 }
 
 .h-full {
-  height: 100%;
 }
 .icon-container{
   width: 1.2rem;

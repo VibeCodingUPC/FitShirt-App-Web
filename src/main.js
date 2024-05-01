@@ -1,5 +1,5 @@
+import 'primevue/resources/themes/aura-light-blue/theme.css'
 import './assets/main.css'
-// Deletes prime vue css for errors in styles. by: Diego
 import { createApp } from 'vue'
 import App from './App.vue';
 import router from './routes/router';
