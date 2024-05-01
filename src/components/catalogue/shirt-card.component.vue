@@ -27,7 +27,7 @@
         :src="$props.imageSrc"
         />
       </template>
-      <template #title>
+      <template #content>
         <h1
         :aria-label="$props.name">
           {{ props.name }}
@@ -58,11 +58,11 @@
   }
   .shirt-card h1 {
     text-align: center;
-    font-size: 1.2em;
+    color: #000;
+    font-size: .9em;
     font-weight: 600;
-    margin: .4em 0
   }
   .shirt-card:hover img {
-    transform: scale(1.2)
+    transform: scale(1.1)
   }
 </style>

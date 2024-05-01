@@ -104,9 +104,9 @@
   .shirt-description-container {
     display: flex;
     flex-direction: row;
-    align-items: center;
-    height: 84vh;
-    width: 100%;
+    align-items: self-start;
+    padding: .8em 0;
+    flex: .95;
   }
   .shirt-details {
     flex: 1;
@@ -195,7 +195,7 @@
     margin: auto;
     object-fit: contain;
   }
-  @media (max-width: 768px) {
+  @media (max-width: 880px) {
     .shirt-description-container {
       flex-direction: column-reverse;
       height: 800px;

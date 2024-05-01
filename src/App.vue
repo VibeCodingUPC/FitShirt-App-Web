@@ -1,25 +1,27 @@
 <script setup>
-  import theHeader from './components/shared/the-header.component.vue'
-  import theFooter from './components/shared/the-footer.component.vue'
-  import theToolbar from './components/shared/the-toolbar.component.vue'
+  import theToolbar from './components/shared/the-toolbar.component.vue';
 </script>
 
 <template>
-  <the-header/>
   <main class="main">
     <the-toolbar/>
     <router-view></router-view>
   </main>
-  <the-footer/>
 </template>
 
 <style scoped>
 .main {
   display: flex;
-  justify-content: space-between;
+  justify-content: space-around;
   width: 85vw;
+  max-width: 1050px;
   padding: .6em 1.2em;
   margin: auto;
   background-color: #f3f3f3;
+}
+@media (max-width: 600px) {
+  .main {
+    width: 100vw;
+  }
 }
 </style>

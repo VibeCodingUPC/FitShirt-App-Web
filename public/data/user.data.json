@@ -1,0 +1,32 @@
+[
+  {
+    "id": 1,
+    "name": "Maria",
+    "email": "Red",
+    "number1": "9231231",
+    "number2": "923123",
+    "document": "923123",
+    "shipment_address": "Lambayeqye-Los tulipanes",
+    "billing_address": "Lambayeqye-Los tulipanes"
+  },
+  {
+    "id": 2,
+    "name": "Pedro",
+    "email": "Red",
+    "number1": "9231231",
+    "number2": "923123",
+    "document": "923123",
+    "shipment_address": "Lambayeque-Los tulipanes",
+    "billing_address": "Lambayeque-Los tulipanes"
+  },
+  {
+    "id": 3,
+    "name": "Roberto",
+    "email": "Red",
+    "number1": "9231231",
+    "number2": "923123",
+    "document": "923123",
+    "shipment_address": "Lambayeque-Los tulipanes",
+    "billing_address": "Lambayeque-Los tulipanes"
+  }
+]
