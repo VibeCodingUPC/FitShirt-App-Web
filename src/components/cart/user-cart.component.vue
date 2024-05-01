@@ -17,10 +17,11 @@
 </script>
 
 <template>
-  <div class="main-container">
-    <the-toolbar/>
-    <div class="cart-container">
-      <div class="header-container">
+    <div class="sidebar-container">
+      <the-toolbar/>
+    </div>
+  <div class="card-container">
+    <div class="header-container">
         <p>Subtotal:&nbsp </p>
         <div class="info-container"></div>
         <router-link to="/catalogue">
@@ -51,14 +52,12 @@
         </div>
       </div>
     </div>
-  </div>
 </template>
 
 <style scoped>
-.main-container{
-  flex-direction: row;
-  width: auto;
-  display: flex;
+.sidebar-container{
+  background-color: #dadada;
+  justify-content: left;
 }
 .subitem-container{
   background-color: #cacaca;
@@ -100,11 +99,9 @@
   border: 2px solid #2563eb;
   margin: 5px;
 }
-.cart-container {
+.card-container {
   background-color: #dadada;
-  padding: 20px;
   flex-direction: row;
-  width: auto;
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
