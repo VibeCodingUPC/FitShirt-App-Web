@@ -13,8 +13,8 @@ const app = createApp(App);
 app.use(PrimeVue);
 app.use(router);
 
-app.component('pv_card',Card);
-app.component('pv_inputText',InputText);
-app.component('pv_button',Button);
+app.component('pv-card',Card);
+app.component('pv-inputText',InputText);
+app.component('pv-button',Button);
 
 app.mount('#app');

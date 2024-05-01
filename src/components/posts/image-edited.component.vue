@@ -2,7 +2,7 @@
 </script>
 
 <template>
-  <pv_card class="card-container">
+  <pv-card class="card-container">
     <template #content>
       <div class="form-container">
         <div class="title-text">Edición exitosa</div>
@@ -11,11 +11,11 @@
         </div>
       </div>
       <div class="button-container">
-        <pv_button class="button-style">Confirmar</pv_button>
-        <pv_button class="button-style">Cancelar</pv_button>
+        <pv-button class="button-style">Confirmar</pv-button>
+        <pv-button class="button-style">Cancelar</pv-button>
       </div>
     </template>
-  </pv_card>
+  </pv-card>
 </template>
 
 <style scoped>

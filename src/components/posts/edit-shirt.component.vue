@@ -2,7 +2,7 @@
 </script>
 
 <template>
-  <pv_card class="card-container">
+  <pv-card class="card-container">
     <template #content>
       <div class="form-container">
         <div class="title-text">Editar Publicación</div>
@@ -25,17 +25,17 @@
       </div>
       <div class="button-container">
         <router-link to="/edit-profile">
-          <pv_button class="button-style">Confirmar</pv_button>
+          <pv-button class="button-style">Confirmar</pv-button>
         </router-link>
         <router-link to="/view-image">
-          <pv_button class="button-style">Ver Imágenes</pv_button>
+          <pv-button class="button-style">Ver Imágenes</pv-button>
         </router-link>
         <router-link to="/edit-payment-method">
-          <pv_button class="button-style">Cancelar</pv_button>
+          <pv-button class="button-style">Cancelar</pv-button>
         </router-link>
       </div>
     </template>
-  </pv_card>
+  </pv-card>
 </template>
 
 <style scoped>
