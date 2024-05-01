@@ -5,7 +5,7 @@
   <pv_card class="card-container">
     <template #content>
       <div class="form-container">
-        <div class="title-text">Subir Publicación</div>
+        <div class="title-text">Editar Publicación</div>
         <div>
           <div class="subtitle-text">Nombre Diseño</div>
           <div class="info-container"></div>
@@ -27,8 +27,8 @@
         <router-link to="/edit-profile">
           <pv_button class="button-style">Confirmar</pv_button>
         </router-link>
-        <router-link to="/import-image">
-          <pv_button class="button-style">Insertar Imágenes</pv_button>
+        <router-link to="/edit-password">
+          <pv_button class="button-style">Ver Imágenes</pv_button>
         </router-link>
         <router-link to="/edit-payment-method">
           <pv_button class="button-style">Cancelar</pv_button>
