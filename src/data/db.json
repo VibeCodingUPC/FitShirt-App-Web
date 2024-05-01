@@ -146,5 +146,44 @@
       "id": 3,
       "name": "Basketball"
     }
+  ],
+
+  "designs": [
+    [
+      {
+        "id": "1",
+        "image": "/images/shirts/camiseta_1.png",
+        "color": "Rojo",
+        "secundario": "Blanco",
+        "terciario": "Rojo",
+        "escudo": "Ramex"
+      },
+      {
+        "id": "2",
+        "image": "/images/shirts/camiseta_2.png",
+        "color": "Azul",
+        "secundario": "Celeste",
+        "terciario": "Rojo",
+        "escudo": "Ramex"
+      },
+      {
+        "id": "3",
+        "image": "/images/shirts/camiseta_3.png",
+        "color": "Verde",
+        "secundario": "Celeste",
+        "terciario": "Blanco",
+        "escudo": "Ramex"
+      },
+      {
+        "id": "4",
+        "image": "/images/shirts/camiseta_4.png",
+        "color": "Negro",
+        "secundario": "Gris",
+        "terciario": "Gris",
+        "escudo": "Ramex"
+      }]
   ]
+
 }
+
+
