@@ -24,7 +24,7 @@ import { CartApiService } from '@/services/cart-api.service';
     const item = {
       "name": shirtInformation.value['name'],
       "image": shirtInformation.value['image'],
-      "idCategory": shirtInformation.value['idCategory'],
+      "category": shirtInformation.value['category'],
       "color": shirtInformation.value['color'],
       "quantity": selectedQuantity.value,
       "size": selectedSize.value,
@@ -50,7 +50,7 @@ import { CartApiService } from '@/services/cart-api.service';
     aria-describedby="Contains jersey description like name, price, seller, size, color and stock">
     <div class="shirt-details">
       <div class="shirt-detail" id="category">
-        <h3 aria-describedby="Jersey category">/{{ shirtInformation["idCategory"] }} Jersey</h3>
+        <h3 aria-describedby="Jersey category">/{{ shirtInformation["category"] }} Jersey</h3>
       </div>
       <div class="shirt-detail" id="name">
         <h1 aria-describedby="Jersey name">{{ shirtInformation["name"] }}</h1>
