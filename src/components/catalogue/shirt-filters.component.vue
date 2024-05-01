@@ -1,12 +1,12 @@
 <script setup>
-import { ref } from "vue";
+import { CategoryApiService } from "@/services/category-api.service";
+import { onMounted, ref } from 'vue';
+
+const categoryService = new CategoryApiService();
 
 const selectedCategory = ref("Any");
 const categories = ref([
-  {"id": 99,"name": "Any"},
-  {"id": 1,"name": "Football"},
-  {"id": 2,"name": "Volleyball"},
-  {"id": 3,"name": "Basketball"}
+  {"id": 99,"name": "Any"}
 ]);
 
 const selectedColor = ref("Any");
@@ -21,6 +21,16 @@ const colors = ref([
   {"name": "Green"},
   {"name": "Blue"}
 ]);
+
+  const fetchCategoryData = async () => {
+    let fetchedCategories = await categoryService.getCategories();
+    categories.value = [...categories.value, ...fetchedCategories];
+  }
+
+  onMounted(async () => {
+    fetchCategoryData();
+  })
+
 </script>
 
 <template>

@@ -2,9 +2,11 @@
   import { onBeforeMount, ref } from 'vue';
   import { useRoute } from 'vue-router';
   import { ShirtsApiService } from '@/services/shirts-api.service';
+import { CartApiService } from '@/services/cart-api.service';
 
   const route = useRoute();
   const shirtsService = new ShirtsApiService();
+  const cartService = new CartApiService();
 
   let shirtInformation = ref({})
   let selectedSize = ref('S');
@@ -16,6 +18,20 @@
 
   const increaseSelectedQuantity = () => {
     if (selectedQuantity.value<shirtInformation.value["stock"]) selectedQuantity.value++;  
+  }
+
+  const addItemToCart = async () => {
+    const item = {
+      "name": shirtInformation.value['name'],
+      "image": shirtInformation.value['image'],
+      "category": shirtInformation.value['category'],
+      "color": shirtInformation.value['color'],
+      "quantity": selectedQuantity.value,
+      "size": selectedSize.value,
+      "price": shirtInformation.value['price']
+    }
+    
+    await cartService.postItem(item);
   }
 
   const fetchShirtInformation = async () => {
@@ -34,7 +50,7 @@
     aria-describedby="Contains jersey description like name, price, seller, size, color and stock">
     <div class="shirt-details">
       <div class="shirt-detail" id="category">
-        <h3 aria-describedby="Jersey category">/{{ shirtInformation["idCategory"] }} Jersey</h3>
+        <h3 aria-describedby="Jersey category">/{{ shirtInformation["category"] }} Jersey</h3>
       </div>
       <div class="shirt-detail" id="name">
         <h1 aria-describedby="Jersey name">{{ shirtInformation["name"] }}</h1>
@@ -83,7 +99,9 @@
       </div>
 
       <div class="shirt-detail" id="card-detail">
-        <button aria-label="Add to cart">Add to cart</button>
+        <button 
+          aria-label="Add to cart"
+          :onClick="addItemToCart">Add to cart</button>
       </div>
 
       <div class="shirt-detail" id="seller-detail">
