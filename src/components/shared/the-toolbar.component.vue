@@ -83,7 +83,6 @@ const visible = ref(false);
   padding: .8em;
   border-radius: 12px;
   background-color: #cacaca;
-  position: absolute;
   cursor: pointer;
 }
 .icons-container{

@@ -2,18 +2,25 @@
   import { onMounted, ref } from 'vue';
   import {CartApiService} from "@/services/cart-api.service.js";
   import {reactive} from "vue";
-  import axios from "axios";
 
-  let items=ref([]);
   const cartService = new CartApiService();
+  const state = reactive({
+    items: []
+  });
 
-  const fetchShirtsData = async () => {
-    items.value = await cartService.getCarItems();
+  const fetchCartData = async () => {
+    state.items = await cartService.getCartItems();
+  }
+
+  const removeItemFromCart = async (id) => {
+    await cartService.deleteItemById(id);
+
+    state.items = state.items.filter(item => item.id !== id);
   }
 
 
   onMounted(async () => {
-    fetchShirtsData();
+    fetchCartData();
   })
 
 </script>
@@ -28,7 +35,7 @@
           <pv-button class="button-style">Comprar</pv-button>
         </router-link>
       </div>
-      <div v-for="item in items" :key="item.id">
+      <div v-for="item in state.items" :key="item.id">
         <div class="item-container">
           <div class="subitem-container">
             <img :src="item.image" alt="Item-Image" class="image-container"/>
@@ -47,7 +54,7 @@
             <div class="info-container">S/. {{item.price*item.quantity}}</div>
           </div>
           <div>
-            <pv-button @click="deleteData(item.id)" class="trash-button" >
+            <pv-button @click="removeItemFromCart(item.id)" class="trash-button" >
               <img src="/images/bin.png" alt="bin-Image" class="bin-container">
             </pv-button>
           </div>

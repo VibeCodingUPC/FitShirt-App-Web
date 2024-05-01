@@ -1,11 +1,15 @@
 import useApi from '../hooks/useApi'
 
 export class CartApiService {
-
-  async getCarItems() {
-    let {getObjects} = useApi('/cart');
-    
-    return await getObjects();
+  constructor() {
+    this.apiMehods = useApi('/cart');
   }
 
+  async getCartItems() {
+    return await this.apiMehods.getObjects();
+  }
+
+  async deleteItemById(id) {
+    await this.apiMehods.deleteObjectById(id);
+  }
 }

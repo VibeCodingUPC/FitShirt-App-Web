@@ -17,7 +17,13 @@ const useApi = (endpoint) => {
       .then(res => res.data);
   }
 
-  return { getObjects, getObjectById }
+  const deleteObjectById = (id) => {
+    return axiosInstance
+      .delete(`${endpoint}/${id}`)
+      .then(res => res.data);
+  }
+
+  return { getObjects, getObjectById, deleteObjectById }
 }
 
 export default useApi;
