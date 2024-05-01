@@ -5,11 +5,11 @@ export class DesignsApiService {
         this.apiMehods = useApi('/designs');
     }
 
-    async getDesigns() {
+    async getDesign() {
         return await this.apiMehods.getObjects();
     }
 
-    async getDesignsbyid(id) {
+    async getDesignbyid(id) {
         return await this.apiMehods.getObjectById(id);
     }
 

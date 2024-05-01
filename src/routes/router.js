@@ -9,8 +9,7 @@ const routes = [
   {path: '/catalogue', component: ShirtsCatalogueComponent},
   {path: '/my-design', component: ShirtDesignsComponent},
   {path: '/create-design', component: CreateDesignComponent},
-  {path: '/edit-design', component: EditDesignComponent},
-
+  {path: '/edit-design/:id', name: "editDesign", component: EditDesignComponent},
 
   {path: '/catalogue/:id', name: "shirtDescription", component: ShirtDescriptionComponent}
 ];

@@ -1,9 +1,16 @@
 <script setup>
-import {onMounted} from "vue";
+import {onMounted, ref} from "vue";
 import {DesignsApiService} from "@/services/designs-api-service.js";
+import {useRoute} from "vue-router";
+
+const route = useRoute();
+
+let designInformation = ref({});
+
 const designsService = new DesignsApiService();
 const fetchDesignData = async () => {
-  state.designs = await designsService.getDesigns()
+  designInformation.value = await designsService.getDesignbyid(route.params.id);
+  console.log(designInformation.value);
 }
 onMounted(async()=> {
   fetchDesignData();
@@ -15,7 +22,7 @@ onMounted(async()=> {
     <template #content>
       <div class="form-container">
         <div class="title-text">Editar Diseño</div>
-
+        <img :src="designInformation.image" class="image-container">
         <div>
           <div class="subtitle-text">Diseño</div>
           <div class="info-container"></div>

@@ -149,7 +149,6 @@
   ],
 
   "designs": [
-    [
       {
         "id": "1",
         "image": "/images/shirts/camiseta_1.png",
@@ -182,8 +181,6 @@
         "terciario": "Gris",
         "escudo": "Ramex"
       }]
-  ]
-
 }
 
 

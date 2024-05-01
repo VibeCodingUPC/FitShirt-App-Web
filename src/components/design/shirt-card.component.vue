@@ -16,7 +16,9 @@ const props = defineProps({
 </script>
 
 <template>
-  <router-link to="/edit-design" :aria-label="`Read more about `+$props.name">
+  <router-link
+      :to="{name: 'editDesign', params: {id: props.id}}"
+      :aria-label="`Read more about `+$props.name">
     <pv-card class="shirt-card">
       <template #header>
         <img
