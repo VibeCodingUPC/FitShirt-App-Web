@@ -19,4 +19,9 @@
   margin: auto;
   background-color: #f3f3f3;
 }
+@media (max-width: 600px) {
+  .main {
+    width: 100vw;
+  }
+}
 </style>
