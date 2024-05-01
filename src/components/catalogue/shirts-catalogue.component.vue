@@ -35,7 +35,7 @@
 
 <style scoped>
   .catalogue-container {
-    margin: auto;
+    flex: .95;
   }
   .catalogue-container .shirts-container {
     display: flex;

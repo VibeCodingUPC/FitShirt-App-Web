@@ -41,7 +41,8 @@
   background-color: #cacaca;
   padding: .4em .6em;
   border-radius: 8px;
-  margin-right: .8em;
+  height: 100%;
+  flex-shrink: 0;
 }
 .icon-container{
   height: 36px;
