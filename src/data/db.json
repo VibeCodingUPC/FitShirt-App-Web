@@ -146,5 +146,51 @@
       "id": 3,
       "name": "Basketball"
     }
+  ],
+  "posts": [
+    {
+      "id": 1,
+      "image": "/images/shirts/camiseta_1.png",
+      "idCategory": "1",
+      "color": "Red",
+      "name": "Polo rojo con franjas rojas",
+      "styles": "Deportivo Manga Corta" ,
+      "stock": 2,
+      "sizes": ["S", "M", "L"],
+      "price": 120.00
+    },
+    {
+      "id": 2,
+      "image": "/images/shirts/camiseta_2.png",
+      "idCategory": "1",
+      "color": "Blue",
+      "name": "Polo azul con franjas negras",
+      "styles": "Deportivo Manga Corta" ,
+      "stock": 3,
+      "sizes": ["X", "XL", "M"],
+      "price": 150.00
+    },
+    {
+      "id": 3,
+      "image": "/images/shirts/camiseta_3.png",
+      "idCategory": "1",
+      "color": "Green",
+      "name": "Polo verde",
+      "styles": "Deportivo Manga Corta" ,
+      "stock": 5,
+      "sizes": ["S", "XL", "M"],
+      "price": 69.00
+    },
+    {
+      "id": 4,
+      "image": "/images/shirts/camiseta_4.png",
+      "idCategory": "1",
+      "color": "Black",
+      "name": "Polo negro con diseño",
+      "styles": "Deportivo Manga Corta" ,
+      "stock": 10,
+      "sizes": ["S", "M", "L"],
+      "price": 100.00
+    }
   ]
 }
