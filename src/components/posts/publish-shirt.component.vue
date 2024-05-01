@@ -25,13 +25,13 @@
         </div>
       </div>
       <div class="button-container">
-        <router-link to="/edit-profile">
+        <router-link to="/published">
           <pv-button class="button-style">Confirmar</pv-button>
         </router-link>
         <router-link to="/import-image">
           <pv-button class="button-style">Insertar Imágenes</pv-button>
         </router-link>
-        <router-link to="/edit-payment-method">
+        <router-link to="/published">
           <pv-button class="button-style">Cancelar</pv-button>
         </router-link>
       </div>
