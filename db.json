@@ -259,7 +259,7 @@
   ],
   "cart": [
     {
-      "id": 6,
+      "id": 1,
       "image": "/images/shirts/camiseta_6.png",
       "idCategory": "2",
       "color": "Yellow",
@@ -268,7 +268,7 @@
       "price": "200"
     },
     {
-      "id": 7,
+      "id": 2,
       "image": "/images/shirts/camiseta_7.png",
       "idCategory": "2",
       "color": "Yellow",
@@ -277,7 +277,7 @@
       "price": "200"
     },
     {
-      "id": 8,
+      "id": 3,
       "image": "/images/shirts/camiseta_8.png",
       "idCategory": "2",
       "color": "Gray",
@@ -286,7 +286,7 @@
       "price": "200"
     },
     {
-      "id": 9,
+      "id": 4,
       "image": "/images/shirts/camiseta_9.png",
       "idCategory": "3",
       "color": "Purple",
@@ -295,7 +295,7 @@
       "price": "200"
     },
     {
-      "id": 10,
+      "id": 5,
       "image": "/images/shirts/camiseta_10.png",
       "idCategory": "3",
       "color": "Purple",
@@ -304,7 +304,7 @@
       "price": "200"
     },
     {
-      "id": 11,
+      "id": 6,
       "image": "/images/shirts/camiseta_11.png",
       "idCategory": "3",
       "color": "Red",
@@ -313,7 +313,7 @@
       "price": "200"
     },
     {
-      "id": 12,
+      "id": 7,
       "image": "/images/shirts/camiseta_12.png",
       "idCategory": "3",
       "color": "Yellow",

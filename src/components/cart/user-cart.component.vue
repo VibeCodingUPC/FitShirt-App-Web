@@ -1,6 +1,6 @@
 <script setup>
   import { onMounted, ref } from 'vue';
-  import {CartApiService} from "@/services/shirts-api.service.js";
+  import {CartApiService} from "@/services/cart-api.service.js";
   import {reactive} from "vue";
   import axios from "axios";
 
@@ -13,9 +13,9 @@
 
 
   onMounted(async () => {
-    console.log(state.items);
-    await getData();
-})
+    fetchShirtsData();
+  })
+
 </script>
 
 <template>
@@ -28,7 +28,7 @@
           <pv-button class="button-style">Comprar</pv-button>
         </router-link>
       </div>
-      <div v-for="item in state.items" :key="item.id">
+      <div v-for="item in items" :key="item.id">
         <div class="item-container">
           <div class="subitem-container">
             <img :src="item.image" alt="Item-Image" class="image-container"/>
