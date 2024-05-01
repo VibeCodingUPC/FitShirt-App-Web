@@ -1,23 +1,31 @@
 <script setup>
-  import { onMounted, ref } from 'vue';
-  import {CartApiService} from "@/services/shirts-api.service.js";
+  import { onMounted } from 'vue';
   import TheToolbar from "@/components/shared/the-toolbar.component.vue";
+  import {reactive} from "vue";
+  import axios from "axios";
 
-  let items=ref([]);
-  const cartService = new CartApiService();
+  const state = reactive({
+    items: {}
+  });
 
-  const fetchShirtsData = async () => {
-    items.value = await cartService.getCarItems();
+  async function getData(){
+    const response= await axios.get('http://localhost:3000/cart/');
+    state.items= response.data;
+  }
+  async function deleteData(id) {
+    await axios.delete(`http://localhost:3000/cart/`+ id);
+    state.items = state.items.filter(item => item.id !== id);
   }
 
 
   onMounted(async () => {
-    fetchShirtsData();
+    console.log(state.items);
+    await getData();
 })
 </script>
 
 <template>
-      <the-toolbar/>
+  <the-toolbar/>
   <div class="card-container">
     <div class="header-container">
         <p>Subtotal:&nbsp </p>
@@ -26,7 +34,7 @@
           <pv_button class="button-style">Comprar</pv_button>
         </router-link>
       </div>
-      <div v-for="item in items" :key="item.id">
+      <div v-for="item in state.items" :key="item.id">
         <div class="item-container">
           <div class="subitem-container">
             <img :src="item.image" alt="Item-Image" class="image-container"/>
@@ -34,7 +42,7 @@
           </div>
           <div class="subitem-container">
             <p>Cantidad:&nbsp</p>
-            <pv_inputText v-model="item.quantity" class="editableinfo-container"></pv_inputText>
+            <pv_inputText  v-model="quantity" class="editableinfo-container"></pv_inputText>
           </div>
           <div class="subitem-container">
             <p>Precio:&nbsp</p>
@@ -42,10 +50,11 @@
           </div>
           <div class="subitem-container">
             <p>Subtotal:&nbsp </p>
-            <div class="info-container">S/. {{item.price*2}}</div>
+            <div class="info-container">S/. {{item.price*quantity}}</div>
           </div>
           <div>
-            <img src="/images/bin.png" alt="bin-Image" class="bin-container">
+
+            <pv_button @click="deleteData(item.id)" class="trash-button" ><img src="/images/bin.png" alt="bin-Image" class="bin-container"></pv_button>
           </div>
         </div>
       </div>
@@ -53,6 +62,9 @@
 </template>
 
 <style scoped>
+.trash-button{
+  background-color: rgba(255, 255, 255, 0);
+}
 .subitem-container{
   background-color: #cacaca;
   padding: 20px;
@@ -95,11 +107,11 @@
 }
 .card-container {
   background-color: #dadada;
-  flex-direction: row;
+  flex-direction: column;
   display: flex;
   flex-wrap: wrap;
-  justify-content: center;
   align-items: center;
+  min-height:100vh;
 }
 .info-container {
   border-radius: 4px;
