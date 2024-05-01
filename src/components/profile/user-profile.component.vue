@@ -2,7 +2,7 @@
 </script>
 
 <template>
-  <pv_card class="card-container">
+  <pv-card class="card-container">
     <template #content>
         <div class="form-container">
           <div class="title-text">Mi Perfil</div>
@@ -23,29 +23,27 @@
         </div>
         <div class="button-container">
           <router-link to="/edit-profile">
-            <pv_button class="button-style">Editar Perfil</pv_button>
+            <pv-button class="button-style">Editar Perfil</pv-button>
           </router-link>
           <router-link to="/edit-password">
-            <pv_button class="button-style">Editar Contraseña</pv_button>
+            <pv-button class="button-style">Editar Contraseña</pv-button>
           </router-link>
           <router-link to="/edit-payment-method">
-            <pv_button class="button-style">Añadir/Editar Metodo de Pago</pv_button>
+            <pv-button class="button-style">Añadir/Editar Metodo de Pago</pv-button>
           </router-link>
-
-
-
         </div>
     </template>
-  </pv_card>
+  </pv-card>
 </template>
 
 <style scoped>
 .card-container{
   background-color: #dadada;
   height: 100%;
-  min-height: 100vh;
-  width: 100%;
   display: flex;
+  justify-content: center;
+  flex: .95;
+  align-self: center;
 }
 .form-container {
   background-color: #dadada;
@@ -64,13 +62,21 @@
   flex-wrap: wrap;
   justify-content: center;
   gap: 10px;
+  padding: .8em 0;
 }
 .button-style {
-  width: 263px;
+  padding: .4em 1.8em;
+  margin: .2em 0;
+  border-radius: 6px;
+  font-size: .9em;
+  cursor: pointer;
+  background-color: #4D94FF;
+  color: #E5E5E5;
 }
 
 .title-text {
-  font-size: 70px;
+  font-size: 2.8em;
+  font-weight: 600;
   font-family: Roboto,math;
   color: #000000;
   margin-bottom: 30px;
