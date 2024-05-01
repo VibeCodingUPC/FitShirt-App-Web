@@ -1,6 +1,8 @@
 <script setup>
   import { onMounted, ref } from 'vue';
-  import {CartApiService} from "../../services/cart-api.service.js";
+  import {CartApiService} from "@/services/shirts-api.service.js";
+  import {reactive} from "vue";
+  import axios from "axios";
 
   let items=ref([]);
   const cartService = new CartApiService();
@@ -11,8 +13,9 @@
 
 
   onMounted(async () => {
-    fetchShirtsData();
-  })
+    console.log(state.items);
+    await getData();
+})
 </script>
 
 <template>
@@ -25,7 +28,7 @@
           <pv-button class="button-style">Comprar</pv-button>
         </router-link>
       </div>
-      <div v-for="item in items" :key="item.id">
+      <div v-for="item in state.items" :key="item.id">
         <div class="item-container">
           <div class="subitem-container">
             <img :src="item.image" alt="Item-Image" class="image-container"/>
@@ -41,15 +44,17 @@
           </div>
           <div class="subitem-container">
             <p>Subtotal:&nbsp </p>
-            <div class="info-container">S/. {{item.price*2}}</div>
+            <div class="info-container">S/. {{item.price*item.quantity}}</div>
           </div>
           <div>
-            <img src="/images/bin.png" alt="bin-Image" class="bin-container">
+            <pv-button @click="deleteData(item.id)" class="trash-button" >
+              <img src="/images/bin.png" alt="bin-Image" class="bin-container">
+            </pv-button>
           </div>
+        </div>
         </div>
       </div>
     </div>
-  </div>
 </template>
 
 <style scoped>
@@ -63,6 +68,9 @@
   flex-direction: column;
   justify-content: center;
   align-items: center;
+}
+.trash-button{
+  background-color: rgba(255, 255, 255, 0);
 }
 .subitem-container{
   background-color: #cacaca;
