@@ -5,10 +5,11 @@ import EditProfileComponent from '@/components/profile/edit-profile.component.vu
 import EditPaymentMethod from "@/components/profile/edit-payment-method.component.vue";
 import EditPassword from "@/components/profile/edit-password.component.vue";
 import UserCart from "@/components/cart/user-cart.component.vue";
+import TheToolbar from "@/components/shared/the-toolbar.component.vue";
 import {createRouter, createWebHistory } from 'vue-router';
 
 const routes = [
-    { path: '/', component: UserCart },
+    { path: '/', component: TheToolbar },
     { path: '/profile', component: UserProfileComponent },
     { path: '/edit-profile', component: EditProfileComponent },
     { path: '/edit-password', component: EditPassword },
