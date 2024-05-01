@@ -27,7 +27,7 @@
         <router-link to="/edit-profile">
           <pv_button class="button-style">Confirmar</pv_button>
         </router-link>
-        <router-link to="/edit-password">
+        <router-link to="/view-image">
           <pv_button class="button-style">Ver Imágenes</pv_button>
         </router-link>
         <router-link to="/edit-payment-method">
