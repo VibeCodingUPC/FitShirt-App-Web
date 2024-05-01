@@ -1,4 +1,20 @@
 <script setup>
+import { onMounted,ref} from 'vue';
+import {PostsApiService} from "@/services/posts-api.service.js";
+import {computed as datas} from "primevue/slider";
+
+let data=ref([]);
+const dataShirt = new PostsApiService();
+
+const fetchPublishData = async() =>{
+  datas.value = await dataShirt.getPostItems();
+}
+
+onMounted(async() => {
+  fetchPublishData();
+})
+
+
 </script>
 
 <template>
@@ -6,21 +22,21 @@
     <template #content>
       <div class="form-container">
         <div class="title-text">Subir Publicación</div>
-        <div>
+        <div v-for="data in datas" :key="data.id">
           <div class="subtitle-text">Nombre Diseño</div>
-          <div class="info-container"></div>
+          <div class="info-container">{{data.name}}</div>
           <div class="subtitle-text">Color</div>
-          <div class="info-container"></div>
+          <div class="info-container">{{data.color}}</div>
           <div class="subtitle-text">Categoría </div>
-          <div class="info-container"></div>
+          <div class="info-container">{{data.idCategory}}</div>
           <div class="subtitle-text">Estilo</div>
-          <div class="info-container"></div>
+          <div class="info-container">{{data.styles}}</div>
           <div class="subtitle-text">Cantidad Actual</div>
-          <div class="info-container"></div>
+          <div class="info-container">{{data.stock}}</div>
           <div class="subtitle-text">Tallas Disponibles</div>
-          <div class="info-container"></div>
+          <div class="info-container">{{data.sizes}}</div>
           <div class="subtitle-text">Precio</div>
-          <div class="info-container"></div>
+          <div class="info-container">{{data.price}}</div>
         </div>
       </div>
       <div class="button-container">
