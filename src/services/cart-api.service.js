@@ -12,4 +12,8 @@ export class CartApiService {
   async deleteItemById(id) {
     await this.apiMehods.deleteObjectById(id);
   }
+
+  async postItem(item) {
+    return await this.apiMehods.postObject(item);
+  }
 }

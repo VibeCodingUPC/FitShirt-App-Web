@@ -2,9 +2,11 @@
   import { onBeforeMount, ref } from 'vue';
   import { useRoute } from 'vue-router';
   import { ShirtsApiService } from '@/services/shirts-api.service';
+import { CartApiService } from '@/services/cart-api.service';
 
   const route = useRoute();
   const shirtsService = new ShirtsApiService();
+  const cartService = new CartApiService();
 
   let shirtInformation = ref({})
   let selectedSize = ref('S');
@@ -16,6 +18,20 @@
 
   const increaseSelectedQuantity = () => {
     if (selectedQuantity.value<shirtInformation.value["stock"]) selectedQuantity.value++;  
+  }
+
+  const addItemToCart = async () => {
+    const item = {
+      "name": shirtInformation.value['name'],
+      "image": shirtInformation.value['image'],
+      "idCategory": shirtInformation.value['idCategory'],
+      "color": shirtInformation.value['color'],
+      "quantity": selectedQuantity.value,
+      "size": selectedSize.value,
+      "price": shirtInformation.value['price']
+    }
+    
+    await cartService.postItem(item);
   }
 
   const fetchShirtInformation = async () => {
@@ -83,7 +99,9 @@
       </div>
 
       <div class="shirt-detail" id="card-detail">
-        <button aria-label="Add to cart">Add to cart</button>
+        <button 
+          aria-label="Add to cart"
+          :onClick="addItemToCart">Add to cart</button>
       </div>
 
       <div class="shirt-detail" id="seller-detail">

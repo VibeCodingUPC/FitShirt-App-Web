@@ -50,6 +50,10 @@
             <div class="info-container">S/. {{item.price}}</div>
           </div>
           <div class="subitem-container">
+            <p>Size:&nbsp</p>
+            <div class="info-container">{{item.size}}</div>
+          </div>
+          <div class="subitem-container">
             <p>Subtotal:&nbsp </p>
             <div class="info-container">S/. {{item.price*item.quantity}}</div>
           </div>
