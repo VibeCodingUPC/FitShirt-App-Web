@@ -1,4 +1,22 @@
 <script setup>
+import { ref } from 'vue';
+  let userLogin = ref({
+    username: "",
+    password: ""
+  })
+
+  const validateLogin = () => {
+
+    if (userLogin.value.username.length < 6) {
+      return false;
+    }
+
+    if (userLogin.value.password.length < 8) {
+      return false;
+    }
+
+    return true;
+  }
 </script>
 
 <template>
@@ -20,14 +38,18 @@
     <div class ="login-card">
       <p class="title-container">Iniciar Sesión</p>
       <p class="cwhite">Username</p>
-      <pv_inputText class="mb10" type="text" v-model="value" />
+      <pv-inputText class="mb10" type="text" v-model="userLogin.username" />
       <p class="cwhite">Contraseña</p>
-      <pv_inputText class="mb10" type="text" v-model="value" />
-      <pv_button label="Login" severity="info" class="button-container"/>
+      <pv-inputText class="mb10" type="password" v-model="userLogin.password" />
+      <router-link :to="validateLogin() ? '/catalogue' : '/login'">
+        <pv-button label="Login" severity="info" class="button-container"/>
+      </router-link>
       <p class="cwhite mb100 tac">¿Olvidó su contraseña?</p>
       <hr class="line-container" />
       <p class="cwhite mb10 tac">¿Nuevo en Fit Shirt?</p>
-      <pv_button label="Registrate" severity="info" class="button-container mb50"/>
+      <router-link to="/register">
+        <pv-button label="Registrate" severity="info" class="button-container mb50"/>
+      </router-link>
     </div>
   </div>
 </template>
@@ -102,7 +124,7 @@
   margin-bottom: 10px;
 }
 .mb100{
-  margin-bottom: 100px;
+  margin-bottom: 1.2em;
 }
 .mb50{
   margin-bottom: 50px;

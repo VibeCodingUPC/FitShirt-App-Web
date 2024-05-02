@@ -1,4 +1,40 @@
 <script setup>
+import { ref } from 'vue';
+
+  let userRegistration = ref({
+    username: "",
+    password: "",
+    confirmPassword: "",
+    email: "",
+    cellphone: ""
+  })
+
+  const validateRegistration = () => {
+    let reEmail = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
+    if (userRegistration.value.username.length < 6) {
+      return false;
+    }
+
+    if (userRegistration.value.password.length < 8) {
+      return false;
+    }
+
+    
+    if (userRegistration.value.password !== userRegistration.value.confirmPassword) {
+      return false;
+    }
+    
+    if (!reEmail.test(userRegistration.value.email)) {
+      return false;
+    }
+
+    if (userRegistration.value.cellphone.length!==9) {
+      return false;
+    }
+
+    return true;
+  }
 </script>
 
 <template>
@@ -20,22 +56,29 @@
     <div class ="register-card">
       <p class="title-container">Registrate</p>
       <p class="cwhite">Username</p>
-      <pv_inputText class="mb10" type="text" v-model="value" />
+      <pv-inputText class="mb10" type="text" v-model="userRegistration.username" />
       <p class="cwhite">Contraseña</p>
-      <pv_inputText class="mb10" type="text" v-model="value" />
+      <pv-inputText class="mb10" type="password" v-model="userRegistration.password" />
       <p class="cwhite">Confirmar Contraseña</p>
-      <pv_inputText class="mb10" type="text" v-model="value" />
+      <pv-inputText class="mb10" type="password" v-model="userRegistration.confirmPassword" />
       <p class="cwhite">Correo</p>
-      <pv_inputText class="mb10" type="text" v-model="value" />
+      <pv-inputText class="mb10" type="text" v-model="userRegistration.email" />
       <p class="cwhite">Celular</p>
-      <pv_inputText class="mb10" type="text" v-model="value" />
+      <pv-inputText class="mb10" type="text" v-model="userRegistration.cellphone" />
+      
+      <router-link :to="validateRegistration() ? '/catalogue' : '/'">
+        <pv-button @click="" label="Registrate" severity="info" class="button-container mb50"/>
+      </router-link>
 
-      <pv_button label="Registrate" severity="info" class="button-container mb50"/>
+      <p class="cwhite login">¿Ya tienes cuenta? <router-link to="/login">Inicia sesión</router-link></p>
     </div>
   </div>
 </template>
 
 <style scoped>
+.login {
+  text-align: center;
+}
 @media (max-width: 900px) {
   .app-description{
     display: none;
