@@ -1,6 +1,6 @@
 <script setup>
 import{ref} from "vue";
-import {DesignsApiService} from "@/services/designs-api-service.js";
+import {DesignsApiService} from "@/services/designs-api.service.js";
 import { useRoute } from 'vue-router';
 const designservice = new DesignsApiService();
 let designInformation = ref ({
@@ -13,6 +13,10 @@ let designInformation = ref ({
 })
 const addDesign = async () => {
   await designservice.creatingDesign(designInformation.value);
+
+  setTimeout(() => {
+    window.location.reload()
+  }, 100);
 }
 </script>
 

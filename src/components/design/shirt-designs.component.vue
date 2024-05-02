@@ -2,7 +2,7 @@
 import { onMounted, ref } from 'vue';
 import filters from './shirt-filters.component.vue';
 import shirtCard from './shirt-card.component.vue';
-import {DesignsApiService} from "@/services/designs-api-service.js";
+import {DesignsApiService} from "@/services/designs-api.service.js";
 
 let designs=ref([]);
 const designsService = new DesignsApiService();

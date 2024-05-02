@@ -38,7 +38,7 @@ const visible = ref(false);
                       </a>
                     </li>
                   </router-link>
-                  <router-link to="/design">
+                  <router-link to="/my-design">
                     <li>
                       <a class="icons-container">
                         <img src="/icons/DesignIcon.png" alt="shop-Image" class="icon-container">

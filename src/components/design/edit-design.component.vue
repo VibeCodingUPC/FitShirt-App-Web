@@ -1,6 +1,6 @@
 <script setup>
 import {onBeforeMount, ref} from "vue";
-import {DesignsApiService} from "@/services/designs-api-service.js";
+import {DesignsApiService} from "@/services/designs-api.service.js";
 import {useRoute} from "vue-router";
 
 const route = useRoute();
@@ -14,6 +14,10 @@ const fetchDesignData = async () => {
 }
 const editDesign = async () => {
   await designsService.editDesign(designInformation.value);
+
+  setTimeout(() => {
+    window.location.reload()
+  }, 100);
 }
 const deleteItemDesign = async () => {
   await designsService.deleteDesign(designInformation.value.id);

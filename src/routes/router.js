@@ -8,14 +8,13 @@ import EditProfileComponent from '@/components/profile/edit-profile.component.vu
 import EditPaymentMethod from "@/components/profile/edit-payment-method.component.vue";
 import EditPassword from "@/components/profile/edit-password.component.vue";
 import UserCart from "@/components/cart/user-cart.component.vue";
-import TheToolbar from "@/components/shared/the-toolbar.component.vue";
 import ShirtDesignsComponent from "@/components/design/shirt-designs.component.vue";
 import CreateDesignComponent from "@/components/design/create-design.component.vue";
 import EditDesignComponent from "@/components/design/edit-design.component.vue";
 import {createRouter, createWebHistory } from 'vue-router';
 
 const routes = [
-  { path: '/', component: TheToolbar },
+  { path: '/', component: ShirtsCatalogueComponent },
 
   { path: '/published', component: PublishedShirtsComponent},
   { path: '/published/:id', name: "shirtDescription", component: ShirtDescriptionComponent},
