@@ -13,4 +13,16 @@ export class DesignsApiService {
         return await this.apiMehods.getObjectById(id);
     }
 
+    async creatingDesign(design) {
+        return await this.apiMehods.postObject(design);
+    }
+
+    async editDesign(design) {
+        return await this.apiMehods.putObject(design.id,design);
+    }
+
+    async deleteDesign(id) {
+        return await this.apiMehods.deleteObjectById(id);
+    }
+
 }

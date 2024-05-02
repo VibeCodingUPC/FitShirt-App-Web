@@ -14,7 +14,7 @@ const useApi = (endpoint) => {
   const getObjectById = (id) => {
     return axiosInstance
         .get(`${endpoint}/${id}`)
-        .then(res => res.data);
+            .then(res => res.data);
   }
 
   const postObject = (object) => {
@@ -23,16 +23,17 @@ const useApi = (endpoint) => {
         .then(res => res.data);
   }
 
-  const putObject = (object) => {
+  const putObject = (id,object) => {
     return axiosInstance
-        .put(endpoint, object)
-        .then(res => res.data)
+        .put(`${endpoint}/${id}`, object)
+            .then(res => res.data)
+
   }
 
   const deleteObjectById = (id) => {
     return axiosInstance
         .delete(`${endpoint}/${id}`)
-        .then(res => res.data);
+            .then(res => res.data);
   }
 
   return { getObjects, getObjectById, deleteObjectById, postObject, putObject }

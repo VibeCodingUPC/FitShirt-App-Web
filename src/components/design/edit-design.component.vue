@@ -1,5 +1,5 @@
 <script setup>
-import {onMounted, ref} from "vue";
+import {onBeforeMount, ref} from "vue";
 import {DesignsApiService} from "@/services/designs-api-service.js";
 import {useRoute} from "vue-router";
 
@@ -10,11 +10,18 @@ let designInformation = ref({});
 const designsService = new DesignsApiService();
 const fetchDesignData = async () => {
   designInformation.value = await designsService.getDesignbyid(route.params.id);
-  console.log(designInformation.value);
+
 }
-onMounted(async()=> {
+const editDesign = async () => {
+  await designsService.editDesign(designInformation.value);
+}
+const deleteItemDesign = async () => {
+  await designsService.deleteDesign(designInformation.value.id);
+}
+onBeforeMount(()=>{
   fetchDesignData();
 })
+
 </script>
 
 <template>
@@ -24,24 +31,27 @@ onMounted(async()=> {
         <div class="title-text">Editar Diseño</div>
         <img :src="designInformation.image" class="image-container">
         <div>
-          <div class="subtitle-text">Diseño</div>
-          <div class="info-container"></div>
+          <div class="subtitle-text">Nombre de Camiseta</div>
+          <pv-inputText class="info-container" v-model="designInformation.name"></pv-inputText>
           <div class="subtitle-text">Color Primario </div>
-          <div class="info-container"></div>
+          <pv-inputText  class="info-container" v-model="designInformation.color"></pv-inputText >
           <div class="subtitle-text">Color Secundario</div>
-          <div class="info-container"></div>
+          <pv-inputText  class="info-container" v-model="designInformation.secundario"></pv-inputText >
           <div class="subtitle-text">Tipo Terciario</div>
-          <div class="info-container"></div>
+          <pv-inputText  class="info-container" v-model="designInformation.terciario"></pv-inputText >
           <div class="subtitle-text">Escudo</div>
-          <div class="info-container"></div>
+          <pv-inputText  class="info-container" v-model="designInformation.escudo"></pv-inputText >
         </div>
       </div>
       <div class="button-container">
         <router-link to="/my-design">
-          <pv-button class="button-style">Confirmar</pv-button>
+          <pv-button class="button-style" @click="editDesign">Confirmar</pv-button>
         </router-link>
         <router-link to="/my-design">
           <pv-button class="button-style">Cancelar</pv-button>
+        </router-link>
+        <router-link to="/my-design">
+          <pv-button class="button-style" @click="deleteItemDesign">Eliminar Diseño</pv-button>
         </router-link>
       </div>
     </template>

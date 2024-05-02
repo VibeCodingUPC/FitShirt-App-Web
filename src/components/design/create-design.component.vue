@@ -1,13 +1,19 @@
 <script setup>
-import {onMounted} from "vue";
+import{ref} from "vue";
 import {DesignsApiService} from "@/services/designs-api-service.js";
-const designsService = new DesignsApiService();
-const fetchDesignData = async () => {
-  state.designs = await designsService.getDesigns()
-}
-onMounted(async()=> {
-  fetchDesignData();
+import { useRoute } from 'vue-router';
+const designservice = new DesignsApiService();
+let designInformation = ref ({
+  "name": "",
+  "image": "/images/shirts/camiseta_3.png",
+  "color": "",
+  "secundario": "",
+  "terciario": "",
+  "escudo": ""
 })
+const addDesign = async () => {
+  await designservice.creatingDesign(designInformation.value);
+}
 </script>
 
 <template>
@@ -17,21 +23,21 @@ onMounted(async()=> {
         <div class="title-text">Crear Diseño</div>
 
           <div>
-            <div class="subtitle-text">Diseño</div>
-          <div class="info-container"></div>
+            <div class="subtitle-text">Nombre de Camiseta</div>
+            <pv-inputText class="info-container" v-model="designInformation.name"></pv-inputText>
           <div class="subtitle-text">Color Primario </div>
-          <div class="info-container"></div>
+          <pv-inputText  class="info-container" v-model="designInformation.color"></pv-inputText >
           <div class="subtitle-text">Color Secundario</div>
-          <div class="info-container"></div>
+          <pv-inputText  class="info-container" v-model="designInformation.secundario"></pv-inputText >
           <div class="subtitle-text">Tipo Terciario</div>
-          <div class="info-container"></div>
+          <pv-inputText  class="info-container" v-model="designInformation.terciario"></pv-inputText >
           <div class="subtitle-text">Escudo</div>
-          <div class="info-container"></div>
+          <pv-inputText  class="info-container" v-model="designInformation.escudo"></pv-inputText >
         </div>
       </div>
       <div class="button-container">
         <router-link to="/my-design">
-          <pv-button class="button-style">Confirmar</pv-button>
+          <pv-button class="button-style" @click="addDesign">Confirmar</pv-button>
         </router-link>
         <router-link to="/my-design">
           <pv-button class="button-style">Cancelar</pv-button>

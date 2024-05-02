@@ -5,6 +5,7 @@
 <template>
   <div class="filter-container" aria-describedby="Browser filters">
     <form class="filter-form">
+      <p class="text">Limite de diseños = Ilimitado</p>
       <router-link to="/create-design">
       <button class="form-button" aria-label="Apply filters">
         Crear Diseño
@@ -52,4 +53,9 @@
   font-weight: 600;
   cursor: pointer;
 }
+.text{
+  justify-content: left;
+  margin-right: 50px;
+}
+
 </style>

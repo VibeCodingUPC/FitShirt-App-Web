@@ -1,6 +1,7 @@
 [
   {
     "id": "1",
+    "name": "Polo Peruano",
     "image": "/images/shirts/camiseta_1.png",
     "color": "Rojo",
     "secundario": "Blanco",
@@ -9,6 +10,7 @@
   },
   {
     "id": "2",
+    "name": "Polo pecho oscuro",
     "image": "/images/shirts/camiseta_2.png",
     "color": "Azul",
     "secundario": "Celeste",
@@ -17,6 +19,7 @@
   },
   {
     "id": "3",
+    "name": "Polo verde",
     "image": "/images/shirts/camiseta_3.png",
     "color": "Verde",
     "secundario": "Celeste",
@@ -25,6 +28,7 @@
   },
   {
     "id": "4",
+    "name": "negro",
     "image": "/images/shirts/camiseta_4.png",
     "color": "Negro",
     "secundario": "Gris",

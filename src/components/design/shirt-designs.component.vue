@@ -2,17 +2,17 @@
 import { onMounted, ref } from 'vue';
 import filters from './shirt-filters.component.vue';
 import shirtCard from './shirt-card.component.vue';
-import { ShirtsApiService } from '@/services/shirts-api.service';
+import {DesignsApiService} from "@/services/designs-api-service.js";
 
-let shirts=ref([]);
-const shirtsService = new ShirtsApiService();
+let designs=ref([]);
+const designsService = new DesignsApiService();
 
-const fetchShirtsData = async () => {
-  shirts.value = await shirtsService.getShirts();
+const fetchDesignsData = async () => {
+  designs.value = await designsService.getDesign();
 }
 
 onMounted(async () => {
-  fetchShirtsData();
+  fetchDesignsData();
 })
 </script>
 
@@ -22,11 +22,11 @@ onMounted(async () => {
       aria-describedby="Interactive jerseys catalogue with filters to browse">
     <div class="shirts-container">
       <shirt-card
-          v-for="shirt in shirts"
-          :key="shirt.id"
-          :id="shirt.id"
-          :image-src="shirt.image"
-          :name="shirt.name"
+          v-for="design in designs"
+          :key="design.id"
+          :id="design.id"
+          :image-src="design.image"
+          :name="design.name"
       />
     </div>
     <filters/>
