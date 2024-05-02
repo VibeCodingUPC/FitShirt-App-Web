@@ -14,16 +14,19 @@ let postInformation = ref({
   "size":"",
   "price":0
 })
-const route = useRoute();
-const addPublish=async () =>{
+const addPublish = async () =>{
   await postservice.publishPost(postInformation.value);
+
+  setTimeout(() => {
+    window.location.reload()
+  }, 100);
 }
 </script>
 
 <template>
   <pv-card class="card-container">
     <template #content>
-      <div class="form-container">
+      <form class="form-container">
         <div class="title-text">Subir Publicación</div>
         <div>
           <div class="subtitle-text">Nombre Diseño</div>
@@ -39,15 +42,15 @@ const addPublish=async () =>{
           <div class="subtitle-text">Precio</div>
           <pv-inputText type="number" class="info-container"  v-model="postInformation.price"></pv-inputText>
         </div>
-      </div>
-      <div class="button-container">
-        <router-link to="/published">
-          <pv-button class="button-style" aria-label="Confirm a post" @click="addPublish">Confirmar</pv-button>
-        </router-link>
-        <router-link to="/published">
-          <pv-button class="button-style" aria-label="Cancel a post">Cancelar</pv-button>
-        </router-link>
-      </div>
+        <div class="button-container">
+          <router-link to="/published">
+            <pv-button class="button-style" aria-label="Confirm a post" @click="addPublish">Confirmar</pv-button>
+          </router-link>
+          <router-link to="/published">
+            <pv-button class="button-style" aria-label="Cancel a post">Cancelar</pv-button>
+          </router-link>
+        </div>
+      </form>
     </template>
   </pv-card>
 </template>

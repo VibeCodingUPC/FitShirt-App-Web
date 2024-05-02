@@ -1,5 +1,5 @@
 <script setup>
-  import { onMounted, ref } from 'vue';
+  import { onBeforeMount, onMounted, ref } from 'vue';
   import filters from './shirt-filters.component.vue';
   import shirtCard from './publish-card.component.vue';
   import {PostsApiService} from "@/services/posts-api.service.js";
