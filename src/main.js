@@ -9,8 +9,9 @@ import PrimeVue from 'primevue/config';
 import Card from 'primevue/card';
 import InputText from "primevue/inputtext";
 import Button from 'primevue/button';
-import 'primeicons/primeicons.css'
 import Sidebar from "primevue/sidebar";
+import 'primeicons/primeicons.css'
+
 const app = createApp(App);
 
 app.use(PrimeVue);

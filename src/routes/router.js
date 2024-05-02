@@ -2,6 +2,7 @@ import PublishShirtComponent from "@/components/posts/publish-shirt.component.vu
 import EditShirtComponent from "@/components/posts/edit-shirt.component.vue";
 import PublishedShirtsComponent from "@/components/posts/published-shirts.component.vue";
 import ShirtDescriptionComponent from '@/components/catalogue/shirt-description.component.vue';
+import ShirtsCatalogueComponent from "@/components/catalogue/shirts-catalogue.component.vue";
 import UserProfileComponent from '@/components/profile/user-profile.component.vue';
 import EditProfileComponent from '@/components/profile/edit-profile.component.vue';
 import EditPaymentMethod from "@/components/profile/edit-payment-method.component.vue";
