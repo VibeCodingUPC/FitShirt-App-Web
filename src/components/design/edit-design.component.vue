@@ -14,10 +14,6 @@ const fetchDesignData = async () => {
 }
 const editDesign = async () => {
   await designsService.editDesign(designInformation.value);
-
-  setTimeout(() => {
-    window.location.reload()
-  }, 100);
 }
 const deleteItemDesign = async () => {
   await designsService.deleteDesign(designInformation.value.id);

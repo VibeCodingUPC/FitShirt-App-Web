@@ -1,5 +1,5 @@
 <script setup>
-import { onMounted, ref } from 'vue';
+import { onBeforeMount, onMounted, ref } from 'vue';
 import filters from './shirt-filters.component.vue';
 import shirtCard from './shirt-card.component.vue';
 import {DesignsApiService} from "@/services/designs-api.service.js";
@@ -11,7 +11,7 @@ const fetchDesignsData = async () => {
   designs.value = await designsService.getDesign();
 }
 
-onMounted(async () => {
+onBeforeMount(async () => {
   fetchDesignsData();
 })
 </script>

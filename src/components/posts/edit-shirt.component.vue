@@ -15,18 +15,10 @@
 
    const editPost = async () =>{
      await postService.editPost(postInformation.value);
-
-     setTimeout(() => {
-      window.location.reload()
-    }, 100);
    }
 
    const deleteItemPost = async ()=>{
     await postService.deletePost(postInformation.value.id);
-
-    setTimeout(() => {
-      window.location.reload()
-    }, 100);
    }
 
    onBeforeMount(()=>{

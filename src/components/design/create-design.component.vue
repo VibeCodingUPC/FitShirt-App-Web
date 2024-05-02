@@ -13,10 +13,6 @@ let designInformation = ref ({
 })
 const addDesign = async () => {
   await designservice.creatingDesign(designInformation.value);
-
-  setTimeout(() => {
-    window.location.reload()
-  }, 100);
 }
 </script>
 
