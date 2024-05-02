@@ -2,31 +2,32 @@
   import { onMounted, ref } from 'vue';
   import filters from './shirt-filters.component.vue';
   import shirtCard from './publish-card.component.vue';
-  import { ShirtsApiService } from '@/services/shirts-api.service';
+  import {PostsApiService} from "@/services/posts-api.service.js";
 
-  let shirts=ref([]);
-  const shirtsService = new ShirtsApiService();
 
-  const fetchShirtsData = async () => {
-    shirts.value = await shirtsService.getShirts();
+  let posts=ref([]);
+  const postservice = new PostsApiService();
+
+  const fetchPostsData = async () => {
+    posts.value = await postservice.getPosts();
   }
 
   onMounted(async () => {
-    fetchShirtsData();
+    fetchPostsData();
   })
 </script>
 
 <template>
   <div 
     class="catalogue-container"
-    aria-describedby="Interactive jerseys catalogue with filters to browse">
+    aria-describedby="Catalog of publications made by the user">
     <div class="shirts-container">
       <shirt-card
-        v-for="shirt in shirts"
-        :key="shirt.id"
-        :id="shirt.id"
-        :image-src="shirt.image"
-        :name="shirt.name"
+        v-for="post in posts"
+        :key="post.id"
+        :id="post.id"
+        :image-src="post.image"
+        :name="post.name"
       />
     </div>
     <filters/>

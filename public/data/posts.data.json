@@ -2,7 +2,7 @@
   {
     "id": "1",
     "image": "/images/shirts/camiseta_1.png",
-    "category": "1",
+    "category": "Football",
     "color": "Red",
     "name": "Polo rojo con franjas rojas",
     "stock": 2,
@@ -12,7 +12,7 @@
   {
     "id": "2",
     "image": "/images/shirts/camiseta_2.png",
-    "category": "2",
+    "category": "Basketball",
     "color": "Blue",
     "name": "Polo azul con franjas negras",
     "stock": 3,
@@ -22,7 +22,7 @@
   {
     "id": "3",
     "image": "/images/shirts/camiseta_3.png",
-    "category": "2",
+    "category": "Volleyball",
     "color": "Green",
     "name": "Polo verde",
     "stock": 5,

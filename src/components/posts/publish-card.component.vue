@@ -16,8 +16,8 @@
 </script>
 
 <template>
-  <router-link to="/edit-shirt"
-    :aria-label="`Read more about `+$props.name">
+  <router-link :to= "{name:'shirtEdit', params: {id:props.id}}"
+    :aria-label="`Edit post `+$props.name">
     <pv-card class="shirt-card">
       <template #header>
         <img 

@@ -1,4 +1,30 @@
 <script setup>
+   import {onBeforeMount,ref} from "vue";
+   import {useRoute} from 'vue-router';
+   import {PostsApiService} from "@/services/posts-api.service.js";
+
+   const postService= new PostsApiService();
+   const route = useRoute();
+
+   let postInformation = ref({})
+
+   const fetchPostInformation = async() =>{
+     postInformation.value= await postService.getPostById(route.params.id);
+     console.log(postInformation.value)
+   }
+
+   const editPost = async () =>{
+     await postService.editPost(postInformation.value);
+   }
+
+   const deleteItemPost = async ()=>{
+     await postService.deletePost(postInformation.value.id);
+   }
+
+   onBeforeMount(()=>{
+     fetchPostInformation();
+   })
+
 </script>
 
 <template>
@@ -8,30 +34,28 @@
         <div class="title-text">Editar Publicación</div>
         <div>
           <div class="subtitle-text">Nombre Diseño</div>
-          <div class="info-container"></div>
+          <pv-inputText class="info-container" v-model="postInformation.name"></pv-inputText>
           <div class="subtitle-text">Color</div>
-          <div class="info-container"></div>
+          <pv-inputText class="info-container" v-model="postInformation.color"></pv-inputText>
           <div class="subtitle-text">Categoría </div>
-          <div class="info-container"></div>
-          <div class="subtitle-text">Estilo</div>
-          <div class="info-container"></div>
+          <pv-inputText class="info-container" v-model="postInformation.category"></pv-inputText>
           <div class="subtitle-text">Cantidad Actual</div>
-          <div class="info-container"></div>
+          <pv-inputText type="number" class="info-container" v-model="postInformation.stock"></pv-inputText>
           <div class="subtitle-text">Tallas Disponibles</div>
-          <div class="info-container"></div>
+          <pv-inputText class="info-container" v-model="postInformation.sizes"></pv-inputText>
           <div class="subtitle-text">Precio</div>
-          <div class="info-container"></div>
+          <pv-inputText type="number" class="info-container" v-model="postInformation.price"></pv-inputText>
         </div>
       </div>
       <div class="button-container">
-        <router-link to="/edit-profile">
-          <pv-button class="button-style">Confirmar</pv-button>
+        <router-link to="/published">
+          <pv-button @click="editPost" class="button-style" aria-label="Confirm changes">Confirmar</pv-button>
         </router-link>
-        <router-link to="/view-image">
-          <pv-button class="button-style">Ver Imágenes</pv-button>
+        <router-link to="/published">
+          <pv-button class="button-style" aria-label="Cancel changes">Cancelar</pv-button>
         </router-link>
-        <router-link to="/edit-payment-method">
-          <pv-button class="button-style">Cancelar</pv-button>
+        <router-link to="/published">
+          <pv-button @click="deleteItemPost" class="button-style" aria-label="Delete a Post">Eliminar Post</pv-button>
         </router-link>
       </div>
     </template>
@@ -66,6 +90,7 @@
 }
 .button-style {
   width: 263px;
+  justify-content: center;
 }
 
 .title-text {

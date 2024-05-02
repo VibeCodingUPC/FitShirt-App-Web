@@ -2,10 +2,10 @@
 </script>
 
 <template>
-  <div class="filter-container" aria-describedby="Browser filters">
+  <div class="filter-container" aria-describedby="Bottom publish">
     <form class="filter-form">
       <router-link to ="/publish">
-      <button class="form-button" aria-label="Apply filters">
+      <button class="form-button" aria-label="Publish a post">
         Subir Publicación
       </button>
       </router-link>

@@ -5,12 +5,24 @@ export class PostsApiService {
         this.apiMehods = useApi('/posts');
     }
 
-    async getShirts() {
+    async getPosts() {
         return await this.apiMehods.getObjects();
     }
 
-    async getShirtById(id) {
+    async getPostById(id) {
         return await this.apiMehods.getObjectById(id);
+    }
+
+    async publishPost(post){
+        return await this.apiMehods.postObject(post);
+    }
+
+    async editPost(post){
+        return await this.apiMehods.putObject(post.id,post);
+    }
+
+    async deletePost(id){
+        return await this.apiMehods.deleteObjectById(id);
     }
 
 }
