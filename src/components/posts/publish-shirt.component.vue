@@ -16,10 +16,6 @@ let postInformation = ref({
 })
 const addPublish = async () =>{
   await postservice.publishPost(postInformation.value);
-
-  setTimeout(() => {
-    window.location.reload()
-  }, 100);
 }
 </script>
 

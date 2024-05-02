@@ -12,7 +12,7 @@
     posts.value = await postservice.getPosts();
   }
 
-  onMounted(async () => {
+  onBeforeMount(async () => {
     fetchPostsData();
   })
 </script>
