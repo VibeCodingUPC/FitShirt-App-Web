@@ -9,6 +9,9 @@ import EditPaymentMethod from "@/components/profile/edit-payment-method.componen
 import EditPassword from "@/components/profile/edit-password.component.vue";
 import UserCart from "@/components/cart/user-cart.component.vue";
 import TheToolbar from "@/components/shared/the-toolbar.component.vue";
+import ShirtDesignsComponent from "@/components/design/shirt-designs.component.vue";
+import CreateDesignComponent from "@/components/design/create-design.component.vue";
+import EditDesignComponent from "@/components/design/edit-design.component.vue";
 import {createRouter, createWebHistory } from 'vue-router';
 
 const routes = [
@@ -23,6 +26,10 @@ const routes = [
   { path: '/edit-profile', component: EditProfileComponent },
   { path: '/edit-password', component: EditPassword },
   { path: '/edit-payment-method', component: EditPaymentMethod },
+  
+  {path: '/my-design', component: ShirtDesignsComponent},
+  {path: '/create-design', component: CreateDesignComponent},
+  {path: '/edit-design/:id', name: "editDesign", component: EditDesignComponent},
   
   { path: '/catalogue', component: ShirtsCatalogueComponent},
   { path: '/cart', component: UserCart},

@@ -1,7 +1,7 @@
 import useAxios from "./useAxios";
 
 const useApi = (endpoint) => {
-
+  
   const axiosInstance = useAxios();
 
   const getObjects = () => {
@@ -9,6 +9,7 @@ const useApi = (endpoint) => {
         .get(endpoint)
         .then(res => res.data);
   }
+
 
 
   const getObjectById = (id) => {
