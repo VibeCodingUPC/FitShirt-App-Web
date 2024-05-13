@@ -2,7 +2,7 @@
   import { onBeforeMount, ref } from 'vue';
   import { useRoute } from 'vue-router';
   import { ShirtsApiService } from '@/services/shirts-api.service';
-import { CartApiService } from '@/services/cart-api.service';
+  import { CartApiService } from '@/services/cart-api.service';
 
   const route = useRoute();
   const shirtsService = new ShirtsApiService();

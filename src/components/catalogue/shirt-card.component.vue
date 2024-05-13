@@ -40,10 +40,9 @@
 <style scoped>
   .shirt-card {
     width: 180px;
-    height: 220px;
     background-color: #D9D9D9;
     border-radius: 6px;
-    padding: .6em;
+    padding: 1.1em .6em 0 .6em;
     display: flex;
     flex-direction: column;
     justify-content: space-around;
@@ -59,7 +58,7 @@
   .shirt-card h1 {
     text-align: center;
     color: #000;
-    font-size: .9em;
+    font-size: 1em;
     font-weight: 600;
   }
   .shirt-card:hover img {
