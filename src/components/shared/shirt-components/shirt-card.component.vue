@@ -12,13 +12,21 @@
       type: String,
       required: true
     },
+    nameRouter: {
+      type: String,
+      required: true
+    },
+    ariaLabelRouter: {
+      type: String,
+      required: true
+    }
   })
 </script>
 
 <template>
   <router-link 
-    :to="{name: 'shirtDescription', params: {id: props.id}}" 
-    :aria-label="`Read more about `+$props.name">
+    :to="{name: props.nameRouter, params: {id: props.id}}" 
+    :aria-label="props.ariaLabelRouter">
     <pv-card class="shirt-card">
       <template #header>
         <img 
@@ -29,8 +37,9 @@
       </template>
       <template #content>
         <h1
-        :aria-label="$props.name">
+          :aria-label="$props.name">
           {{ props.name }}
+
         </h1>
       </template>
     </pv-card>
@@ -40,6 +49,7 @@
 <style scoped>
   .shirt-card {
     width: 180px;
+    min-height: 240px;
     background-color: #D9D9D9;
     border-radius: 6px;
     padding: 1.1em .6em 0 .6em;
@@ -58,7 +68,7 @@
   .shirt-card h1 {
     text-align: center;
     color: #000;
-    font-size: 1em;
+    font-size: .8em;
     font-weight: 600;
   }
   .shirt-card:hover img {

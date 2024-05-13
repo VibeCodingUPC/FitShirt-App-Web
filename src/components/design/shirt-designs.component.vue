@@ -1,7 +1,7 @@
 <script setup>
-import { onBeforeMount, onMounted, ref } from 'vue';
+import { onBeforeMount, ref } from 'vue';
 import filters from './shirt-filters.component.vue';
-import shirtCard from './shirt-card.component.vue';
+import shirtCard from '../shared/shirt-components/shirt-card.component.vue';
 import {DesignsApiService} from "@/services/designs-api.service.js";
 
 let designs=ref([]);
@@ -27,6 +27,8 @@ onBeforeMount(async () => {
           :id="design.id"
           :image-src="design.image"
           :name="design.name"
+          name-router="editDesign"
+          :ariaLabelRouter="`Edit design ${design.name}`"
       />
     </div>
     <filters/>
