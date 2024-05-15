@@ -125,6 +125,7 @@
     align-items: self-start;
     padding: .8em 0;
     flex: .95;
+    align-self: center;
   }
   .shirt-details {
     flex: 1;
