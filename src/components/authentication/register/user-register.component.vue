@@ -66,7 +66,7 @@ import { ref } from 'vue';
       <p class="cwhite">Celular</p>
       <pv-inputText class="mb10" type="text" v-model="userRegistration.cellphone" />
       
-      <router-link :to="validateRegistration() ? '/catalogue' : '/'">
+      <router-link to="/catalogue">
         <pv-button @click="" label="Registrate" severity="info" class="button-container"/>
       </router-link>
 

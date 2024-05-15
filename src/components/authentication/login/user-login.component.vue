@@ -41,7 +41,7 @@ import { ref } from 'vue';
       <pv-inputText class="mb10" type="text" v-model="userLogin.username" />
       <p class="cwhite">Contraseña</p>
       <pv-inputText class="mb10" type="password" v-model="userLogin.password" />
-      <router-link :to="validateLogin() ? '/catalogue' : '/login'">
+      <router-link to="/catalogue">
         <pv-button label="Login" severity="info" class="button-container"/>
       </router-link>
       <p class="cwhite mb100 tac">¿Olvidó su contraseña?</p>
