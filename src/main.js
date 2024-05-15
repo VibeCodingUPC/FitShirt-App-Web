@@ -21,9 +21,5 @@ app.component('pv-card',Card);
 app.component('pv-inputText',InputText);
 app.component('pv-sidebar',Sidebar);
 app.component('pv-button',Button);
-app.component('pv-card',Card);
-app.component('pv-inputText',InputText);
-app.component('pv-sidebar',Sidebar);
-app.component('pv-button',Button);
 
 app.mount('#app');
