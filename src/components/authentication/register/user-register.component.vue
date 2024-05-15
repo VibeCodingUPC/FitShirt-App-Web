@@ -67,7 +67,7 @@ import { ref } from 'vue';
       <pv-inputText class="mb10" type="text" v-model="userRegistration.cellphone" />
       
       <router-link :to="validateRegistration() ? '/catalogue' : '/'">
-        <pv-button @click="" label="Registrate" severity="info" class="button-container mb50"/>
+        <pv-button @click="" label="Registrate" severity="info" class="button-container"/>
       </router-link>
 
       <p class="cwhite login">¿Ya tienes cuenta? <router-link to="/login">Inicia sesión</router-link></p>
@@ -103,14 +103,14 @@ import { ref } from 'vue';
   display: flex;
   flex-direction: row;
   background-color: #dadada;
-  min-height: 100vh;
   justify-content: space-evenly;
   align-items: center;
+  min-height: 100vh;
 }
 .register-card {
   background-color: #333333;
   border-radius: 25px;
-  padding: 65px 65px 65px 65px;
+  padding: 2.8em 3.2em;
   display:flex;
   flex-direction: column;
 }
@@ -138,11 +138,14 @@ import { ref } from 'vue';
 .cwhite{
   color: white;
 }
+.login {
+  margin-top: .8em;
+}
+.login:hover {
+  text-decoration: underline;
+}
 .mb10{
   margin-bottom: 10px;
 }
 
-.mb50{
-  margin-bottom: 50px;
-}
 </style>

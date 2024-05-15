@@ -46,19 +46,19 @@ import { ref } from 'vue';
       </router-link>
       <p class="cwhite mb100 tac">¿Olvidó su contraseña?</p>
       <hr class="line-container" />
-      <p class="cwhite mb10 tac">¿Nuevo en Fit Shirt?</p>
-      <router-link to="/register">
-        <pv-button label="Registrate" severity="info" class="button-container mb50"/>
-      </router-link>
+      <p class="cwhite mb10 tac register">
+        ¿Nuevo en Fit Shirt?
+        <router-link to="/register">
+          Regístrate
+        </router-link>
+      </p>
     </div>
   </div>
 </template>
 
 <style scoped>
 .line-container{
-  margin-bottom: 1rem;
-  margin-right: 1rem;
-  margin-left: 1rem;
+  margin: 0 1rem 1rem 1rem;
   border: solid white 1px;
 }
 @media (max-width: 900px) {
@@ -92,7 +92,7 @@ import { ref } from 'vue';
 .login-card {
   background-color: #333333;
   border-radius: 25px;
-  padding: 65px 65px 65px 65px;
+  padding: 3.2em;
   display:flex;
   flex-direction: column;
 }
@@ -131,5 +131,8 @@ import { ref } from 'vue';
 }
 .tac{
   text-align: center;
+}
+.register:hover {
+  text-decoration: underline;
 }
 </style>
