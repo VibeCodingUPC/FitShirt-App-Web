@@ -1,6 +1,6 @@
 import 'primevue/resources/themes/aura-light-blue/theme.css'
 import './assets/main.css'
-
+import 'primevue/resources/themes/aura-light-blue/theme.css'
 import { createApp } from 'vue'
 import App from './App.vue';
 import router from './routes/index.js';
@@ -17,6 +17,10 @@ const app = createApp(App);
 app.use(PrimeVue);
 app.use(router);
 
+app.component('pv-card',Card);
+app.component('pv-inputText',InputText);
+app.component('pv-sidebar',Sidebar);
+app.component('pv-button',Button);
 app.component('pv-card',Card);
 app.component('pv-inputText',InputText);
 app.component('pv-sidebar',Sidebar);
