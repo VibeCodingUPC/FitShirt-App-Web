@@ -1,5 +1,5 @@
-import UserRegisterComponent from '@/components/login/user-register.component.vue';
-import UserLoginComponent from '@/components/login/user-login.component.vue';
+import UserRegisterComponent from '@/components/authentication/register/user-register.page.vue';
+import UserLoginComponent from '@/components/authentication/login/user-login.page.vue';
 
 export const authenticationRoutes = [
   { path: '/register', component: UserRegisterComponent},
