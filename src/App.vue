@@ -1,16 +1,17 @@
 <script setup>
-  import theToolbar from './components/shared/the-toolbar.component.vue';
+  // import theToolbar from './components/shared/the-toolbar.component.vue';
 </script>
 
 <template>
-  <main class="main">
+  <router-view>
+  </router-view>
+  <!-- <main class="main">
     <the-toolbar/>
-    <router-view></router-view>
-  </main>
+  </main> -->
 </template>
 
 <style scoped>
-.main {
+/* .main {
   display: flex;
   justify-content: space-around;
   width: 85vw;
@@ -23,5 +24,5 @@
   .main {
     width: 100vw;
   }
-}
+} */
 </style>

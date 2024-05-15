@@ -1,8 +1,6 @@
 import PublishShirtComponent from "@/components/posts/publish-shirt.component.vue";
 import EditShirtComponent from "@/components/posts/edit-shirt.component.vue";
 import PublishedShirtsComponent from "@/components/posts/published-shirts.component.vue";
-import ShirtDescriptionComponent from '@/components/catalogue/shirt-description.component.vue';
-import ShirtsCatalogueComponent from "@/components/catalogue/shirts-catalogue.component.vue";
 import UserProfileComponent from '@/components/profile/user-profile.component.vue';
 import EditProfileComponent from '@/components/profile/edit-profile.component.vue';
 import EditPaymentMethod from "@/components/profile/edit-payment-method.component.vue";
@@ -11,10 +9,16 @@ import UserCart from "@/components/cart/user-cart.component.vue";
 import ShirtDesignsComponent from "@/components/design/shirt-designs.component.vue";
 import CreateDesignComponent from "@/components/design/create-design.component.vue";
 import EditDesignComponent from "@/components/design/edit-design.component.vue";
+
+import ShirtsCataloguePage from "@/components/catalogue/shirts-catalogue/shirts-catalogue.page.vue";
+import ShirtDescriptionComponent from "@/components/catalogue/catalogue-shirts-description/shirt-description.component.vue";
+
 import {createRouter, createWebHistory } from 'vue-router';
+import { catalogueRoutes } from "@/components/catalogue/routes/catalogue.router";
+
 
 const routes = [
-  { path: '/', component: ShirtsCatalogueComponent },
+  { path: '/', component: ShirtsCataloguePage },
 
   { path: '/published', component: PublishedShirtsComponent},
   { path: '/published/:id', name: "shirtDescription", component: ShirtDescriptionComponent},
@@ -30,10 +34,8 @@ const routes = [
   {path: '/create-design', component: CreateDesignComponent},
   {path: '/edit-design/:id', name: "editDesign", component: EditDesignComponent},
   
-  { path: '/catalogue', component: ShirtsCatalogueComponent},
   { path: '/cart', component: UserCart},
-  { path: '/catalogue/:id', name: "shirtDescription", component: ShirtDescriptionComponent}
-
+  ...catalogueRoutes
 ];
 
 
