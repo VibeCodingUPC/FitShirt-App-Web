@@ -1,7 +1,7 @@
 <script setup>
 import { onBeforeMount, ref } from 'vue';
 import filters from './shirt-filters.component.vue';
-import shirtCard from '../shared/shirt-components/shirt-card.component.vue';
+import shirtCard from '../../shared/shirt-components/shirt-card.component.vue';
 import {DesignsApiService} from "@/services/designs-api.service.js";
 
 let designs=ref([]);
