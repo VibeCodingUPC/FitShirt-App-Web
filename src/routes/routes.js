@@ -3,8 +3,9 @@ import { authenticationRoutes } from "./modules/authentication.routes.js";
 import { designRoutes } from "@/routes/modules/design.routes.js";
 import { postsRoutes } from "@/routes/modules/posts.routes.js";
 import { errorRoutes } from "@/routes/modules/error.routes.js";
-import UserLoginPage from "@/components/authentication/login/user-login.page.vue";
 import { shoppingCart } from "./modules/shopping-cart.routes.js";
+import { profileRoutes } from "./modules/profile.routes.js";
+import UserLoginPage from "@/components/authentication/login/user-login.page.vue";
 
 export default [
   { path: '/', component: UserLoginPage },
@@ -13,5 +14,6 @@ export default [
   ...designRoutes,
   ...postsRoutes,
   ...errorRoutes,
-  ...shoppingCart
+  ...shoppingCart,
+  ...profileRoutes
 ];
