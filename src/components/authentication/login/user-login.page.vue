@@ -1,8 +1,9 @@
 <script setup>
+  import UserLogin from './user-login.component.vue';
 </script>
 
 <template>
-  <h1>Footer</h1>
+  <user-login/>
 </template>
 
 <style scoped>

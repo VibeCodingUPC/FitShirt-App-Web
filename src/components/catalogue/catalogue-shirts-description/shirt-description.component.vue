@@ -2,7 +2,7 @@
   import { onBeforeMount, ref } from 'vue';
   import { useRoute } from 'vue-router';
   import { ShirtsApiService } from '@/services/shirts-api.service';
-import { CartApiService } from '@/services/cart-api.service';
+  import { CartApiService } from '@/services/cart-api.service';
 
   const route = useRoute();
   const shirtsService = new ShirtsApiService();
@@ -122,9 +122,9 @@ import { CartApiService } from '@/services/cart-api.service';
   .shirt-description-container {
     display: flex;
     flex-direction: row;
-    align-items: self-start;
     padding: .8em 0;
     flex: .95;
+    align-self: center;
   }
   .shirt-details {
     flex: 1;

@@ -10,8 +10,6 @@ const useApi = (endpoint) => {
         .then(res => res.data);
   }
 
-
-
   const getObjectById = (id) => {
     return axiosInstance
         .get(`${endpoint}/${id}`)

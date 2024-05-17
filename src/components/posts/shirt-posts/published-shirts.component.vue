@@ -1,7 +1,7 @@
 <script setup>
-  import { onBeforeMount, onMounted, ref } from 'vue';
+  import { onBeforeMount, ref } from 'vue';
   import filters from './shirt-filters.component.vue';
-  import shirtCard from './publish-card.component.vue';
+  import shirtCard from '../../shared/shirt-components/shirt-card.component.vue';
   import {PostsApiService} from "@/services/posts-api.service.js";
 
 
@@ -28,6 +28,8 @@
         :id="post.id"
         :image-src="post.image"
         :name="post.name"
+        name-router="shirtEdit"
+        :ariaLabelRouter="`Edit post ${post.name}`"
       />
     </div>
     <filters/>

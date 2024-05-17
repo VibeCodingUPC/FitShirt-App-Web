@@ -1,9 +1,9 @@
 import 'primevue/resources/themes/aura-light-blue/theme.css'
 import './assets/main.css'
-
+import 'primevue/resources/themes/aura-light-blue/theme.css'
 import { createApp } from 'vue'
 import App from './App.vue';
-import router from './routes/router';
+import router from './routes/index.js';
 import PrimeVue from 'primevue/config';
 
 import Card from 'primevue/card';

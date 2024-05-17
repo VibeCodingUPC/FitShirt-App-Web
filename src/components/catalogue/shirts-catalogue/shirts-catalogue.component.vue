@@ -1,7 +1,7 @@
 <script setup>
   import { onMounted, ref } from 'vue';
   import filters from './shirt-filters.component.vue';
-  import shirtCard from './shirt-card.component.vue';
+  import shirtCard from '../../shared/shirt-components/shirt-card.component.vue';
   import { ShirtsApiService } from '@/services/shirts-api.service';
 
   let shirts=ref([]);
@@ -28,6 +28,8 @@
         :id="shirt.id"
         :image-src="shirt.image"
         :name="shirt.name"
+        name-router="shirtDescription"
+        :ariaLabelRouter="`Read more about ${shirt.name}`"
       />
     </div>
   </div>
