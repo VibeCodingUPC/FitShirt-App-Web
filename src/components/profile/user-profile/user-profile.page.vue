@@ -15,6 +15,7 @@
     display: flex;
     justify-content: space-around;
     width: 85vw;
+    min-height: 100vh;
     max-width: 1050px;
     padding: .6em 1.2em;
     margin: auto;

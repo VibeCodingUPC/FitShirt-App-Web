@@ -16,6 +16,7 @@ import PublishedShirts from "@/components/posts/shirt-posts/published-shirts.com
   justify-content: space-around;
   width: 85vw;
   max-width: 1050px;
+  min-height: 100vh;
   padding: .6em 1.2em;
   margin: auto;
   background-color: #f3f3f3;

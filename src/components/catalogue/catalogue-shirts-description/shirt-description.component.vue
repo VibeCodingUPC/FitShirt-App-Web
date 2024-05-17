@@ -122,7 +122,6 @@
   .shirt-description-container {
     display: flex;
     flex-direction: row;
-    align-items: self-start;
     padding: .8em 0;
     flex: .95;
     align-self: center;
