@@ -45,13 +45,13 @@ onBeforeMount(()=>{
       </div>
       <div class="button-container">
         <router-link to="/my-design">
-          <pv-button class="button-style" @click="editDesign">Confirmar</pv-button>
+          <pv-button class="button-style" @click="editDesign" aria-label="Apply changes">Confirmar</pv-button>
         </router-link>
         <router-link to="/my-design">
-          <pv-button class="button-style">Cancelar</pv-button>
+          <pv-button class="button-style" aria-label="Cancel changes">Cancelar</pv-button>
         </router-link>
         <router-link to="/my-design">
-          <pv-button class="button-style" @click="deleteItemDesign">Eliminar Diseño</pv-button>
+          <pv-button class="button-style" @click="deleteItemDesign" aria-label="Delete a Design">Eliminar Diseño</pv-button>
         </router-link>
       </div>
     </template>

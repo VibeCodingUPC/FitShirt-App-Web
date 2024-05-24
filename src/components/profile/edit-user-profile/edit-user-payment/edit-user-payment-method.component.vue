@@ -16,9 +16,9 @@
         </div>
       </div>
       <div class="button-container">
-        <router-link to="/profile"><pv-button class="button-style">Cancelar</pv-button></router-link>
-        <router-link to="/profile"><pv-button class="button-style">Confirmar</pv-button></router-link>
-        <router-link to="/profile"><pv-button class="button-style">Eliminar Tarjeta</pv-button></router-link>
+        <router-link to="/profile"><pv-button class="button-style" aria-label="Cancel changes">Cancelar</pv-button></router-link>
+        <router-link to="/profile"><pv-button class="button-style" aria-label="Confirm changes">Confirmar</pv-button></router-link>
+        <router-link to="/profile"><pv-button class="button-style" aria-label="Delete card">Eliminar Tarjeta</pv-button></router-link>
 
 
       </div>

@@ -26,11 +26,11 @@
 </script>
 
 <template>
-  <div class="main-container">
+  <div class="main-container" aria-describedby="Jersey cart detail">
     <div class="cart-container">
       <div class="header-container">
         <p>Subtotal:&nbsp </p>
-        <div class="info-container"></div>
+        <div class="info-container" ></div>
         <router-link to="/catalogue">
           <pv-button class="button-style">Comprar</pv-button>
         </router-link>

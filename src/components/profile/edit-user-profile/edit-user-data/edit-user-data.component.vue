@@ -22,8 +22,8 @@
         </div>
       </div>
       <div class="button-container">
-        <router-link to="/profile"><pv-button class="button-style">Cancelar</pv-button></router-link>
-        <router-link to="/profile"><pv-button class="button-style">Continuar</pv-button></router-link>
+        <router-link to="/profile"><pv-button class="button-style" aria-label="Cancel changes">Cancelar</pv-button></router-link>
+        <router-link to="/profile"><pv-button class="button-style" aria-label="Confirm changes">Continuar</pv-button></router-link>
 
       </div>
     </template>

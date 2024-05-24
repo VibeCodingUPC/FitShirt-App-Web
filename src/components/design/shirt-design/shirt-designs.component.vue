@@ -19,7 +19,7 @@ onBeforeMount(async () => {
 <template>
   <div
       class="catalogue-container"
-      aria-describedby="Interactive jerseys catalogue with filters to browse">
+      aria-describedby="Catalog of designs made by the user">
     <div class="shirts-container">
       <shirt-card
           v-for="design in designs"

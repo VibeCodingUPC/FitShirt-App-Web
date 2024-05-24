@@ -36,10 +36,10 @@ const addDesign = async () => {
         </div>
       </div>
       <div class="button-container">
-        <router-link to="/my-design">
-          <pv-button class="button-style" @click="addDesign">Confirmar</pv-button>
+        <router-link to="/my-design" aria-label="Create a design">
+          <pv-button class="button-style" @click="addDesign" >Confirmar</pv-button>
         </router-link>
-        <router-link to="/my-design">
+        <router-link to="/my-design" aria-label="Cancel a design">
           <pv-button class="button-style">Cancelar</pv-button>
         </router-link>
       </div>

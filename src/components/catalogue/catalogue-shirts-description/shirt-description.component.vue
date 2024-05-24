@@ -105,7 +105,7 @@
       </div>
 
       <div class="shirt-detail" id="seller-detail">
-        <h2><b>Sold by:</b> {{ shirtInformation["seller"] }} </h2>
+        <h2 aria-describedby="Jersey detail"><b>Sold by:</b> {{ shirtInformation["seller"] }} </h2>
       </div>
     </div>
     <div class="shirt-image">
