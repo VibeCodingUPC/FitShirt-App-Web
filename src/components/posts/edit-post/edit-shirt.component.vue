@@ -1,10 +1,16 @@
 <script setup>
-   import {onBeforeMount,ref} from "vue";
+import {onBeforeMount, onMounted, ref} from "vue";
    import {useRoute} from 'vue-router';
    import {PostsApiService} from "@/services/posts-api.service.js";
+   import {CategoryApiService} from "@/services/category-api.service.js";
+   import {ColorApiService} from "@/services/color-api.service.js";
 
-   const postService= new PostsApiService();
+const postService= new PostsApiService();
+   const categoryService = new CategoryApiService();
+   const colorService = new ColorApiService();
    const route = useRoute();
+   const selectedCategory = ref("Any");
+   const selectedColor = ref("Any");
 
    let postInformation = ref({})
 
@@ -12,6 +18,23 @@
      postInformation.value= await postService.getPostById(route.params.id);
      console.log(postInformation.value)
    }
+   const fetchCategoryData = async () => {
+     let fetchedCategories = await categoryService.getCategories();
+     categories.value = [...categories.value, ...fetchedCategories];
+   }
+const fetchColorData = async () => {
+  let fetchedColors = await colorService.getColors();
+  colors.value = [...colors.value, ...fetchedColors];
+}
+
+
+const categories = ref([
+  {"id": 99,"name": "Any"}
+]);
+
+const colors = ref([
+  {"id": 99, "name": "Any"}
+]);
 
    const editPost = async () =>{
      await postService.editPost(postInformation.value);
@@ -20,6 +43,11 @@
    const deleteItemPost = async ()=>{
     await postService.deletePost(postInformation.value.id);
    }
+
+  onMounted(async () => {
+  fetchCategoryData();
+  fetchColorData();
+  })
 
    onBeforeMount(()=>{
      fetchPostInformation();
@@ -36,9 +64,23 @@
           <div class="subtitle-text">Nombre Diseño</div>
           <pv-inputText class="info-container" v-model="postInformation.name"></pv-inputText>
           <div class="subtitle-text">Color</div>
-          <pv-inputText class="info-container" v-model="postInformation.color"></pv-inputText>
+          <select v-model="selectedColor" id="color-input">
+            <option
+                v-for="color in colors"
+                :value="color.name"
+                :key="color.id">
+              {{ color.name }}
+            </option>
+          </select>
           <div class="subtitle-text">Categoría </div>
-          <pv-inputText class="info-container" v-model="postInformation.category"></pv-inputText>
+          <select v-model="selectedCategory" id="category-input">
+            <option
+                v-for="category in categories"
+                :value="category.name"
+                :key="category.id">
+              {{ category.name }}
+            </option>
+          </select>
           <div class="subtitle-text">Cantidad Actual</div>
           <pv-inputText type="number" class="info-container" v-model="postInformation.stock"></pv-inputText>
           <div class="subtitle-text">Tallas Disponibles</div>

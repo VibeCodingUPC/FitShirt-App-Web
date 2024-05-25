@@ -1,12 +1,18 @@
 <script setup>
 
-import {ref} from "vue";
+import {onMounted, ref} from "vue";
 import {PostsApiService} from "@/services/posts-api.service.js";
 import { useRoute } from 'vue-router';
+import {CategoryApiService} from "@/services/category-api.service.js";
+import {ColorApiService} from "@/services/color-api.service.js";
 
+const categoryService = new CategoryApiService();
+const colorService = new ColorApiService();
+const selectedCategory = ref("Any");
+const selectedColor = ref("Any");
 const postservice = new PostsApiService();
 let postInformation = ref({
-  "image":"/images/posts/camiseta_1.png",
+  "image":"",
   "category":"",
   "color":"",
   "name":"",
@@ -14,9 +20,30 @@ let postInformation = ref({
   "size":"",
   "price":0
 })
+
+const categories = ref([
+  {"id": 99,"name": "Any"}
+]);
+
+const colors = ref([
+  {"id": 99, "name": "Any"}
+]);
 const addPublish = async () =>{
   await postservice.publishPost(postInformation.value);
 }
+const fetchCategoryData = async () => {
+  let fetchedCategories = await categoryService.getCategories();
+  categories.value = [...categories.value, ...fetchedCategories];
+}
+const fetchColorData = async () => {
+  let fetchedColors = await colorService.getColors();
+  colors.value = [...colors.value, ...fetchedColors];
+}
+
+onMounted(async () => {
+  fetchCategoryData();
+  fetchColorData();
+})
 </script>
 
 <template>
@@ -28,13 +55,29 @@ const addPublish = async () =>{
           <div class="subtitle-text">Nombre Diseño</div>
           <pv-inputText class="info-container" v-model="postInformation.name"></pv-inputText>
           <div class="subtitle-text">Color</div>
-          <pv-inputText class="info-container"  v-model="postInformation.color"></pv-inputText>
+          <select v-model="selectedColor" id="color-input">
+            <option
+                v-for="color in colors"
+                :value="color.name"
+                :key="color.id">
+              {{ color.name }}
+            </option>
+          </select>
           <div class="subtitle-text">Categoría </div>
-          <pv-inputText class="info-container"  v-model="postInformation.category"></pv-inputText>
+          <select v-model="selectedCategory" id="category-input">
+            <option
+                v-for="category in categories"
+                :value="category.name"
+                :key="category.id">
+              {{ category.name }}
+            </option>
+          </select>
           <div class="subtitle-text">Cantidad Actual</div>
           <pv-inputText type="number" class="info-container"  v-model="postInformation.stock"></pv-inputText>
           <div class="subtitle-text">Tallas Disponibles</div>
           <pv-inputText class="info-container"  v-model="postInformation.sizes"></pv-inputText>
+          <div class="subtitle-text">Imagen</div>
+          <pv-inputText class="info-container" v-model="postInformation.image"></pv-inputText>
           <div class="subtitle-text">Precio</div>
           <pv-inputText type="number" class="info-container"  v-model="postInformation.price"></pv-inputText>
         </div>
