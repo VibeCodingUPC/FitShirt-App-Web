@@ -5,10 +5,10 @@
 <template>
   <div class="filter-container" aria-describedby="Browser filters">
     <form class="filter-form">
-      <p class="text">Limite de diseños = Ilimitado</p>
+      <p class="text">{{ $t('designs.limit') }}</p>
       <router-link to="/create-design">
       <button class="form-button" aria-label="Apply filters">
-        Crear Diseño
+        {{ $t('designs.create') }}
       </button>
       </router-link>
     </form>

@@ -28,30 +28,30 @@ onBeforeMount(()=>{
   <pv-card class="card-container">
     <template #content>
       <div class="form-container">
-        <div class="title-text">Editar Diseño</div>
+        <div class="title-text">{{ $t('designs.edit') }}</div>
         <img :src="designInformation.image" class="image-container">
         <div>
-          <div class="subtitle-text">Nombre de Camiseta</div>
+          <div class="subtitle-text">{{ $t('designs.name') }}</div>
           <pv-inputText class="info-container" v-model="designInformation.name"></pv-inputText>
-          <div class="subtitle-text">Color Primario </div>
+          <div class="subtitle-text">{{ $t('designs.fColor') }} </div>
           <pv-inputText  class="info-container" v-model="designInformation.color"></pv-inputText >
-          <div class="subtitle-text">Color Secundario</div>
+          <div class="subtitle-text">{{ $t('designs.sColor') }}</div>
           <pv-inputText  class="info-container" v-model="designInformation.secundario"></pv-inputText >
-          <div class="subtitle-text">Tipo Terciario</div>
+          <div class="subtitle-text">{{ $t('designs.tColor') }}</div>
           <pv-inputText  class="info-container" v-model="designInformation.terciario"></pv-inputText >
-          <div class="subtitle-text">Escudo</div>
+          <div class="subtitle-text">{{ $t('designs.shield') }}</div>
           <pv-inputText  class="info-container" v-model="designInformation.escudo"></pv-inputText >
         </div>
       </div>
       <div class="button-container">
         <router-link to="/my-design">
-          <pv-button class="button-style" @click="editDesign" aria-label="Apply changes">Confirmar</pv-button>
+          <pv-button class="button-style" @click="editDesign" aria-label="Apply changes">{{ $t('designs.confirmButton') }}</pv-button>
         </router-link>
         <router-link to="/my-design">
-          <pv-button class="button-style" aria-label="Cancel changes">Cancelar</pv-button>
+          <pv-button class="button-style" aria-label="Cancel changes">{{ $t('designs.cancelButton') }}</pv-button>
         </router-link>
         <router-link to="/my-design">
-          <pv-button class="button-style" @click="deleteItemDesign" aria-label="Delete a Design">Eliminar Diseño</pv-button>
+          <pv-button class="button-style" @click="deleteItemDesign" aria-label="Delete a Design">{{ $t('designs.deleteButton') }}</pv-button>
         </router-link>
       </div>
     </template>

@@ -23,27 +23,27 @@ const addPublish = async () =>{
   <pv-card class="card-container">
     <template #content>
       <form class="form-container">
-        <div class="title-text">Subir Publicación</div>
+        <div class="title-text">{{ $t('posts.post') }}</div>
         <div>
-          <div class="subtitle-text">Nombre Diseño</div>
+          <div class="subtitle-text">{{ $t('posts.name') }}</div>
           <pv-inputText class="info-container" v-model="postInformation.name"></pv-inputText>
-          <div class="subtitle-text">Color</div>
+          <div class="subtitle-text">{{ $t('posts.color') }}</div>
           <pv-inputText class="info-container"  v-model="postInformation.color"></pv-inputText>
-          <div class="subtitle-text">Categoría </div>
+          <div class="subtitle-text">{{ $t('posts.category') }} </div>
           <pv-inputText class="info-container"  v-model="postInformation.category"></pv-inputText>
-          <div class="subtitle-text">Cantidad Actual</div>
+          <div class="subtitle-text">{{ $t('posts.quantity') }}</div>
           <pv-inputText type="number" class="info-container"  v-model="postInformation.stock"></pv-inputText>
-          <div class="subtitle-text">Tallas Disponibles</div>
+          <div class="subtitle-text">{{ $t('posts.sizes') }}</div>
           <pv-inputText class="info-container"  v-model="postInformation.sizes"></pv-inputText>
-          <div class="subtitle-text">Precio</div>
+          <div class="subtitle-text">{{ $t('posts.price') }}</div>
           <pv-inputText type="number" class="info-container"  v-model="postInformation.price"></pv-inputText>
         </div>
         <div class="button-container">
           <router-link to="/published">
-            <pv-button class="button-style" aria-label="Confirm a post" @click="addPublish">Confirmar</pv-button>
+            <pv-button class="button-style" aria-label="Confirm a post" @click="addPublish">{{ $t('posts.confirmButton') }}</pv-button>
           </router-link>
           <router-link to="/published">
-            <pv-button class="button-style" aria-label="Cancel a post">Cancelar</pv-button>
+            <pv-button class="button-style" aria-label="Cancel a post">{{ $t('posts.cancelButton') }}</pv-button>
           </router-link>
         </div>
       </form>

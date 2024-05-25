@@ -20,27 +20,27 @@ const addDesign = async () => {
   <pv-card class="card-container">
     <template #content>
       <div class="form-container">
-        <div class="title-text">Crear Diseño</div>
+        <div class="title-text">{{ $t('designs.create') }}</div>
 
           <div>
-            <div class="subtitle-text">Nombre de Camiseta</div>
+            <div class="subtitle-text">{{ $t('designs.name') }}</div>
             <pv-inputText class="info-container" v-model="designInformation.name"></pv-inputText>
-          <div class="subtitle-text">Color Primario </div>
+          <div class="subtitle-text">{{ $t('designs.fColor') }} </div>
           <pv-inputText  class="info-container" v-model="designInformation.color"></pv-inputText >
-          <div class="subtitle-text">Color Secundario</div>
+          <div class="subtitle-text">{{ $t('designs.sColor') }}</div>
           <pv-inputText  class="info-container" v-model="designInformation.secundario"></pv-inputText >
-          <div class="subtitle-text">Tipo Terciario</div>
+          <div class="subtitle-text">{{ $t('designs.tColor') }}</div>
           <pv-inputText  class="info-container" v-model="designInformation.terciario"></pv-inputText >
-          <div class="subtitle-text">Escudo</div>
+          <div class="subtitle-text">{{ $t('designs.shield') }}</div>
           <pv-inputText  class="info-container" v-model="designInformation.escudo"></pv-inputText >
         </div>
       </div>
       <div class="button-container">
         <router-link to="/my-design" aria-label="Create a design">
-          <pv-button class="button-style" @click="addDesign" >Confirmar</pv-button>
+          <pv-button class="button-style" @click="addDesign" >{{ $t('designs.confirmButton') }}</pv-button>
         </router-link>
         <router-link to="/my-design" aria-label="Cancel a design">
-          <pv-button class="button-style">Cancelar</pv-button>
+          <pv-button class="button-style">{{ $t('designs.cancelButton') }}</pv-button>
         </router-link>
       </div>
     </template>

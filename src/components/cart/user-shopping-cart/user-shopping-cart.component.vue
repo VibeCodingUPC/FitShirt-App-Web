@@ -32,7 +32,7 @@
         <p>Subtotal:&nbsp </p>
         <div class="info-container" ></div>
         <router-link to="/catalogue">
-          <pv-button class="button-style">Comprar</pv-button>
+          <pv-button class="button-style">{{ $t('cart.buy') }}</pv-button>
         </router-link>
       </div>
       <div v-for="item in state.items" :key="item.id">
@@ -42,15 +42,15 @@
             <p>&nbsp{{item.name}}&nbsp</p>
           </div>
           <div class="subitem-container">
-            <p>Cantidad:&nbsp</p>
+            <p>{{ $t('cart.quantity') }}:&nbsp</p>
             <pv-inputText v-model="item.quantity" class="editableinfo-container"></pv-inputText>
           </div>
           <div class="subitem-container">
-            <p>Precio:&nbsp</p>
+            <p>{{ $t('cart.price') }}:&nbsp</p>
             <div class="info-container">S/. {{item.price}}</div>
           </div>
           <div class="subitem-container">
-            <p>Size:&nbsp</p>
+            <p>{{ $t('cart.size') }}:&nbsp</p>
             <div class="info-container">{{item.size}}</div>
           </div>
           <div class="subitem-container">

@@ -31,31 +31,31 @@
   <pv-card class="card-container">
     <template #content>
       <div class="form-container">
-        <div class="title-text">Editar Publicación</div>
+        <div class="title-text">{{ $t('posts.edit') }}</div>
         <div>
-          <div class="subtitle-text">Nombre Diseño</div>
+          <div class="subtitle-text">{{ $t('posts.name') }}</div>
           <pv-inputText class="info-container" v-model="postInformation.name"></pv-inputText>
-          <div class="subtitle-text">Color</div>
+          <div class="subtitle-text">{{ $t('posts.color') }}</div>
           <pv-inputText class="info-container" v-model="postInformation.color"></pv-inputText>
-          <div class="subtitle-text">Categoría </div>
+          <div class="subtitle-text">{{ $t('posts.category') }} </div>
           <pv-inputText class="info-container" v-model="postInformation.category"></pv-inputText>
-          <div class="subtitle-text">Cantidad Actual</div>
+          <div class="subtitle-text">{{ $t('posts.quantity') }}</div>
           <pv-inputText type="number" class="info-container" v-model="postInformation.stock"></pv-inputText>
-          <div class="subtitle-text">Tallas Disponibles</div>
+          <div class="subtitle-text">{{ $t('posts.sizes') }}</div>
           <pv-inputText class="info-container" v-model="postInformation.sizes"></pv-inputText>
-          <div class="subtitle-text">Precio</div>
+          <div class="subtitle-text">{{ $t('posts.price') }}</div>
           <pv-inputText type="number" class="info-container" v-model="postInformation.price"></pv-inputText>
         </div>
       </div>
       <div class="button-container">
         <router-link to="/published">
-          <pv-button @click="editPost" class="button-style" aria-label="Confirm changes">Confirmar</pv-button>
+          <pv-button @click="editPost" class="button-style" aria-label="Confirm changes">{{ $t('posts.confirmButton') }}</pv-button>
         </router-link>
         <router-link to="/published">
-          <pv-button class="button-style" aria-label="Cancel changes">Cancelar</pv-button>
+          <pv-button class="button-style" aria-label="Cancel changes">{{ $t('posts.cancelButton') }}</pv-button>
         </router-link>
         <router-link to="/published">
-          <pv-button @click="deleteItemPost" class="button-style" aria-label="Delete a Post">Eliminar Post</pv-button>
+          <pv-button @click="deleteItemPost" class="button-style" aria-label="Delete a Post">{{ $t('posts.deleteButton') }}</pv-button>
         </router-link>
       </div>
     </template>

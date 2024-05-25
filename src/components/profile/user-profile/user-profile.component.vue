@@ -5,31 +5,31 @@
   <pv-card class="card-container">
     <template #content>
         <div class="form-container">
-          <div class="title-text">Mi Perfil</div>
+          <div class="title-text"> {{ $t('profile.title') }}</div>
           <div>
-            <div class="subtitle-text">Nombre Completo</div>
+            <div class="subtitle-text">{{ $t('profile.name') }}</div>
             <div class="info-container"></div>
-            <div class="subtitle-text">Correo</div>
+            <div class="subtitle-text">{{ $t('profile.email') }}</div>
             <div class="info-container"></div>
-            <div class="subtitle-text">N°Contacto </div>
+            <div class="subtitle-text">{{ $t('profile.numC') }} </div>
             <div class="info-container"></div>
-            <div class="subtitle-text">N°Contacto Adicional</div>
+            <div class="subtitle-text">{{ $t('profile.numC2') }}</div>
             <div class="info-container"></div>
-            <div class="subtitle-text">Dni o Ruc</div>
+            <div class="subtitle-text">{{ $t('profile.id') }}</div>
             <div class="info-container"></div>
-            <div class="subtitle-text">Dirección</div>
+            <div class="subtitle-text">{{ $t('profile.address') }}</div>
             <div class="info-container"></div>
           </div>
         </div>
         <div class="button-container">
           <router-link to="/edit-profile">
-            <pv-button class="button-style">Editar Perfil</pv-button>
+            <pv-button class="button-style">{{ $t('profile.button1') }}</pv-button>
           </router-link>
           <router-link to="/edit-password">
-            <pv-button class="button-style">Editar Contraseña</pv-button>
+            <pv-button class="button-style">{{ $t('profile.button2') }}</pv-button>
           </router-link>
           <router-link to="/edit-payment-method">
-            <pv-button class="button-style">Añadir/Editar Metodo de Pago</pv-button>
+            <pv-button class="button-style">{{ $t('profile.button3') }}</pv-button>
           </router-link>
         </div>
     </template>

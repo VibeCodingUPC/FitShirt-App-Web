@@ -5,20 +5,20 @@
   <pv-card class="card-container">
     <template #content>
       <div class="form-container">
-        <div class="title-text">Método de Pago</div>
+        <div class="title-text">{{ $t('editProfile.titleP2') }}</div>
         <div>
-          <div class="subtitle-text">Número de Tarjeta</div>
+          <div class="subtitle-text">{{ $t('editProfile.cardNumber') }}</div>
           <pv-inputText class="info-container"></pv-inputText>
-          <div class="subtitle-text">Fecha de Vencimiento</div>
+          <div class="subtitle-text">{{ $t('editProfile.expiration') }}</div>
           <pv-inputText class="info-container"></pv-inputText>
-          <div class="subtitle-text">Código de Seguridad </div>
+          <div class="subtitle-text">{{ $t('editProfile.code') }} </div>
           <pv-inputText class="info-container"></pv-inputText>
         </div>
       </div>
       <div class="button-container">
-        <router-link to="/profile"><pv-button class="button-style" aria-label="Cancel changes">Cancelar</pv-button></router-link>
-        <router-link to="/profile"><pv-button class="button-style" aria-label="Confirm changes">Confirmar</pv-button></router-link>
-        <router-link to="/profile"><pv-button class="button-style" aria-label="Delete card">Eliminar Tarjeta</pv-button></router-link>
+        <router-link to="/profile"><pv-button class="button-style" aria-label="Cancel changes">{{ $t('editProfile.cancelButton') }}</pv-button></router-link>
+        <router-link to="/profile"><pv-button class="button-style" aria-label="Confirm changes">{{ $t('editProfile.continueButton') }}</pv-button></router-link>
+        <router-link to="/profile"><pv-button class="button-style" aria-label="Delete card">{{ $t('editProfile.deleteCard') }}</pv-button></router-link>
 
 
       </div>

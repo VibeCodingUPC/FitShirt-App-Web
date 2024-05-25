@@ -1,7 +1,17 @@
 <script setup>
 import { ref } from "vue";
+import {useI18n} from "vue-i18n";
 
 const visible = ref(false);
+const i18nLocale = useI18n();
+const changeLanguage = () => {
+  if (i18nLocale.locale.value == 'en') {
+    i18nLocale.locale.value='es'
+  }
+  else {
+    i18nLocale.locale.value='en'
+  }
+}
 </script>
 
 <template>
@@ -18,7 +28,7 @@ const visible = ref(false);
                     <li>
                       <a class="icons-container">
                         <img src="/icons/ProfileIcon.png" alt="profile-Image" class="icon-container">
-                        <span >Mi perfil</span>
+                        <span >{{ $t('toolbar.profile') }}</span>
                       </a>
                     </li>
                   </router-link>
@@ -26,7 +36,7 @@ const visible = ref(false);
                     <li>
                       <a class="icons-container">
                         <img src="/icons/ShopIcon.png" alt="shop-Image" class="icon-container">
-                        <span >Catálogo</span>
+                        <span >{{ $t('toolbar.catalogue') }}</span>
                       </a>
                     </li>
                   </router-link>
@@ -34,7 +44,7 @@ const visible = ref(false);
                     <li>
                       <a class="icons-container">
                         <img src="/icons/ShopIcon.png" alt="shop-Image" class="icon-container">
-                        <span >Publicaciones</span>
+                        <span >{{ $t('toolbar.posts') }}</span>
                       </a>
                     </li>
                   </router-link>
@@ -42,7 +52,7 @@ const visible = ref(false);
                     <li>
                       <a class="icons-container">
                         <img src="/icons/DesignIcon.png" alt="shop-Image" class="icon-container">
-                        <span >Diseños</span>
+                        <span >{{ $t('toolbar.designs') }}</span>
                       </a>
                     </li>
                   </router-link>
@@ -50,7 +60,7 @@ const visible = ref(false);
                     <li>
                       <a class="icons-container">
                         <img src="/icons/CartIcon.png" alt="shop-Image" class="icon-container">
-                        <span >Carrito</span>
+                        <span >{{ $t('toolbar.cart') }}</span>
                       </a>
                     </li>
                   </router-link>
@@ -58,13 +68,19 @@ const visible = ref(false);
                     <li>
                       <a class="icons-container">
                         <img src="/icons/PremiumIcon.png" alt="shop-Image" class="icon-container">
-                        <span >Premium</span>
+                        <span >{{ $t('toolbar.premium') }}</span>
                       </a>
                     </li>
                   </router-link>
                 </ul>
               </li>
             </ul>
+          </div>
+          <div class="footer">
+            <pv-button @click="changeLanguage" class="language-button">
+              <i class="pi pi-globe"></i>
+              {{ i18nLocale.locale.value }}
+            </pv-button>
           </div>
         </div>
       </template>
@@ -121,4 +137,21 @@ const visible = ref(false);
 .p-3 {
   padding: 0.75rem;
 }
+
+.footer {
+  display: flex;
+  justify-content: center;
+  margin-top: 20px;
+}
+.language-button {
+  background-color: #4d94ff;
+  color: white;
+  padding: 10px 20px;
+  border-radius: 5px;
+  cursor: pointer;
+}
+.language-button .pi-globe {
+  margin-right: 5px;
+}
+
 </style>
