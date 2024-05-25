@@ -5,25 +5,25 @@
   <pv-card class="card-container">
     <template #content>
       <div class="form-container">
-        <div class="title-text">Editar Perfil</div>
+        <div class="title-text">{{ $t('editProfile.title') }}</div>
         <div>
-          <div class="subtitle-text">Nombre Completo</div>
+          <div class="subtitle-text">{{ $t('profile.name') }}</div>
           <pv-inputText class="info-container"></pv-inputText>
-          <div class="subtitle-text">Correo</div>
+          <div class="subtitle-text">{{ $t('profile.email') }}</div>
           <pv-inputText class="info-container"></pv-inputText>
-          <div class="subtitle-text">N°Contacto </div>
+          <div class="subtitle-text">{{ $t('profile.numC') }} </div>
           <pv-inputText class="info-container"></pv-inputText>
-          <div class="subtitle-text">N°Contacto Adicional</div>
+          <div class="subtitle-text">{{ $t('profile.numC2') }}</div>
           <pv-inputText class="info-container"></pv-inputText>
-          <div class="subtitle-text">Dni o Ruc</div>
+          <div class="subtitle-text">{{ $t('profile.id') }}</div>
           <pv-inputText class="info-container"></pv-inputText>
-          <div class="subtitle-text">Dirección</div>
+          <div class="subtitle-text">{{ $t('profile.address') }}</div>
           <pv-inputText class="info-container"></pv-inputText>
         </div>
       </div>
       <div class="button-container">
-        <router-link to="/profile"><pv-button class="button-style" aria-label="Cancel changes">Cancelar</pv-button></router-link>
-        <router-link to="/profile"><pv-button class="button-style" aria-label="Confirm changes">Continuar</pv-button></router-link>
+        <router-link to="/profile"><pv-button class="button-style" aria-label="Cancel changes">{{ $t('editProfile.cancelButton') }}</pv-button></router-link>
+        <router-link to="/profile"><pv-button class="button-style" aria-label="Confirm changes">{{ $t('editProfile.continueButton') }}</pv-button></router-link>
 
       </div>
     </template>

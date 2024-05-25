@@ -1,57 +1,29 @@
 <script setup>
-import {onBeforeMount, onMounted, ref} from "vue";
-   import {useRoute} from 'vue-router';
-   import {PostsApiService} from "@/services/posts-api.service.js";
-   import {CategoryApiService} from "@/services/category-api.service.js";
-   import {ColorApiService} from "@/services/color-api.service.js";
+import {onBeforeMount, ref} from "vue";
+import {useRoute} from 'vue-router';
+import {PostsApiService} from "@/services/posts-api.service.js";
 
-const postService= new PostsApiService();
-   const categoryService = new CategoryApiService();
-   const colorService = new ColorApiService();
-   const route = useRoute();
-   const selectedCategory = ref("Any");
-   const selectedColor = ref("Any");
+const postService = new PostsApiService();
+const route = useRoute();
 
-   let postInformation = ref({})
+let postInformation = ref({})
 
-   const fetchPostInformation = async() =>{
-     postInformation.value= await postService.getPostById(route.params.id);
-     console.log(postInformation.value)
-   }
-   const fetchCategoryData = async () => {
-     let fetchedCategories = await categoryService.getCategories();
-     categories.value = [...categories.value, ...fetchedCategories];
-   }
-const fetchColorData = async () => {
-  let fetchedColors = await colorService.getColors();
-  colors.value = [...colors.value, ...fetchedColors];
+const fetchPostInformation = async () => {
+  postInformation.value = await postService.getPostById(route.params.id);
+  console.log(postInformation.value)
 }
 
+const editPost = async () => {
+  await postService.editPost(postInformation.value);
+}
 
-const categories = ref([
-  {"id": 99,"name": "Any"}
-]);
+const deleteItemPost = async () => {
+  await postService.deletePost(postInformation.value.id);
+}
 
-const colors = ref([
-  {"id": 99, "name": "Any"}
-]);
-
-   const editPost = async () =>{
-     await postService.editPost(postInformation.value);
-   }
-
-   const deleteItemPost = async ()=>{
-    await postService.deletePost(postInformation.value.id);
-   }
-
-  onMounted(async () => {
-  fetchCategoryData();
-  fetchColorData();
-  })
-
-   onBeforeMount(()=>{
-     fetchPostInformation();
-   })
+onBeforeMount(() => {
+  fetchPostInformation();
+})
 
 </script>
 
@@ -59,45 +31,37 @@ const colors = ref([
   <pv-card class="card-container">
     <template #content>
       <div class="form-container">
-        <div class="title-text">Editar Publicación</div>
+        <div class="title-text">{{ $t('posts.edit') }}</div>
         <div>
-          <div class="subtitle-text">Nombre Diseño</div>
+          <div class="subtitle-text">{{ $t('posts.name') }}</div>
           <pv-inputText class="info-container" v-model="postInformation.name"></pv-inputText>
-          <div class="subtitle-text">Color</div>
-          <select v-model="selectedColor" id="color-input">
-            <option
-                v-for="color in colors"
-                :value="color.name"
-                :key="color.id">
-              {{ color.name }}
-            </option>
-          </select>
-          <div class="subtitle-text">Categoría </div>
-          <select v-model="selectedCategory" id="category-input">
-            <option
-                v-for="category in categories"
-                :value="category.name"
-                :key="category.id">
-              {{ category.name }}
-            </option>
-          </select>
-          <div class="subtitle-text">Cantidad Actual</div>
+          <div class="subtitle-text">{{ $t('posts.color') }}</div>
+          <pv-inputText class="info-container" v-model="postInformation.color"></pv-inputText>
+          <div class="subtitle-text">{{ $t('posts.category') }}</div>
+          <pv-inputText class="info-container" v-model="postInformation.category"></pv-inputText>
+          <div class="subtitle-text">{{ $t('posts.quantity') }}</div>
           <pv-inputText type="number" class="info-container" v-model="postInformation.stock"></pv-inputText>
-          <div class="subtitle-text">Tallas Disponibles</div>
+          <div class="subtitle-text">{{ $t('posts.sizes') }}</div>
           <pv-inputText class="info-container" v-model="postInformation.sizes"></pv-inputText>
-          <div class="subtitle-text">Precio</div>
+          <div class="subtitle-text">{{ $t('posts.price') }}</div>
           <pv-inputText type="number" class="info-container" v-model="postInformation.price"></pv-inputText>
         </div>
       </div>
       <div class="button-container">
         <router-link to="/published">
-          <pv-button @click="editPost" class="button-style" aria-label="Confirm changes">Confirmar</pv-button>
+          <pv-button @click="editPost" class="button-style" aria-label="Confirm changes">{{
+              $t('posts.confirmButton')
+            }}
+          </pv-button>
         </router-link>
         <router-link to="/published">
-          <pv-button class="button-style" aria-label="Cancel changes">Cancelar</pv-button>
+          <pv-button class="button-style" aria-label="Cancel changes">{{ $t('posts.cancelButton') }}</pv-button>
         </router-link>
         <router-link to="/published">
-          <pv-button @click="deleteItemPost" class="button-style" aria-label="Delete a Post">Eliminar Post</pv-button>
+          <pv-button @click="deleteItemPost" class="button-style" aria-label="Delete a Post">{{
+              $t('posts.deleteButton')
+            }}
+          </pv-button>
         </router-link>
       </div>
     </template>
@@ -105,13 +69,14 @@ const colors = ref([
 </template>
 
 <style scoped>
-.card-container{
+.card-container {
   background-color: #dadada;
   height: 100%;
   min-height: 100vh;
   width: 100%;
   display: flex;
 }
+
 .form-container {
   background-color: #dadada;
   padding: 20px;
@@ -122,6 +87,7 @@ const colors = ref([
   justify-content: center;
   align-items: center;
 }
+
 .button-container {
   margin-top: 30px;
   width: auto;
@@ -130,6 +96,7 @@ const colors = ref([
   justify-content: center;
   gap: 10px;
 }
+
 .button-style {
   width: 263px;
   justify-content: center;
@@ -137,15 +104,17 @@ const colors = ref([
 
 .title-text {
   font-size: 70px;
-  font-family: Roboto,math;
+  font-family: Roboto, math;
   color: #000000;
   margin-bottom: 30px;
 }
+
 .subtitle-text {
   font-size: 20px;
-  font-family: Roboto,math;
+  font-family: Roboto, math;
   color: #000000;
 }
+
 .info-container {
   border-radius: 4px;
   background-color: #ffffff;

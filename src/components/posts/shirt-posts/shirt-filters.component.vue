@@ -6,7 +6,7 @@
     <form class="filter-form">
       <router-link to ="/publish">
       <button class="form-button" aria-label="Publish a post">
-        Subir Publicación
+        {{ $t('posts.post') }}
       </button>
       </router-link>
     </form>
