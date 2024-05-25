@@ -51,6 +51,14 @@ const en = {
     colorBlue: "Blue",
     filterButton: "Filter",
   },
+  catalogueDesc:{
+    sizes: "Available sizes",
+    color: "Color",
+    stock: "Stock",
+    quantity: "Quantity to buy",
+    cart: "Add to cart",
+    sold: "Sold by",
+  },
 
   posts:{
     post:"Make a Post",

@@ -60,7 +60,7 @@
       </div>
 
       <div class="shirt-detail" id="size">
-        <label for="size-selection">Available sizes</label>
+        <label for="size-selection">{{ $t('catalogueDesc.sizes') }}:</label>
         <select v-model="selectedSize" id="size-selection">
           <option 
             v-for="size in shirtInformation['sizes']"
@@ -71,15 +71,15 @@
       </div>
       
       <div class="shirt-detail">
-        <h2 aria-describedby="Jersey color"><b>Color:</b> {{ shirtInformation["color"] }}</h2>
+        <h2 aria-describedby="Jersey color"><b>{{ $t('catalogueDesc.color') }}:</b> {{ shirtInformation["color"] }}</h2>
       </div>
       
       <div class="shirt-detail">
-        <h2 aria-describedby="Jersey stock"><b>Stock:</b> {{ shirtInformation["stock"] }} availables</h2>
+        <h2 aria-describedby="Jersey stock"><b>{{ $t('catalogueDesc.stock') }}:</b> {{ shirtInformation["stock"] }} availables</h2>
       </div>
 
       <div class="shirt-detail" id="quantity-detail">
-        <h2><b>Quantity to buy:</b></h2>
+        <h2><b>{{ $t('catalogueDesc.quantity') }}:</b></h2>
         <div className="quantity">
             <button 
               class="quantity-minus" 
@@ -101,11 +101,11 @@
       <div class="shirt-detail" id="card-detail">
         <button 
           aria-label="Add to cart"
-          :onClick="addItemToCart">Add to cart</button>
+          :onClick="addItemToCart">{{ $t('catalogueDesc.cart') }}</button>
       </div>
 
       <div class="shirt-detail" id="seller-detail">
-        <h2 aria-describedby="Jersey detail"><b>Sold by:</b> {{ shirtInformation["seller"] }} </h2>
+        <h2 aria-describedby="Jersey detail"><b>{{ $t('catalogueDesc.sold') }}:</b> {{ shirtInformation["seller"] }} </h2>
       </div>
     </div>
     <div class="shirt-image">

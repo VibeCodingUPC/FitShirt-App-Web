@@ -38,7 +38,7 @@ onMounted(async () => {
     <form class="filter-form">
       <div class="input-container" aria-describedby="Category filter">
         <label for="category-input">
-          Category:
+          {{ $t('catalogue.category') }}:
         </label>
         <select v-model="selectedCategory" id="category-input">
           <option

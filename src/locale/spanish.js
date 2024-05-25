@@ -52,6 +52,14 @@ const es = {
     colorBlue: "Azul",
     filterButton: "Filtrar",
   },
+  catalogueDesc:{
+    sizes: "Tallas disponibles",
+    color: "Color",
+    stock: "En stock",
+    quantity: "Cantidad",
+    cart: "Añadir al carrito",
+    sold: "Venta hecha por",
+  },
 
   posts:{
     post:"Subir Publicación",
