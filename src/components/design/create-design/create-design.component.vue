@@ -1,8 +1,13 @@
 <script setup>
-import{ref} from "vue";
+import {onMounted, ref} from "vue";
 import {DesignsApiService} from "@/services/designs-api.service.js";
 import { useRoute } from 'vue-router';
+import {ColorApiService} from "@/services/color-api.service.js";
+import {ShieldApiService} from "@/services/shield-api.service.js";
+
+const colorService = new ColorApiService();
 const designservice = new DesignsApiService();
+const shieldService = new ShieldApiService();
 let designInformation = ref ({
   "name": "",
   "image": "/images/shirts/camiseta_3.png",
@@ -14,6 +19,23 @@ let designInformation = ref ({
 const addDesign = async () => {
   await designservice.creatingDesign(designInformation.value);
 }
+const fetchShieldData = async () => {
+  let fetchedShields = await shieldService.getShield();
+  shields.value = [...shields.value, ...fetchedShields];
+}
+const fetchColorData = async () => {
+  let fetchedColors = await colorService.getColors();
+  colors.value = [...colors.value, ...fetchedColors];
+}
+const colors = ref([
+]);
+const shields = ref([
+]);
+
+onMounted(async () => {
+  fetchColorData();
+  fetchShieldData();
+})
 </script>
 
 <template>
@@ -26,13 +48,41 @@ const addDesign = async () => {
             <div class="subtitle-text">{{ $t('designs.name') }}</div>
             <pv-inputText class="info-container" v-model="designInformation.name"></pv-inputText>
           <div class="subtitle-text">{{ $t('designs.fColor') }} </div>
-          <pv-inputText  class="info-container" v-model="designInformation.color"></pv-inputText >
+            <select v-model="designInformation.color" id="color-input">
+              <option
+                  v-for="color in colors"
+                  :value="color.name"
+                  :key="color.id">
+                {{ color.name }}
+              </option>
+            </select>
           <div class="subtitle-text">{{ $t('designs.sColor') }}</div>
-          <pv-inputText  class="info-container" v-model="designInformation.secundario"></pv-inputText >
+            <select v-model="designInformation.secundario" id="color-input">
+              <option
+                  v-for="color in colors"
+                  :value="color.name"
+                  :key="color.id">
+                {{ color.name }}
+              </option>
+            </select>
           <div class="subtitle-text">{{ $t('designs.tColor') }}</div>
-          <pv-inputText  class="info-container" v-model="designInformation.terciario"></pv-inputText >
+            <select v-model="designInformation.terciario" id="color-input">
+              <option
+                  v-for="color in colors"
+                  :value="color.name"
+                  :key="color.id">
+                {{ color.name }}
+              </option>
+            </select>
           <div class="subtitle-text">{{ $t('designs.shield') }}</div>
-          <pv-inputText  class="info-container" v-model="designInformation.escudo"></pv-inputText >
+            <select v-model="designInformation.escudo" id="color-input">
+              <option
+                  v-for="shield in shields"
+                  :value="shield.name"
+                  :key="shield.id">
+                {{ shield.name }}
+              </option>
+            </select>
         </div>
       </div>
       <div class="button-container">

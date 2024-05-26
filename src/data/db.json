@@ -200,37 +200,37 @@
       "id": "1",
       "name": "Polo Peruano",
       "image": "/images/shirts/camiseta_1.png",
-      "color": "Rojo",
-      "secundario": "Blanco",
-      "terciario": "Rojo",
-      "escudo": "Ramex"
+      "color": "Red",
+      "secundario": "White",
+      "terciario": "Red",
+      "escudo": "Real Madrid CF"
     },
     {
       "id": "2",
       "name": "Polo pecho oscuro",
       "image": "/images/shirts/camiseta_2.png",
-      "color": "Azul",
-      "secundario": "Celeste",
-      "terciario": "Rojo",
-      "escudo": "Ramex"
+      "color": "Blue",
+      "secundario": "Gray",
+      "terciario": "Red",
+      "escudo": "Manchester United FC"
     },
     {
       "id": "3",
       "name": "Polo verde",
       "image": "/images/shirts/camiseta_3.png",
-      "color": "Verde",
-      "secundario": "Celeste",
-      "terciario": "Blanco",
-      "escudo": "Ramex"
+      "color": "Green",
+      "secundario": "Green",
+      "terciario": "White",
+      "escudo": "AC Milan"
     },
     {
-      "id": "4",
-      "name": "negroS",
-      "image": "/images/shirts/camiseta_4.png",
-      "color": "Negro",
-      "secundario": "Gris",
-      "terciario": "Gris",
-      "escudo": "Ramex"
+      "id": "3159",
+      "name": "prueba",
+      "image": "/images/shirts/camiseta_3.png",
+      "color": "Purple",
+      "secundario": "Red",
+      "terciario": "Yellow",
+      "escudo": "AC Milan"
     }
   ],
   "posts": [
@@ -369,6 +369,44 @@
     {
       "id": "4",
       "name": "XL"
+    }
+  ],
+  "shield": [
+    {
+      "id": "1",
+      "name": "Real Madrid CF"
+    },
+    {
+      "id": "2",
+      "name": "FC Barcelona"
+    },
+    {
+      "id": "3",
+      "name": "Manchester United FC"
+    },
+    {
+      "id": "5",
+      "name": "Bayern Munich"
+    },
+    {
+      "id": "6",
+      "name": "AC Milan"
+    },
+    {
+      "id": "7",
+      "name": "Liverpool FC"
+    },
+    {
+      "id": "8",
+      "name": "Chelsea FC"
+    },
+    {
+      "id": "9",
+      "name": "Paris Saint-Germain"
+    },
+    {
+      "id": "10",
+      "name": "Borussia Dortmund"
     }
   ],
   "cart": []

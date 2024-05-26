@@ -24,15 +24,12 @@ const fetchPostInformation = async () => {
 }
 
 const categories = ref([
-  {"id": 99,"name": "Any"}
 ]);
 
 const colors = ref([
-  {"id": 99, "name": "Any"}
 ]);
 
 const sizes = ref([
-  {"id": 99, "name": "Any"}
 ]);
 
 const editPost = async () => {

@@ -26,15 +26,12 @@ let postInformation = ref({
 })
 
 const categories = ref([
-  {"id": 99,"name": "Any"}
 ]);
 
 const colors = ref([
-  {"id": 99, "name": "Any"}
 ]);
 
 const sizes = ref([
-  {"id": 99, "name": "Any"}
 ]);
 const addPublish = async () =>{
   await postservice.publishPost(postInformation.value);
