@@ -60,15 +60,15 @@ const changeLanguage = () => {
     <div class ="register-card">
       <p class="title-container">{{ $t('register.title') }}</p>
       <p class="cwhite">{{ $t('register.user') }}</p>
-      <pv-inputText class="mb10" type="text" v-model="userRegistration.username" />
+      <pv-inputText class="mb10" type="text" v-model="userRegistration.username" aria-label="Enter a username" />
       <p class="cwhite">{{ $t('register.password') }}</p>
-      <pv-inputText class="mb10" type="password" v-model="userRegistration.password" />
+      <pv-inputText class="mb10" type="password" v-model="userRegistration.password" aria-label="Enter a password" />
       <p class="cwhite">{{ $t('register.confirmP') }}</p>
-      <pv-inputText class="mb10" type="password" v-model="userRegistration.confirmPassword" />
+      <pv-inputText class="mb10" type="password" v-model="userRegistration.confirmPassword" aria-label="Confirm the password"/>
       <p class="cwhite">{{ $t('register.email') }}</p>
-      <pv-inputText class="mb10" type="text" v-model="userRegistration.email" />
+      <pv-inputText class="mb10" type="text" v-model="userRegistration.email" aria-label="Enter a email" />
       <p class="cwhite">{{ $t('register.phone') }}</p>
-      <pv-inputText class="mb10" type="text" v-model="userRegistration.cellphone" />
+      <pv-inputText class="mb10" type="text" v-model="userRegistration.cellphone" aria-label="Enter a phone" />
 
       <router-link to="/catalogue">
         <pv-button :label="$t('register.button')" severity="info" class="button-container" />

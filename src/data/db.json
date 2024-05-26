@@ -286,48 +286,69 @@
       "color": "Black",
       "name": "Polo negro con diseño",
       "styles": "Deportivo Manga Corta",
-      "stock": 10,
+      "stock": "9",
       "sizes": [
         "S",
-        "M",
-        "L"
+        "L",
+        "M"
       ],
-      "price": 100
+      "price": "101"
+    },
+    {
+      "id": "8fc6",
+      "image": "https://images.wikidexcdn.net/mwuploads/esssbwiki/thumb/9/95/latest/20220817125116/Kirby_en_Kirby_y_la_tierra_olvidada.png/1200px-Kirby_en_Kirby_y_la_tierra_olvidada.png",
+      "category": "",
+      "color": "",
+      "name": "Kirby",
+      "stock": "4",
+      "size": "",
+      "price": "200",
+      "sizes": "S,XL,M,L"
+    },
+    {
+      "id": "14c5",
+      "image": "/images/shirts/camiseta_1.png",
+      "category": "",
+      "color": "",
+      "name": "",
+      "stock": 0,
+      "size": "",
+      "price": 0
     }
   ],
- "color": [
-  {
-    "id": 1,
-    "name": "Red"
-  },
-  {
-    "id": 2,
-    "name": "Yellow"
-  },
-  {
-    "id": 3,
-    "name": "Purple"
-  },
-  {
-    "id": 4,
-    "name": "Gray"
-  },
-  {
-    "id": 5,
-    "name": "White"
-  },
-  {
-    "id": 6,
-    "name": "Black"
-  },
-  {
-    "id": 7,
-    "name": "Green"
-  },
-  {
-    "id": 8,
-    "name": "Blue"
-  }
-],
+  "color": [
+    {
+      "id": "1",
+      "name": "Red"
+    },
+    {
+      "id": "2",
+      "name": "Yellow"
+    },
+    {
+      "id": "3",
+      "name": "Purple"
+    },
+    {
+      "id": "4",
+      "name": "Gray"
+    },
+    {
+      "id": "5",
+      "name": "White"
+    },
+    {
+      "id": "6",
+      "name": "Black"
+    },
+    {
+      "id": "7",
+      "name": "Green"
+    },
+    {
+      "id": "8",
+      "name": "Blue"
+    }
+  ],
   "cart": []
 }

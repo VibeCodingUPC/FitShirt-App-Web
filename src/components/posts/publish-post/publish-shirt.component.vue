@@ -1,6 +1,6 @@
 <script setup>
 
-import {onMounted, ref} from "vue";
+import {onMounted, ref, watch} from "vue";
 import {PostsApiService} from "@/services/posts-api.service.js";
 import { useRoute } from 'vue-router';
 import {CategoryApiService} from "@/services/category-api.service.js";
@@ -11,8 +11,10 @@ const colorService = new ColorApiService();
 const selectedCategory = ref("Any");
 const selectedColor = ref("Any");
 const postservice = new PostsApiService();
+const errorMessage = ref('');
+
 let postInformation = ref({
-  "image":"",
+  "image":"/images/shirts/camiseta_1.png",
   "category":"",
   "color":"",
   "name":"",
@@ -39,6 +41,20 @@ const fetchColorData = async () => {
   let fetchedColors = await colorService.getColors();
   colors.value = [...colors.value, ...fetchedColors];
 }
+const isValidImageURL = (url) => {
+  return url.match(/\.(jpeg|jpg|png)$/i) != null;
+};
+
+const validateImageUrl = () => {
+  if (!isValidImageURL(postInformation.value.image)) {
+    errorMessage.value = "La URL tiene que ser de una imagen en formato PNG o JPG";
+  } else {
+    errorMessage.value = "";
+  }
+};
+
+watch(() => postInformation.value.image, validateImageUrl);
+
 
 onMounted(async () => {
   fetchCategoryData();
@@ -50,11 +66,11 @@ onMounted(async () => {
   <pv-card class="card-container">
     <template #content>
       <form class="form-container">
-        <div class="title-text">Subir Publicación</div>
+        <div class="title-text">{{ $t('posts.upload') }}</div>
         <div>
-          <div class="subtitle-text">Nombre Diseño</div>
+          <div class="subtitle-text">{{ $t('posts.name') }}</div>
           <pv-inputText class="info-container" v-model="postInformation.name"></pv-inputText>
-          <div class="subtitle-text">Color</div>
+          <div class="subtitle-text">{{ $t('posts.color') }}</div>
           <select v-model="selectedColor" id="color-input">
             <option
                 v-for="color in colors"
@@ -63,7 +79,7 @@ onMounted(async () => {
               {{ color.name }}
             </option>
           </select>
-          <div class="subtitle-text">Categoría </div>
+          <div class="subtitle-text">{{ $t('posts.category') }} </div>
           <select v-model="selectedCategory" id="category-input">
             <option
                 v-for="category in categories"
@@ -72,21 +88,22 @@ onMounted(async () => {
               {{ category.name }}
             </option>
           </select>
-          <div class="subtitle-text">Cantidad Actual</div>
+          <div class="subtitle-text">{{ $t('posts.quantity') }}</div>
           <pv-inputText type="number" class="info-container"  v-model="postInformation.stock"></pv-inputText>
-          <div class="subtitle-text">Tallas Disponibles</div>
+          <div class="subtitle-text">{{ $t('posts.sizes') }}</div>
           <pv-inputText class="info-container"  v-model="postInformation.sizes"></pv-inputText>
-          <div class="subtitle-text">Imagen</div>
-          <pv-inputText class="info-container" v-model="postInformation.image"></pv-inputText>
-          <div class="subtitle-text">Precio</div>
+          <div class="subtitle-text">{{ $t('posts.image') }}</div>
+          <pv-inputText class="info-container" v-model="postInformation.image" @input="validateImageUrl"></pv-inputText>
+          <div class="subtitle-text">{{ $t('posts.price') }}</div>
           <pv-inputText type="number" class="info-container"  v-model="postInformation.price"></pv-inputText>
         </div>
+        <div v-if="errorMessage" class="error-message">{{ errorMessage }}</div>
         <div class="button-container">
           <router-link to="/published">
-            <pv-button class="button-style" aria-label="Confirm a post" @click="addPublish">Confirmar</pv-button>
+            <pv-button class="button-style" aria-label="Confirm a post" @click="addPublish">{{ $t('posts.confirmButton') }}</pv-button>
           </router-link>
           <router-link to="/published">
-            <pv-button class="button-style" aria-label="Cancel a post">Cancelar</pv-button>
+            <pv-button class="button-style" aria-label="Cancel a post">{{ $t('posts.cancelButton') }}</pv-button>
           </router-link>
         </div>
       </form>
@@ -142,5 +159,12 @@ onMounted(async () => {
   height: 20px;
   width: 250px;
   margin-bottom: 8px;
+}
+.error-message {
+  color: red;
+  font-weight: bold;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 </style>

@@ -1,10 +1,17 @@
 <script setup>
-import {onBeforeMount, ref} from "vue";
+import {onBeforeMount, onMounted, ref, watch} from "vue";
 import {useRoute} from 'vue-router';
 import {PostsApiService} from "@/services/posts-api.service.js";
+import {CategoryApiService} from "@/services/category-api.service.js";
+import {ColorApiService} from "@/services/color-api.service.js";
 
+const categoryService = new CategoryApiService();
+const colorService = new ColorApiService();
+const selectedCategory = ref("Any");
+const selectedColor = ref("Any");
 const postService = new PostsApiService();
 const route = useRoute();
+const errorMessage = ref('');
 
 let postInformation = ref({})
 
@@ -13,6 +20,14 @@ const fetchPostInformation = async () => {
   console.log(postInformation.value)
 }
 
+const categories = ref([
+  {"id": 99,"name": "Any"}
+]);
+
+const colors = ref([
+  {"id": 99, "name": "Any"}
+]);
+
 const editPost = async () => {
   await postService.editPost(postInformation.value);
 }
@@ -20,9 +35,36 @@ const editPost = async () => {
 const deleteItemPost = async () => {
   await postService.deletePost(postInformation.value.id);
 }
+const fetchCategoryData = async () => {
+  let fetchedCategories = await categoryService.getCategories();
+  categories.value = [...categories.value, ...fetchedCategories];
+}
+const fetchColorData = async () => {
+  let fetchedColors = await colorService.getColors();
+  colors.value = [...colors.value, ...fetchedColors];
+}
+
+const isValidImageURL = (url) => {
+  return url.match(/\.(jpeg|jpg|png)$/i) != null;
+};
+
+const validateImageUrl = () => {
+  if (!isValidImageURL(postInformation.value.image)) {
+    errorMessage.value = "La URL tiene que ser de una imagen en formato PNG o JPG";
+  } else {
+    errorMessage.value = "";
+  }
+};
+
+watch(() => postInformation.value.image, validateImageUrl);
 
 onBeforeMount(() => {
   fetchPostInformation();
+})
+
+onMounted(async () => {
+  fetchCategoryData();
+  fetchColorData();
 })
 
 </script>
@@ -36,22 +78,37 @@ onBeforeMount(() => {
           <div class="subtitle-text">{{ $t('posts.name') }}</div>
           <pv-inputText class="info-container" v-model="postInformation.name"></pv-inputText>
           <div class="subtitle-text">{{ $t('posts.color') }}</div>
-          <pv-inputText class="info-container" v-model="postInformation.color"></pv-inputText>
-          <div class="subtitle-text">{{ $t('posts.category') }}</div>
-          <pv-inputText class="info-container" v-model="postInformation.category"></pv-inputText>
+          <select v-model="selectedColor" id="color-input">
+            <option
+                v-for="color in colors"
+                :value="color.name"
+                :key="color.id">
+              {{ color.name }}
+            </option>
+          </select>
+          <div class="subtitle-text">{{ $t('posts.category') }} </div>
+          <select v-model="selectedCategory" id="category-input">
+            <option
+                v-for="category in categories"
+                :value="category.name"
+                :key="category.id">
+              {{ category.name }}
+            </option>
+          </select>
           <div class="subtitle-text">{{ $t('posts.quantity') }}</div>
           <pv-inputText type="number" class="info-container" v-model="postInformation.stock"></pv-inputText>
           <div class="subtitle-text">{{ $t('posts.sizes') }}</div>
           <pv-inputText class="info-container" v-model="postInformation.sizes"></pv-inputText>
+          <div class="subtitle-text">{{ $t('posts.image') }}</div>
+          <pv-inputText class="info-container" v-model="postInformation.image" @input="validateImageUrl"></pv-inputText>
           <div class="subtitle-text">{{ $t('posts.price') }}</div>
           <pv-inputText type="number" class="info-container" v-model="postInformation.price"></pv-inputText>
         </div>
       </div>
+      <div v-if="errorMessage" class="error-message">{{ errorMessage }}</div>
       <div class="button-container">
         <router-link to="/published">
-          <pv-button @click="editPost" class="button-style" aria-label="Confirm changes">{{
-              $t('posts.confirmButton')
-            }}
+          <pv-button @click="editPost" class="button-style" aria-label="Confirm changes">{{$t('posts.confirmButton') }}
           </pv-button>
         </router-link>
         <router-link to="/published">
@@ -121,5 +178,12 @@ onBeforeMount(() => {
   height: 20px;
   width: 250px;
   margin-bottom: 8px;
+}
+.error-message {
+  color: red;
+  font-weight: bold;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 </style>

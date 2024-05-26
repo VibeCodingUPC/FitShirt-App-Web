@@ -44,9 +44,9 @@ const changeLanguage = () => {
     <div class ="login-card">
       <p class="title-container">{{ $t('login.title') }}</p>
       <p class="cwhite">{{ $t('login.user') }}</p>
-      <pv-inputText class="mb10" type="text" v-model="userLogin.username" />
+      <pv-inputText class="mb10" type="text" v-model="userLogin.username" aria-label="Enter a username" />
       <p class="cwhite">{{ $t('login.password') }}</p>
-      <pv-inputText class="mb10" type="password" v-model="userLogin.password" />
+      <pv-inputText class="mb10" type="password" v-model="userLogin.password" aria-label="Enter a password"/>
       <router-link to="/catalogue">
         <pv-button :label="$t('login.button')" severity="info" class="button-container" />
       </router-link>

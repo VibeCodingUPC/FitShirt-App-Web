@@ -72,6 +72,9 @@ const en = {
     cancelButton: "Cancel",
     edit: "Edit Post",
     deleteButton: "Delete Post",
+    upload: "Upload post",
+    image: "Image (Enter an image url)",
+    error: "The URL must be an image in PNG or JPG format",
   },
 
   designs:{

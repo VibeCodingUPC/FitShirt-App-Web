@@ -73,6 +73,9 @@ const es = {
     cancelButton: "Cancelar",
     edit: "Editar Publicación",
     deleteButton: "Eliminar Post",
+    upload: "Subir publicación",
+    image: "Imagen (Ingrese una URL de imagen)",
+    error: "La URL tiene que ser de una imagen en formato PNG o JPG",
   },
 
   designs:{
