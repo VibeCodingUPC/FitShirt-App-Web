@@ -4,11 +4,14 @@ import {useRoute} from 'vue-router';
 import {PostsApiService} from "@/services/posts-api.service.js";
 import {CategoryApiService} from "@/services/category-api.service.js";
 import {ColorApiService} from "@/services/color-api.service.js";
+import {SizeApiService} from "@/services/size-api.service.js";
 
 const categoryService = new CategoryApiService();
 const colorService = new ColorApiService();
+const sizeService = new SizeApiService();
 const selectedCategory = ref("Any");
 const selectedColor = ref("Any");
+const selectedSizes = ref("Any");
 const postService = new PostsApiService();
 const route = useRoute();
 const errorMessage = ref('');
@@ -28,6 +31,10 @@ const colors = ref([
   {"id": 99, "name": "Any"}
 ]);
 
+const sizes = ref([
+  {"id": 99, "name": "Any"}
+]);
+
 const editPost = async () => {
   await postService.editPost(postInformation.value);
 }
@@ -42,6 +49,11 @@ const fetchCategoryData = async () => {
 const fetchColorData = async () => {
   let fetchedColors = await colorService.getColors();
   colors.value = [...colors.value, ...fetchedColors];
+}
+
+const fetchSizeData = async () => {
+  let fetchedSizes = await sizeService.getSizes();
+  sizes.value = [...sizes.value, ...fetchedSizes];
 }
 
 const isValidImageURL = (url) => {
@@ -65,6 +77,7 @@ onBeforeMount(() => {
 onMounted(async () => {
   fetchCategoryData();
   fetchColorData();
+  fetchSizeData();
 })
 
 </script>
@@ -98,7 +111,14 @@ onMounted(async () => {
           <div class="subtitle-text">{{ $t('posts.quantity') }}</div>
           <pv-inputText type="number" class="info-container" v-model="postInformation.stock"></pv-inputText>
           <div class="subtitle-text">{{ $t('posts.sizes') }}</div>
-          <pv-inputText class="info-container" v-model="postInformation.sizes"></pv-inputText>
+          <select v-model="selectedSizes" id="category-input">
+            <option
+                v-for="size in sizes"
+                :value="size.name"
+                :key="size.id">
+              {{ size.name }}
+            </option>
+          </select>
           <div class="subtitle-text">{{ $t('posts.image') }}</div>
           <pv-inputText class="info-container" v-model="postInformation.image" @input="validateImageUrl"></pv-inputText>
           <div class="subtitle-text">{{ $t('posts.price') }}</div>

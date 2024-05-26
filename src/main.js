@@ -10,6 +10,7 @@ import Card from 'primevue/card';
 import InputText from "primevue/inputtext";
 import Button from 'primevue/button';
 import Sidebar from "primevue/sidebar";
+import Checkbox from "primevue/checkbox";
 import i18n from './locale/i18n';
 import 'primeicons/primeicons.css'
 
@@ -23,5 +24,6 @@ app.component('pv-card',Card);
 app.component('pv-inputText',InputText);
 app.component('pv-sidebar',Sidebar);
 app.component('pv-button',Button);
+app.component('pv-checkbox',Checkbox);
 
 app.mount('#app');
