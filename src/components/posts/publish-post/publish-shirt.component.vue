@@ -5,9 +5,11 @@ import {PostsApiService} from "@/services/posts-api.service.js";
 import { useRoute } from 'vue-router';
 import {CategoryApiService} from "@/services/category-api.service.js";
 import {ColorApiService} from "@/services/color-api.service.js";
+import {SizeApiService} from "@/services/size-api.service.js";
 
 const categoryService = new CategoryApiService();
 const colorService = new ColorApiService();
+const sizeService = new SizeApiService();
 const selectedCategory = ref("Any");
 const selectedColor = ref("Any");
 const postservice = new PostsApiService();
@@ -30,6 +32,10 @@ const categories = ref([
 const colors = ref([
   {"id": 99, "name": "Any"}
 ]);
+
+const sizes = ref([
+  {"id": 99, "name": "Any"}
+]);
 const addPublish = async () =>{
   await postservice.publishPost(postInformation.value);
 }
@@ -40,6 +46,11 @@ const fetchCategoryData = async () => {
 const fetchColorData = async () => {
   let fetchedColors = await colorService.getColors();
   colors.value = [...colors.value, ...fetchedColors];
+}
+
+const fetchSizeData = async () => {
+  let fetchedSizes = await sizeService.getSizes();
+  sizes.value = [...sizes.value, ...fetchedSizes];
 }
 const isValidImageURL = (url) => {
   return url.match(/\.(jpeg|jpg|png)$/i) != null;
@@ -59,6 +70,7 @@ watch(() => postInformation.value.image, validateImageUrl);
 onMounted(async () => {
   fetchCategoryData();
   fetchColorData();
+  fetchSizeData();
 })
 </script>
 
@@ -71,7 +83,7 @@ onMounted(async () => {
           <div class="subtitle-text">{{ $t('posts.name') }}</div>
           <pv-inputText class="info-container" v-model="postInformation.name"></pv-inputText>
           <div class="subtitle-text">{{ $t('posts.color') }}</div>
-          <select v-model="selectedColor" id="color-input">
+          <select v-model="postInformation.posts" id="color-input">
             <option
                 v-for="color in colors"
                 :value="color.name"
@@ -80,7 +92,7 @@ onMounted(async () => {
             </option>
           </select>
           <div class="subtitle-text">{{ $t('posts.category') }} </div>
-          <select v-model="selectedCategory" id="category-input">
+          <select v-model="postInformation.category" id="category-input">
             <option
                 v-for="category in categories"
                 :value="category.name"
@@ -91,7 +103,14 @@ onMounted(async () => {
           <div class="subtitle-text">{{ $t('posts.quantity') }}</div>
           <pv-inputText type="number" class="info-container"  v-model="postInformation.stock"></pv-inputText>
           <div class="subtitle-text">{{ $t('posts.sizes') }}</div>
-          <pv-inputText class="info-container"  v-model="postInformation.sizes"></pv-inputText>
+          <select v-model="postInformation.sizes" id="category-input">
+            <option
+                v-for="size in sizes"
+                :value="size.name"
+                :key="size.id">
+              {{ size.name }}
+            </option>
+          </select>
           <div class="subtitle-text">{{ $t('posts.image') }}</div>
           <pv-inputText class="info-container" v-model="postInformation.image" @input="validateImageUrl"></pv-inputText>
           <div class="subtitle-text">{{ $t('posts.price') }}</div>

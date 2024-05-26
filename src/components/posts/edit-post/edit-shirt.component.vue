@@ -91,7 +91,7 @@ onMounted(async () => {
           <div class="subtitle-text">{{ $t('posts.name') }}</div>
           <pv-inputText class="info-container" v-model="postInformation.name"></pv-inputText>
           <div class="subtitle-text">{{ $t('posts.color') }}</div>
-          <select v-model="selectedColor" id="color-input">
+          <select v-model="postInformation.posts" id="color-input">
             <option
                 v-for="color in colors"
                 :value="color.name"
@@ -100,7 +100,7 @@ onMounted(async () => {
             </option>
           </select>
           <div class="subtitle-text">{{ $t('posts.category') }} </div>
-          <select v-model="selectedCategory" id="category-input">
+          <select v-model="postInformation.category" id="category-input">
             <option
                 v-for="category in categories"
                 :value="category.name"
@@ -111,7 +111,7 @@ onMounted(async () => {
           <div class="subtitle-text">{{ $t('posts.quantity') }}</div>
           <pv-inputText type="number" class="info-container" v-model="postInformation.stock"></pv-inputText>
           <div class="subtitle-text">{{ $t('posts.sizes') }}</div>
-          <select v-model="selectedSizes" id="category-input">
+          <select v-model="postInformation.sizes" id="category-input">
             <option
                 v-for="size in sizes"
                 :value="size.name"

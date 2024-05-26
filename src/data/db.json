@@ -297,23 +297,26 @@
     {
       "id": "8fc6",
       "image": "https://images.wikidexcdn.net/mwuploads/esssbwiki/thumb/9/95/latest/20220817125116/Kirby_en_Kirby_y_la_tierra_olvidada.png/1200px-Kirby_en_Kirby_y_la_tierra_olvidada.png",
-      "category": "",
+      "category": "Football",
       "color": "",
       "name": "Kirby",
       "stock": "4",
       "size": "",
       "price": "200",
-      "sizes": "S,XL,M,L"
+      "sizes": "S",
+      "posts": "Red"
     },
     {
-      "id": "14c5",
+      "id": "3bc5",
       "image": "/images/shirts/camiseta_1.png",
-      "category": "",
-      "color": "",
-      "name": "",
+      "category": "Volleyball",
+      "color": "Yellow",
+      "name": "diseño prueba",
       "stock": 0,
       "size": "",
-      "price": 0
+      "price": 0,
+      "sizes": "L",
+      "posts": "Yellow"
     }
   ],
   "color": [
