@@ -221,7 +221,7 @@
       "color": "Green",
       "secundario": "Green",
       "terciario": "White",
-      "escudo": "AC Milan"
+      "escudo": "Bayern Munich"
     },
     {
       "id": "3159",
@@ -243,26 +243,24 @@
       "styles": "Deportivo Manga Corta",
       "stock": "8",
       "sizes": [
-        "S",
         "M",
-        "L"
+        "XL"
       ],
       "price": "321312"
     },
     {
       "id": "2",
       "image": "/images/shirts/camiseta_2.png",
-      "category": "Basketball",
+      "category": "Football",
       "color": "Blue",
-      "name": "Polo azul con franjas negras",
+      "name": "Polo Francia",
       "styles": "Deportivo Manga Corta",
-      "stock": 3,
+      "stock": "12",
       "sizes": [
         "X",
-        "XL",
         "M"
       ],
-      "price": 150
+      "price": "150"
     },
     {
       "id": "3",
@@ -295,18 +293,6 @@
       "price": "101"
     },
     {
-      "id": "8fc6",
-      "image": "https://images.wikidexcdn.net/mwuploads/esssbwiki/thumb/9/95/latest/20220817125116/Kirby_en_Kirby_y_la_tierra_olvidada.png/1200px-Kirby_en_Kirby_y_la_tierra_olvidada.png",
-      "category": "Football",
-      "color": "",
-      "name": "Kirby",
-      "stock": "4",
-      "size": "",
-      "price": "200",
-      "sizes": "S",
-      "posts": "Red"
-    },
-    {
       "id": "3bc5",
       "image": "/images/shirts/camiseta_1.png",
       "category": "Volleyball",
@@ -317,6 +303,33 @@
       "price": 0,
       "sizes": "L",
       "posts": "Yellow"
+    },
+    {
+      "id": "3440",
+      "image": "https://static.nike.com/a/images/t_default/5d620a0d-3c9d-42c3-8eeb-ec3c6a0a8d79/richarlison-tottenham-hotspur-2023-24-stadium-third-mens-dri-fit-soccer-jersey-wS35T4.png",
+      "category": "Football",
+      "color": "Purple",
+      "name": "Test 1",
+      "stock": "10",
+      "sizes": [
+        "S",
+        "XL",
+        "M"
+      ],
+      "price": "99.5"
+    },
+    {
+      "id": "a0a6",
+      "image": "https://texsamex.pe/wp-content/uploads/2021/11/41.png",
+      "category": "Volleyball",
+      "color": "Yellow",
+      "name": "Test 2",
+      "stock": "50",
+      "sizes": [
+        "S",
+        "XL"
+      ],
+      "price": "99.60"
     }
   ],
   "color": [
@@ -409,5 +422,16 @@
       "name": "Borussia Dortmund"
     }
   ],
-  "cart": []
+  "cart": [
+    {
+      "id": "bd8a",
+      "name": "Camiseta 3",
+      "image": "/images/shirts/camiseta_3.png",
+      "category": "Football",
+      "color": "Green",
+      "quantity": 2,
+      "size": "S",
+      "price": 69
+    }
+  ]
 }
