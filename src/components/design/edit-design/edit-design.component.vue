@@ -1,5 +1,5 @@
 <script setup>
-import {onBeforeMount, onMounted, ref} from "vue";
+import {onBeforeMount, onMounted, ref, computed} from "vue";
 import {DesignsApiService} from "@/services/designs-api.service.js";
 import {useRoute} from "vue-router";
 import {ColorApiService} from "@/services/color-api.service.js";
@@ -7,19 +7,31 @@ import {ShieldApiService} from "@/services/shield-api.service.js";
 
 const route = useRoute();
 
-let designInformation = ref({});
 const colorService = new ColorApiService();
 const designsService = new DesignsApiService();
 const shieldService = new ShieldApiService();
-const fetchDesignData = async () => {
-  designInformation.value = await designsService.getDesignbyid(route.params.id);
 
-}
+let designInformation = ref({
+  "name": "",
+  "image": "",
+  "color": "",
+  "secundario": "",
+  "terciario": "",
+  "escudo": ""
+});
+const colors = ref([]);
+const shields = ref([]);
+
 const editDesign = async () => {
   await designsService.editDesign(designInformation.value);
 }
 const deleteItemDesign = async () => {
   await designsService.deleteDesign(designInformation.value.id);
+}
+
+const fetchDesignData = async () => {
+  designInformation.value = await designsService.getDesignbyid(route.params.id);
+
 }
 const fetchColorData = async () => {
   let fetchedColors = await colorService.getColors();
@@ -29,10 +41,30 @@ const fetchShieldData = async () => {
   let fetchedShields = await shieldService.getShield();
   shields.value = [...shields.value, ...fetchedShields];
 }
-const colors = ref([
-]);
-const shields = ref([
-]);
+
+const areCorrectAllInputs = computed(() => {
+  if (designInformation.value.name === "") {
+    return false;
+  }
+
+  if (designInformation.value.color === "") {
+    return false;
+  }
+
+  if (designInformation.value.secundario === "") {
+    return false;
+  }
+
+  if (designInformation.value.terciario === "") {
+    return false;
+  }
+
+  if (designInformation.value.escudo === "") {
+    return false;
+  }
+  
+  return true
+})
 
 onMounted(async () => {
   fetchColorData();
@@ -49,10 +81,13 @@ onBeforeMount(()=>{
     <template #content>
       <div class="form-container">
         <div class="title-text">{{ $t('designs.edit') }}</div>
-        <img :src="designInformation.image" class="image-container">
-        <div>
+        
+        <img :src="designInformation.image" class="image-container"/>
+        
+        <div class="inputs-container">
           <div class="subtitle-text">{{ $t('designs.name') }}</div>
           <pv-inputText class="info-container" v-model="designInformation.name"></pv-inputText>
+          
           <div class="subtitle-text">{{ $t('designs.fColor') }} </div>
           <select v-model="designInformation.color" id="color-input">
             <option
@@ -62,6 +97,7 @@ onBeforeMount(()=>{
               {{ color.name }}
             </option>
           </select>
+          
           <div class="subtitle-text">{{ $t('designs.sColor') }}</div>
           <select v-model="designInformation.secundario" id="color-input">
             <option
@@ -71,6 +107,7 @@ onBeforeMount(()=>{
               {{ color.name }}
             </option>
           </select>
+          
           <div class="subtitle-text">{{ $t('designs.tColor') }}</div>
           <select v-model="designInformation.terciario" id="color-input">
             <option
@@ -80,6 +117,7 @@ onBeforeMount(()=>{
               {{ color.name }}
             </option>
           </select>
+          
           <div class="subtitle-text">{{ $t('designs.shield') }}</div>
           <select v-model="designInformation.escudo" id="color-input">
             <option
@@ -92,8 +130,16 @@ onBeforeMount(()=>{
         </div>
       </div>
       <div class="button-container">
-        <router-link to="/my-design">
-          <pv-button class="button-style" @click="editDesign" aria-label="Apply changes">{{ $t('designs.confirmButton') }}</pv-button>
+        <router-link 
+          :to="areCorrectAllInputs ? `/my-design` : ``"
+          aria-label="Edit design">
+          <pv-button 
+            class="button-style" 
+            aria-label="Apply changes"
+            :disabled="!areCorrectAllInputs"
+            @click="editDesign">
+              {{ $t('designs.confirmButton') }}
+            </pv-button>
         </router-link>
         <router-link to="/my-design">
           <pv-button class="button-style" aria-label="Cancel changes">{{ $t('designs.cancelButton') }}</pv-button>
@@ -143,7 +189,13 @@ onBeforeMount(()=>{
   background-color: #4D94FF;
   color: #E5E5E5;
 }
-
+.inputs-container {
+  width: 50%;
+  min-width: 300px;
+  display: flex;
+  flex-direction: column;
+  gap: .4em;
+}
 .title-text {
   font-size: 2.8em;
   font-weight: 600;
@@ -159,9 +211,7 @@ onBeforeMount(()=>{
 .info-container {
   border-radius: 4px;
   background-color: #ffffff;
-  height: 20px;
-  width: 250px;
-  margin-bottom: 8px;
+  width: 100%;
 }
 .subitem-container{
   background-color: #cacaca;
@@ -174,8 +224,8 @@ onBeforeMount(()=>{
 }
 
 .image-container{
-  height: 140px;
-  width: 150px;
+  height: 220px;
+  object-fit: contain;
   margin: 5px;
 }
 
@@ -187,5 +237,9 @@ onBeforeMount(()=>{
   flex-wrap: wrap;
   justify-content: center;
   align-items: center;
+}
+select {
+  border-radius: 4px;
+  padding: .8em;
 }
 </style>

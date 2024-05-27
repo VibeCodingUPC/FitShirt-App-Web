@@ -75,7 +75,7 @@
       </div>
       
       <div class="shirt-detail">
-        <h2 aria-describedby="Jersey stock"><b>{{ $t('catalogueDesc.stock') }}:</b> {{ shirtInformation["stock"] }} availables</h2>
+        <h2 aria-describedby="Jersey stock"><b>{{ $t('catalogueDesc.stock') }}:</b> {{ shirtInformation["stock"] }} {{ $t('catalogueDesc.availables') }}</h2>
       </div>
 
       <div class="shirt-detail" id="quantity-detail">
