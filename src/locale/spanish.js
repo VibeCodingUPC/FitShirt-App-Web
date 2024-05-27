@@ -56,6 +56,7 @@ const es = {
     sizes: "Tallas disponibles",
     color: "Color",
     stock: "En stock",
+    availables: "disponibles",
     quantity: "Cantidad",
     cart: "Añadir al carrito",
     sold: "Venta hecha por",

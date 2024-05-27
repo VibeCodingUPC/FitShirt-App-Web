@@ -55,6 +55,7 @@ const en = {
     sizes: "Available sizes",
     color: "Color",
     stock: "Stock",
+    availables: "availables",
     quantity: "Quantity to buy",
     cart: "Add to cart",
     sold: "Sold by",
