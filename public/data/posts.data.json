@@ -2,8 +2,8 @@
   {
     "id": "1",
     "image": "/images/shirts/camiseta_1.png",
-    "category": "Football",
-    "color": "Red",
+    "category": "",
+    "color": "",
     "name": "Polo rojo con franjas rojas",
     "stock": 2,
     "sizes": ["S", "M", "L"],
@@ -12,8 +12,8 @@
   {
     "id": "2",
     "image": "/images/shirts/camiseta_2.png",
-    "category": "Basketball",
-    "color": "Blue",
+    "category": "",
+    "color": "",
     "name": "Polo azul con franjas negras",
     "stock": 3,
     "sizes": ["X", "XL", "M"],
@@ -22,8 +22,8 @@
   {
     "id": "3",
     "image": "/images/shirts/camiseta_3.png",
-    "category": "Volleyball",
-    "color": "Green",
+    "category": "",
+    "color": "",
     "name": "Polo verde",
     "stock": 5,
     "sizes": ["S", "XL", "M"],
@@ -32,8 +32,8 @@
   {
     "id": "4",
     "image": "/images/shirts/camiseta_4.png",
-    "category": "Football",
-    "color": "Black",
+    "category": "",
+    "color": "",
     "name": "Polo negro con diseño",
     "stock": 10,
     "sizes": ["S", "M", "L"],

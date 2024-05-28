@@ -1,9 +1,10 @@
 <script setup>
+  import UserLogin from './user-login.component.vue';
 </script>
 
 <template>
-  <router-view>
-  </router-view>
+  <user-login/>
+
 </template>
 
 <style scoped>
