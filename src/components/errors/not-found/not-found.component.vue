@@ -15,7 +15,7 @@ export default {
 </script>
 
 <template>
-  <div class="container">
+  <div class="container" aria-label="Error window if user types a non-existent url">
     <h1>Error 404</h1>
     <h2>La dirección solicitada, {{ url }}, no fue encontrada</h2>
     <router-link to="/login" tag="button" class="router-button">

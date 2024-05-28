@@ -9,59 +9,61 @@ const categories = ref([
   {"id": 99,"name": "Any"}
 ]);
 
+
 const selectedColor = ref("Any");
 const colors = ref([
-  {"id": 99, "name": "Any"},
-  {"name": "Red"},
-  {"name": "Yellow"},
-  {"name": "Purple"},
-  {"name": "Gray"},
-  {"name": "White"},
-  {"name": "Black"},
-  {"name": "Green"},
-  {"name": "Blue"}
+  { "id": 99, "name": "Any" },
+  { "name": "Red" },
+  { "name": "Yellow" },
+  { "name": "Purple" },
+  { "name": "Gray" },
+  { "name": "White" },
+  { "name": "Black" },
+  { "name": "Green" },
+  { "name": "Blue" }
 ]);
 
-  const fetchCategoryData = async () => {
-    let fetchedCategories = await categoryService.getCategories();
-    categories.value = [...categories.value, ...fetchedCategories];
-  }
+const fetchCategoryData = async () => {
+  let fetchedCategories = await categoryService.getCategories();
+  categories.value = [...categories.value, ...fetchedCategories];
+}
 
-  onMounted(async () => {
-    fetchCategoryData();
-  })
-
+onMounted(async () => {
+  fetchCategoryData();
+})
 </script>
 
 <template>
   <div class="filter-container" aria-describedby="Browser filters">
     <form class="filter-form">
       <div class="input-container" aria-describedby="Category filter">
-        <label for="category-input">  
-          Category: 
+        <label for="category-input">
+          {{ $t('catalogue.category') }}:
         </label>
         <select v-model="selectedCategory" id="category-input">
-          <option 
-            v-for="category in categories" 
-            :value="category.name" 
-            :key="category.id">
+          <option
+              v-for="category in categories"
+              :value="category.name"
+              :key="category.id">
             {{ category.name }}
           </option>
         </select>
       </div>
       <div class="input-container" aria-describedby="Color filter">
-        <label for="color-input">Color: </label>
+        <label for="color-input">
+          {{ $t('catalogue.color') }}:
+        </label>
         <select v-model="selectedColor" id="color-input">
-          <option 
-            v-for="color in colors" 
-            :value="color.name" 
-            :key="color.id">
-            {{ color.name }}
+          <option
+              v-for="color in colors"
+              :value="color.name"
+              :key="color.id || color.name">
+            {{ $t('catalogue.color' + color.name.charAt(0).toUpperCase() + color.name.slice(1)) }}
           </option>
         </select>
       </div>
       <button class="form-button" aria-label="Apply filters">
-        Filter
+        {{ $t('catalogue.filterButton') }}
       </button>
     </form>
   </div>

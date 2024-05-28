@@ -1,4 +1,5 @@
 <script setup>
+import {useI18n} from "vue-i18n";
 import { ref } from 'vue';
   let userLogin = ref({
     username: "",
@@ -17,43 +18,55 @@ import { ref } from 'vue';
 
     return true;
   }
+
+const i18nLocale = useI18n();
+const changeLanguage = () => {
+  if (i18nLocale.locale.value == 'en') {
+    i18nLocale.locale.value='es'
+  }
+  else {
+    i18nLocale.locale.value='en'
+  }
+}
+
+
 </script>
 
 <template>
+
   <div class="card-container">
     <div>
       <img src="/images/LogoFitShirt.png" alt="profile-Image" class="img-container">
       <div class="description-container">
-        <p class="app-description">
-          Esperamos que disfrute navegando y usando nuestra aplicación.
-          En nuestro equipo de desarrollo trabajamos arduamente para crear
-          una plataforma fácil de usar y atractiva para nuestros usuarios.
-          Esperamos que esta aplicación cumpla con todas sus expectativas
-          y necesidades. Si tiene algún comentario o sugerencia sobre cómo
-          podemos mejorar nuestra aplicación para hacerla aún más útil,
-          por favor no dude en hacérnoslo saber.
-        </p>
+        <p class="app-description"> {{ $t('login.description') }}</p>
       </div>
     </div>
     <div class ="login-card">
-      <p class="title-container">Iniciar Sesión</p>
-      <p class="cwhite">Username</p>
-      <pv-inputText class="mb10" type="text" v-model="userLogin.username" />
-      <p class="cwhite">Contraseña</p>
-      <pv-inputText class="mb10" type="password" v-model="userLogin.password" />
+      <p class="title-container">{{ $t('login.title') }}</p>
+      <p class="cwhite">{{ $t('login.user') }}</p>
+      <pv-inputText class="mb10" type="text" v-model="userLogin.username" aria-label="Enter a username" />
+      <p class="cwhite">{{ $t('login.password') }}</p>
+      <pv-inputText class="mb10" type="password" v-model="userLogin.password" aria-label="Enter a password"/>
       <router-link to="/catalogue">
-        <pv-button label="Login" severity="info" class="button-container"/>
+        <pv-button :label="$t('login.button')" severity="info" class="button-container" />
       </router-link>
-      <p class="cwhite mb100 tac">¿Olvidó su contraseña?</p>
+      <p class="cwhite mb100 tac">{{ $t('login.forgotPassword') }}</p>
       <hr class="line-container" />
       <p class="cwhite mb10 tac register">
-        ¿Nuevo en Fit Shirt?
+        {{ $t('login.newmsg') }}
         <router-link to="/register">
-          Regístrate
+          {{ $t('login.signup') }}
         </router-link>
       </p>
+      <div class="changelanguage">
+        <pv-button @click="changeLanguage" class="language-button">
+          <i class="pi pi-globe"></i>
+          {{ i18nLocale.locale.value }}
+        </pv-button>
+      </div>
     </div>
   </div>
+
 </template>
 
 <style scoped>
@@ -134,5 +147,22 @@ import { ref } from 'vue';
 }
 .register:hover {
   text-decoration: underline;
+}
+.changelanguage {
+  display: flex;
+  justify-content: center;
+  margin-top: 20px;
+}
+
+.language-button {
+  background-color: #4d94ff;
+  color: white;
+  padding: 10px 20px;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.language-button .pi-globe {
+  margin-right: 5px;
 }
 </style>

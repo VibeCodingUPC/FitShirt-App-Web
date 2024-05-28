@@ -5,19 +5,19 @@
   <pv-card class="card-container">
     <template #content>
       <div class="form-container">
-        <div class="title-text">Editar Contraseña</div>
+        <div class="title-text">{{ $t('editProfile.titleP') }}</div>
         <div>
-          <div class="subtitle-text">Contraseña Antigua</div>
+          <div class="subtitle-text">{{ $t('editProfile.oldPass') }}</div>
           <pv-inputText class="info-container"></pv-inputText>
-          <div class="subtitle-text">Contraseña Nueva</div>
+          <div class="subtitle-text">{{ $t('editProfile.newPass') }}</div>
           <pv-inputText class="info-container"></pv-inputText>
-          <div class="subtitle-text">Repetir nueva Contraseña </div>
+          <div class="subtitle-text">{{ $t('editProfile.confirmP') }} </div>
           <pv-inputText class="info-container"></pv-inputText>
         </div>
       </div>
       <div class="button-container">
-        <router-link to="/profile"><pv-button class="button-style">Cancelar</pv-button></router-link>
-        <router-link to="/profile"><pv-button class="button-style">Confirmar</pv-button></router-link>
+        <router-link to="/profile"><pv-button class="button-style" aria-label="Cancel changes">{{ $t('editProfile.cancelButton') }}</pv-button></router-link>
+        <router-link to="/profile"><pv-button class="button-style" aria-label="Confirm changes">{{ $t('editProfile.continueButton') }}</pv-button></router-link>
 
 
       </div>

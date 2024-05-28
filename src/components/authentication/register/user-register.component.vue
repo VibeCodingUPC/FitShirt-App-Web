@@ -1,6 +1,6 @@
 <script setup>
 import { ref } from 'vue';
-
+import {useI18n} from "vue-i18n";
   let userRegistration = ref({
     username: "",
     password: "",
@@ -35,6 +35,18 @@ import { ref } from 'vue';
 
     return true;
   }
+
+const i18nLocale = useI18n();
+const changeLanguage = () => {
+  if (i18nLocale.locale.value == 'en') {
+    i18nLocale.locale.value='es'
+  }
+  else {
+    i18nLocale.locale.value='en'
+  }
+}
+
+
 </script>
 
 <template>
@@ -42,36 +54,36 @@ import { ref } from 'vue';
     <div>
       <img src="/images/LogoFitShirt.png" alt="profile-Image" class="img-container">
       <div class="description-container">
-        <p class="app-description">
-          Esperamos que disfrute navegando y usando nuestra aplicación.
-          En nuestro equipo de desarrollo trabajamos arduamente para crear
-          una plataforma fácil de usar y atractiva para nuestros usuarios.
-          Esperamos que esta aplicación cumpla con todas sus expectativas
-          y necesidades. Si tiene algún comentario o sugerencia sobre cómo
-          podemos mejorar nuestra aplicación para hacerla aún más útil,
-          por favor no dude en hacérnoslo saber.
-        </p>
+        <p class="app-description"> {{ $t('login.description') }}</p>
       </div>
     </div>
     <div class ="register-card">
-      <p class="title-container">Registrate</p>
-      <p class="cwhite">Username</p>
-      <pv-inputText class="mb10" type="text" v-model="userRegistration.username" />
-      <p class="cwhite">Contraseña</p>
-      <pv-inputText class="mb10" type="password" v-model="userRegistration.password" />
-      <p class="cwhite">Confirmar Contraseña</p>
-      <pv-inputText class="mb10" type="password" v-model="userRegistration.confirmPassword" />
-      <p class="cwhite">Correo</p>
-      <pv-inputText class="mb10" type="text" v-model="userRegistration.email" />
-      <p class="cwhite">Celular</p>
-      <pv-inputText class="mb10" type="text" v-model="userRegistration.cellphone" />
-      
+      <p class="title-container">{{ $t('register.title') }}</p>
+      <p class="cwhite">{{ $t('register.user') }}</p>
+      <pv-inputText class="mb10" type="text" v-model="userRegistration.username" aria-label="Enter a username" />
+      <p class="cwhite">{{ $t('register.password') }}</p>
+      <pv-inputText class="mb10" type="password" v-model="userRegistration.password" aria-label="Enter a password" />
+      <p class="cwhite">{{ $t('register.confirmP') }}</p>
+      <pv-inputText class="mb10" type="password" v-model="userRegistration.confirmPassword" aria-label="Confirm the password"/>
+      <p class="cwhite">{{ $t('register.email') }}</p>
+      <pv-inputText class="mb10" type="text" v-model="userRegistration.email" aria-label="Enter a email" />
+      <p class="cwhite">{{ $t('register.phone') }}</p>
+      <pv-inputText class="mb10" type="text" v-model="userRegistration.cellphone" aria-label="Enter a phone" />
+
       <router-link to="/catalogue">
-        <pv-button @click="" label="Registrate" severity="info" class="button-container"/>
+        <pv-button :label="$t('register.button')" severity="info" class="button-container" />
       </router-link>
 
-      <p class="cwhite login">¿Ya tienes cuenta? <router-link to="/login">Inicia sesión</router-link></p>
+      <p class="cwhite login">{{ $t('register.oldmsg') }} <router-link to="/login">{{ $t('register.signin') }}</router-link>
+      </p>
+      <div class="changelanguage">
+        <pv-button @click="changeLanguage" class="language-button">
+          <i class="pi pi-globe"></i>
+          {{ i18nLocale.locale.value }}
+        </pv-button>
+      </div>
     </div>
+
   </div>
 </template>
 
@@ -147,5 +159,21 @@ import { ref } from 'vue';
 .mb10{
   margin-bottom: 10px;
 }
+.changelanguage {
+  display: flex;
+  justify-content: center;
+  margin-top: 20px;
+}
 
+.language-button {
+  background-color: #4d94ff;
+  color: white;
+  padding: 10px 20px;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.language-button .pi-globe {
+  margin-right: 5px;
+}
 </style>
