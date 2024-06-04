@@ -330,6 +330,18 @@
         "XL"
       ],
       "price": "99.60"
+    },
+    {
+      "id": "adc7",
+      "image": "https://texsamex.pe/wp-content/uploads/2021/11/41.png",
+      "category": "Volleyball",
+      "color": "Yellow",
+      "name": "fsd",
+      "stock": "12",
+      "sizes": [
+        "S"
+      ],
+      "price": "421"
     }
   ],
   "color": [
@@ -432,6 +444,22 @@
       "quantity": 2,
       "size": "S",
       "price": 69
+    }
+  ],
+  "user": [
+    {
+      "id": "f7c1",
+      "username": "Daniel",
+      "password": "12345678910a",
+      "email": "Daniel-741@hotmail.com",
+      "cellphone": "921986376"
+    },
+    {
+      "id": "adc3",
+      "username": "pedro08",
+      "password": "12345678910a",
+      "email": "Daniel-741@hotmail.com",
+      "cellphone": "921986376"
     }
   ]
 }

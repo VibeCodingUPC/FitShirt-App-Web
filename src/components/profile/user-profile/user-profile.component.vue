@@ -1,4 +1,30 @@
 <script setup>
+/*import { UserApiService } from "@/services/user-api.service.js";
+import { onMounted, ref } from "vue";
+import { useRoute } from 'vue-router';
+
+const userService = new UserApiService();
+const route = useRoute();
+
+const id = route.params.id;
+const user = ref({});
+
+const fetchUserData = async () => {
+  try {
+      const userData = await userService.getUserById(id);
+      console.log('userData:', userData);
+      user.value.name = userData.name;
+      user.value.email = userData.email;
+      user.value.numC = userData.numC;
+      user.value.address = userData.address;
+  } catch (error) {
+    console.error('Error fetching user data:', error);
+  }
+};
+
+onMounted(async () => {
+  fetchUserData();
+});*/
 </script>
 
 <template>

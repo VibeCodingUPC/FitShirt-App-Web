@@ -1,42 +1,81 @@
 <script setup>
 import { ref } from 'vue';
-import {useI18n} from "vue-i18n";
-  let userRegistration = ref({
-    username: "",
-    password: "",
-    confirmPassword: "",
-    email: "",
-    cellphone: ""
-  })
+import { useI18n } from "vue-i18n";
+import { useRouter } from 'vue-router';
+import { UserApiService } from '@/services/user-api.service.js';
 
-  const validateRegistration = () => {
-    let reEmail = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+const userService = new UserApiService();
+const router = useRouter();
+const i18nLocale = useI18n();
 
-    if (userRegistration.value.username.length < 6) {
-      return false;
-    }
+let userRegistration = ref({
+  username: "",
+  password: "",
+  confirmPassword: "",
+  email: "",
+  cellphone: ""
+});
 
-    if (userRegistration.value.password.length < 8) {
-      return false;
-    }
+let registrationError = ref("");
 
-    
-    if (userRegistration.value.password !== userRegistration.value.confirmPassword) {
-      return false;
-    }
-    
-    if (!reEmail.test(userRegistration.value.email)) {
-      return false;
-    }
+const validateRegistration = () => {
+  const reEmail = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
-    if (userRegistration.value.cellphone.length!==9) {
-      return false;
-    }
-
-    return true;
+  if (userRegistration.value.username.length < 6) {
+    registrationError.value = "Username must be at least 6 characters long";
+    return false;
   }
 
-const i18nLocale = useI18n();
+  if (userRegistration.value.password.length < 8) {
+    registrationError.value = "Password must be at least 8 characters long";
+    return false;
+  }
+
+  if (userRegistration.value.password !== userRegistration.value.confirmPassword) {
+    registrationError.value = "Passwords do not match";
+    return false;
+  }
+
+  if (!reEmail.test(userRegistration.value.email)) {
+    registrationError.value = "Invalid email format";
+    return false;
+  }
+
+  if (userRegistration.value.cellphone.length !== 9) {
+    registrationError.value = "Cellphone must be 9 digits long";
+    return false;
+  }
+
+  registrationError.value = "";
+  return true;
+};
+
+const registerUser = async () => {
+  if (!validateRegistration()) {
+    return;
+  }
+
+  try {
+    const users = await userService.getUsers();
+    const userExists = users.find(user => user.username === userRegistration.value.username);
+
+    if (userExists) {
+      registrationError.value = "User already exists";
+    } else {
+      await userService.createUser({
+        username: userRegistration.value.username,
+        password: userRegistration.value.password,
+        email: userRegistration.value.email,
+        cellphone: userRegistration.value.cellphone
+      });
+      alert('Registration successful');
+      await router.push('/login');
+    }
+  } catch (error) {
+    registrationError.value = "Error registering user";
+  }
+};
+
 const changeLanguage = () => {
   if (i18nLocale.locale.value == 'en') {
     i18nLocale.locale.value='es'
@@ -45,37 +84,31 @@ const changeLanguage = () => {
     i18nLocale.locale.value='en'
   }
 }
-
-
 </script>
 
 <template>
   <div class="card-container">
     <div>
-      <img src="/images/LogoFitShirt.png" alt="profile-Image" class="img-container">
+      <img src="/images/LogoFitShirt.png" alt="profile-Image" class="img-container" />
       <div class="description-container">
-        <p class="app-description"> {{ $t('login.description') }}</p>
+        <p class="app-description">{{ $t('login.description') }}</p>
       </div>
     </div>
-    <div class ="register-card">
+    <div class="register-card">
       <p class="title-container">{{ $t('register.title') }}</p>
       <p class="cwhite">{{ $t('register.user') }}</p>
       <pv-inputText class="mb10" type="text" v-model="userRegistration.username" aria-label="Enter a username" />
       <p class="cwhite">{{ $t('register.password') }}</p>
       <pv-inputText class="mb10" type="password" v-model="userRegistration.password" aria-label="Enter a password" />
       <p class="cwhite">{{ $t('register.confirmP') }}</p>
-      <pv-inputText class="mb10" type="password" v-model="userRegistration.confirmPassword" aria-label="Confirm the password"/>
+      <pv-inputText class="mb10" type="password" v-model="userRegistration.confirmPassword" aria-label="Confirm the password" />
       <p class="cwhite">{{ $t('register.email') }}</p>
-      <pv-inputText class="mb10" type="text" v-model="userRegistration.email" aria-label="Enter a email" />
+      <pv-inputText class="mb10" type="text" v-model="userRegistration.email" aria-label="Enter an email" />
       <p class="cwhite">{{ $t('register.phone') }}</p>
       <pv-inputText class="mb10" type="text" v-model="userRegistration.cellphone" aria-label="Enter a phone" />
-
-      <router-link to="/catalogue">
-        <pv-button :label="$t('register.button')" severity="info" class="button-container" />
-      </router-link>
-
-      <p class="cwhite login">{{ $t('register.oldmsg') }} <router-link to="/login">{{ $t('register.signin') }}</router-link>
-      </p>
+      <pv-button @click="registerUser" :label="$t('register.button')" severity="info" class="button-container" />
+      <p class="cwhite mb100 tac">{{ registrationError }}</p>
+      <p class="cwhite login">{{ $t('register.oldmsg') }} <router-link to="/login">{{ $t('register.signin') }}</router-link></p>
       <div class="changelanguage">
         <pv-button @click="changeLanguage" class="language-button">
           <i class="pi pi-globe"></i>
@@ -83,7 +116,6 @@ const changeLanguage = () => {
         </pv-button>
       </div>
     </div>
-
   </div>
 </template>
 
