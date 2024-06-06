@@ -2,9 +2,7 @@
 import { ref } from 'vue';
 import { useI18n } from "vue-i18n";
 import { useRouter } from 'vue-router';
-import { UserApiService } from '@/services/user-api.service.js';
 
-const userService = new UserApiService();
 const router = useRouter();
 const i18nLocale = useI18n();
 
@@ -56,18 +54,19 @@ const registerUser = async () => {
   }
 
   try {
-    const users = await userService.getUsers();
+    let users = JSON.parse(localStorage.getItem('users')) || [];
     const userExists = users.find(user => user.username === userRegistration.value.username);
 
     if (userExists) {
       registrationError.value = "User already exists";
     } else {
-      await userService.createUser({
+      users.push({
         username: userRegistration.value.username,
         password: userRegistration.value.password,
         email: userRegistration.value.email,
         cellphone: userRegistration.value.cellphone
       });
+      localStorage.setItem('users', JSON.stringify(users));
       alert('Registration successful');
       await router.push('/login');
     }
@@ -78,12 +77,11 @@ const registerUser = async () => {
 
 const changeLanguage = () => {
   if (i18nLocale.locale.value == 'en') {
-    i18nLocale.locale.value='es'
+    i18nLocale.locale.value = 'es';
+  } else {
+    i18nLocale.locale.value = 'en';
   }
-  else {
-    i18nLocale.locale.value='en'
-  }
-}
+};
 </script>
 
 <template>

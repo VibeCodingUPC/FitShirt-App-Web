@@ -2,9 +2,7 @@
 import { useI18n } from "vue-i18n";
 import { ref } from 'vue';
 import { useRouter } from 'vue-router';
-import {UserApiService} from "@/services/user-api.service.js";
 
-const userService = new UserApiService();
 const router = useRouter();
 const i18nLocale = useI18n();
 
@@ -26,7 +24,7 @@ const loginUser = async () => {
   }
 
   try {
-    const users = await userService.getUsers();
+    const users = JSON.parse(localStorage.getItem('users')) || [];
     const user = users.find(user => user.username === userLogin.value.username && user.password === userLogin.value.password);
 
     if (user) {
@@ -42,14 +40,11 @@ const loginUser = async () => {
 
 const changeLanguage = () => {
   if (i18nLocale.locale.value == 'en') {
-    i18nLocale.locale.value='es'
+    i18nLocale.locale.value = 'es';
+  } else {
+    i18nLocale.locale.value = 'en';
   }
-  else {
-    i18nLocale.locale.value='en'
-  }
-}
-
-
+};
 </script>
 
 <template>

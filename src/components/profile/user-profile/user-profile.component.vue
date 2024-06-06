@@ -1,67 +1,60 @@
 <script setup>
-/*import { UserApiService } from "@/services/user-api.service.js";
-import { onMounted, ref } from "vue";
-import { useRoute } from 'vue-router';
+import { ref, onMounted } from 'vue';
 
-const userService = new UserApiService();
-const route = useRoute();
+const userProfile = ref({
+  username: '',
+  email: '',
+  cellphone: '',
+});
 
-const id = route.params.id;
-const user = ref({});
-
-const fetchUserData = async () => {
-  try {
-      const userData = await userService.getUserById(id);
-      console.log('userData:', userData);
-      user.value.name = userData.name;
-      user.value.email = userData.email;
-      user.value.numC = userData.numC;
-      user.value.address = userData.address;
-  } catch (error) {
-    console.error('Error fetching user data:', error);
+const loadUserProfile = () => {
+  const loggedInUser = JSON.parse(localStorage.getItem('loggedInUser'));
+  if (loggedInUser) {
+    userProfile.value.username = loggedInUser.username || '';
+    userProfile.value.email = loggedInUser.email || '';
+    userProfile.value.cellphone = loggedInUser.cellphone || '';
   }
 };
 
-onMounted(async () => {
-  fetchUserData();
-});*/
+onMounted(() => {
+  loadUserProfile();
+});
 </script>
 
 <template>
   <pv-card class="card-container">
     <template #content>
-        <div class="form-container">
-          <div class="title-text"> {{ $t('profile.title') }}</div>
-          <div>
-            <div class="subtitle-text">{{ $t('profile.name') }}</div>
-            <div class="info-container"></div>
-            <div class="subtitle-text">{{ $t('profile.email') }}</div>
-            <div class="info-container"></div>
-            <div class="subtitle-text">{{ $t('profile.numC') }} </div>
-            <div class="info-container"></div>
-            <div class="subtitle-text">{{ $t('profile.numC2') }}</div>
-            <div class="info-container"></div>
-            <div class="subtitle-text">{{ $t('profile.id') }}</div>
-            <div class="info-container"></div>
-            <div class="subtitle-text">{{ $t('profile.address') }}</div>
-            <div class="info-container"></div>
-          </div>
+      <div class="form-container">
+        <div class="title-text">{{ $t('profile.title') }}</div>
+        <div>
+          <div class="subtitle-text">{{ $t('profile.name') }}</div>
+          <div class="info-container">{{ userProfile.username }}</div>
+          <div class="subtitle-text">{{ $t('profile.email') }}</div>
+          <div class="info-container">{{ userProfile.email }}</div>
+          <div class="subtitle-text">{{ $t('profile.numC') }}</div>
+          <div class="info-container">{{ userProfile.cellphone }}</div>
+          <div class="subtitle-text">{{ $t('profile.numC2') }}</div>
+          <div class="info-container"></div>
+          <div class="subtitle-text">{{ $t('profile.id') }}</div>
+          <div class="info-container"></div>
+          <div class="subtitle-text">{{ $t('profile.address') }}</div>
+          <div class="info-container"></div>
         </div>
-        <div class="button-container">
-          <router-link to="/edit-profile">
-            <pv-button class="button-style">{{ $t('profile.button1') }}</pv-button>
-          </router-link>
-          <router-link to="/edit-password">
-            <pv-button class="button-style">{{ $t('profile.button2') }}</pv-button>
-          </router-link>
-          <router-link to="/edit-payment-method">
-            <pv-button class="button-style">{{ $t('profile.button3') }}</pv-button>
-          </router-link>
-        </div>
+      </div>
+      <div class="button-container">
+        <router-link to="/edit-profile">
+          <pv-button class="button-style">{{ $t('profile.button1') }}</pv-button>
+        </router-link>
+        <router-link to="/edit-password">
+          <pv-button class="button-style">{{ $t('profile.button2') }}</pv-button>
+        </router-link>
+        <router-link to="/edit-payment-method">
+          <pv-button class="button-style">{{ $t('profile.button3') }}</pv-button>
+        </router-link>
+      </div>
     </template>
   </pv-card>
 </template>
-
 <style scoped>
 .card-container{
   background-color: #dadada;

@@ -445,21 +445,5 @@
       "size": "S",
       "price": 69
     }
-  ],
-  "user": [
-    {
-      "id": "f7c1",
-      "username": "Daniel",
-      "password": "12345678910a",
-      "email": "Daniel-741@hotmail.com",
-      "cellphone": "921986376"
-    },
-    {
-      "id": "adc3",
-      "username": "pedro08",
-      "password": "12345678910a",
-      "email": "Daniel-741@hotmail.com",
-      "cellphone": "921986376"
-    }
   ]
 }
