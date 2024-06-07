@@ -3,6 +3,8 @@ import {computed, onMounted, ref} from "vue";
 import {DesignsApiService} from "@/services/designs-api.service.js";
 import {ColorApiService} from "@/services/color-api.service.js";
 import {ShieldApiService} from "@/services/shield-api.service.js";
+import { environment } from "@/environments/environment";
+import router from "@/routes";
 
 const colorService = new ColorApiService();
 const designservice = new DesignsApiService();
@@ -10,11 +12,11 @@ const shieldService = new ShieldApiService();
 
 let designInformation = ref ({
   "name": "",
-  "image": "/images/shirts/camiseta-personalizada.png",
-  "color": "",
-  "secundario": "",
-  "terciario": "",
-  "escudo": ""
+  "primaryColorId": 0,
+  "secondaryColorId": 0,
+  "tertiaryColorId": 0,
+  "shieldId": 0,
+  "userId": environment.userId
 })
 const colors = ref([]);
 const shields = ref([]);
@@ -37,24 +39,30 @@ const areCorrectAllInputs = computed(() => {
     return false;
   }
 
-  if (designInformation.value.color === "") {
+  if (designInformation.value.primaryColorId === 0) {
     return false;
   }
 
-  if (designInformation.value.secundario === "") {
+  if (designInformation.value.secondaryColorId === 0) {
     return false;
   }
 
-  if (designInformation.value.terciario === "") {
+  if (designInformation.value.tertiaryColorId === 0) {
     return false;
   }
 
-  if (designInformation.value.escudo === "") {
+  if (designInformation.value.shieldId === 0) {
     return false;
   }
-  
+
   return true
 })
+
+const handleDesignCreation = async () => {
+  await addDesign();
+  router.push("/my-design")
+}
+
 
 onMounted(async () => {
   fetchColorData();
@@ -70,65 +78,61 @@ onMounted(async () => {
           {{ $t('designs.create') }}
         </div>
 
-        <img :src="designInformation.image" class="image-container"/>
+        <img :src="environment.designImagePath" class="image-container"/>
 
         <div class="inputs-container">
           <div class="subtitle-text">{{ $t('designs.name') }}</div>
           <pv-inputText class="info-container" v-model="designInformation.name"></pv-inputText>
-          
+
           <div class="subtitle-text">{{ $t('designs.fColor') }} </div>
-          <select v-model="designInformation.color" id="color-input">
+          <select v-model="designInformation.primaryColorId" id="color-input">
             <option
                 v-for="color in colors"
-                :value="color.name"
+                :value="color.id"
                 :key="color.id">
               {{ color.name }}
             </option>
           </select>
-          
+
           <div class="subtitle-text">{{ $t('designs.sColor') }}</div>
-          <select v-model="designInformation.secundario" id="color-input">
+          <select v-model="designInformation.secondaryColorId" id="color-input">
             <option
                 v-for="color in colors"
-                :value="color.name"
+                :value="color.id"
                 :key="color.id">
               {{ color.name }}
             </option>
           </select>
-          
+
           <div class="subtitle-text">{{ $t('designs.tColor') }}</div>
-          <select v-model="designInformation.terciario" id="color-input">
+          <select v-model="designInformation.tertiaryColorId" id="color-input">
             <option
                 v-for="color in colors"
-                :value="color.name"
+                :value="color.id"
                 :key="color.id">
               {{ color.name }}
             </option>
           </select>
-        
+
           <div class="subtitle-text">{{ $t('designs.shield') }}</div>
-          <select v-model="designInformation.escudo" id="color-input">
+          <select v-model="designInformation.shieldId" id="color-input">
             <option
                 v-for="shield in shields"
-                :value="shield.name"
+                :value="shield.id"
                 :key="shield.id">
-              {{ shield.name }}
+              {{ shield.nameTeam }}
             </option>
           </select>
         </div>
       </div>
       <div class="button-container">
-        <router-link 
-          :to="areCorrectAllInputs ? `/my-design` : ``" 
-          aria-label="Create a design">
-          <pv-button 
+        <pv-button
             class="button-style"
             aria-label="Confirm a design"
             :disabled="!areCorrectAllInputs"
-            @click="addDesign">
-            {{ $t('designs.confirmButton') }}
-          </pv-button>
-        </router-link>
+            @click="handleDesignCreation">
+          {{ $t('designs.confirmButton') }}
+        </pv-button>
         <router-link to="/my-design" aria-label="Cancel a design">
           <pv-button class="button-style">{{ $t('designs.cancelButton') }}</pv-button>
         </router-link>
