@@ -5,27 +5,41 @@ import {PostsApiService} from "@/services/posts-api.service.js";
 import {CategoryApiService} from "@/services/category-api.service.js";
 import {ColorApiService} from "@/services/color-api.service.js";
 import {SizeApiService} from "@/services/size-api.service.js";
+import router from "@/routes";
 
 const categoryService = new CategoryApiService();
 const colorService = new ColorApiService();
 const sizeService = new SizeApiService();
 const postService = new PostsApiService();
 const route = useRoute();
-const errorMessage = ref('');
 
 let postInformation = ref({
-  "image":"",
-  "category":"",
-  "color":"",
+  "id": 0,
   "name":"",
+  "image":"",
   "stock":0,
-  "sizes":[],
-  "price":0
+  "price":0,
+  "categoryId": 0,
+  "colorId": 0,
+  "userId": 0,
+  "sizeIds":[],
 })
 
+const constructPostToUpdate = ( gottenPost ) => {
+  postInformation.value.id = gottenPost.id;
+  postInformation.value.name = gottenPost.name;
+  postInformation.value.image = gottenPost.image;
+  postInformation.value.stock = gottenPost.stock;
+  postInformation.value.price = gottenPost.price;
+  postInformation.value.categoryId = gottenPost.category.id;
+  postInformation.value.colorId = gottenPost.color.id;
+  postInformation.value.userId = gottenPost.user.id;
+  postInformation.value.sizeIds = gottenPost.sizes.map(size => size['size']['id']);
+}
+
 const fetchPostInformation = async () => {
-  postInformation.value = await postService.getPostById(route.params.id);
-  console.log(postInformation.value)
+  let gottenPost = await postService.getPostById(route.params.id);
+  constructPostToUpdate(gottenPost);
 }
 
 const categories = ref([]);
@@ -56,26 +70,14 @@ const fetchSizeData = async () => {
   sizes.value = [...sizes.value, ...fetchedSizes];
 }
 
-const isValidImageURL = (url) => {
-  return url.match(/\.(jpeg|jpg|png)$/i) != null;
-};
-
-const validateImageUrl = () => {
-  if (!isValidImageURL(postInformation.value.image)) {
-    errorMessage.value = "La URL tiene que ser de una imagen en formato PNG o JPG";
-  } else {
-    errorMessage.value = "";
-  }
-};
-
 const isWrongInputs = computed(() => {
   if (postInformation.value.name.length===0) {
     return true;
   }
-  if (postInformation.value.color.length===0) {
+  if (postInformation.value.colorId===0) {
     return true;
   }
-  if (postInformation.value.category.length===0) {
+  if (postInformation.value.categoryId===0) {
     return true;
   }
   if (postInformation.value.stock<=0) {
@@ -84,7 +86,7 @@ const isWrongInputs = computed(() => {
   if (!Number.isInteger(Number(postInformation.value.stock))) {
     return true
   }
-  if (postInformation.value.sizes.length===0) {
+  if (postInformation.value.sizeIds.length===0) {
     return true;
   }
   if (!postInformation.value.image.match(/\.(jpeg|jpg|png)$/i)) {
@@ -107,6 +109,16 @@ onMounted(async () => {
   fetchSizeData();
 })
 
+const handleModify = async () => {
+  await editPost();
+  router.push('/published');
+}
+
+const handleDelete = async () => {
+  await deleteItemPost();
+  router.push('/published');
+}
+
 </script>
 
 <template>
@@ -119,82 +131,78 @@ onMounted(async () => {
             {{ $t('posts.name') }}
           </div>
           <pv-inputText class="info-container" v-model="postInformation.name"></pv-inputText>
-          
+
           <div class="subtitle-text">{{ $t('posts.color') }}</div>
-          <select v-model="postInformation.color" id="color-input">
+          <select v-model="postInformation.colorId" id="color-input">
             <option
                 v-for="color in colors"
-                :value="color.name"
+                :value="color.id"
                 :key="color.id">
               {{ color.name }}
             </option>
           </select>
 
           <div class="subtitle-text">{{ $t('posts.category') }} </div>
-          <select v-model="postInformation.category" id="category-input">
+          <select v-model="postInformation.categoryId" id="category-input">
             <option
                 v-for="category in categories"
-                :value="category.name"
+                :value="category.id"
                 :key="category.id">
               {{ category.name }}
             </option>
           </select>
 
           <div class="subtitle-text">{{ $t('posts.quantity') }}</div>
-          <pv-inputText 
-            class="info-container" 
-            type="number" 
-            min="0"
-            step="1"
-            v-model="postInformation.stock">
+          <pv-inputText
+              class="info-container"
+              type="number"
+              min="0"
+              step="1"
+              v-model="postInformation.stock">
           </pv-inputText>
-          
+
           <div class="subtitle-text">{{ $t('posts.sizes') }}</div>
           <div v-for="size in sizes" :key="size.id">
             <input
-              type="checkbox"
-              :id="size.id"
-              :value="size.name"
-              v-model="postInformation.sizes"
+                type="checkbox"
+                :id="size.id"
+                :value="size.id"
+                v-model="postInformation.sizeIds"
             />
-            <label :for="size.id">{{ size.name }}</label>
+            <label :for="size.id">{{ size.value }}</label>
           </div>
 
           <div class="subtitle-text">{{ $t('posts.image') }}</div>
-          <pv-inputText 
-            class="info-container" 
-            v-model="postInformation.image">
+          <pv-inputText
+              class="info-container"
+              v-model="postInformation.image">
           </pv-inputText>
-          
+
           <div class="subtitle-text">{{ $t('posts.price') }}</div>
-          <pv-inputText 
-            class="info-container" 
-            type="number" 
-            min="0"
-            v-model="postInformation.price">
+          <pv-inputText
+              class="info-container"
+              type="number"
+              min="0"
+              v-model="postInformation.price">
           </pv-inputText>
         </div>
       </form>
       <div class="button-container">
-        <router-link :to="!isWrongInputs ? `/published` : null">
-          <pv-button 
-            class="button-style" 
+        <pv-button
+            class="button-style"
             aria-label="Confirm changes"
             :disabled="isWrongInputs"
-            @click="editPost" 
-            >
-              {{$t('posts.confirmButton') }}
-          </pv-button>
-        </router-link>
+            @click="handleModify"
+        >
+          {{$t('posts.confirmButton') }}
+        </pv-button>
         <router-link to="/published">
           <pv-button class="button-style" aria-label="Cancel changes">{{ $t('posts.cancelButton') }}</pv-button>
         </router-link>
-        <router-link to="/published">
-          <pv-button @click="deleteItemPost" class="button-style" aria-label="Delete a Post">{{
-              $t('posts.deleteButton')
-            }}
-          </pv-button>
-        </router-link>
+        <pv-button @click="handleDelete" class="button-style" aria-label="Delete a Post">{{
+            $t('posts.deleteButton')
+          }}
+        </pv-button>
       </div>
     </template>
   </pv-card>
