@@ -1,7 +1,7 @@
 import useAxios from "./useAxios";
 
 const useApi = (endpoint) => {
-  
+
   const axiosInstance = useAxios();
 
   const getObjects = () => {
@@ -24,9 +24,8 @@ const useApi = (endpoint) => {
 
   const putObject = (id,object) => {
     return axiosInstance
-        .put(`${endpoint}/${id}`, object)
+        .put(`${endpoint}?id=${id}`, object)
         .then(res => res.data)
-      
   }
 
   const deleteObjectById = (id) => {

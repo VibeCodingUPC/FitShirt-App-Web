@@ -4,6 +4,7 @@ import {DesignsApiService} from "@/services/designs-api.service.js";
 import {useRoute} from "vue-router";
 import {ColorApiService} from "@/services/color-api.service.js";
 import {ShieldApiService} from "@/services/shield-api.service.js";
+import router from "@/routes";
 
 const route = useRoute();
 
@@ -12,27 +13,43 @@ const designsService = new DesignsApiService();
 const shieldService = new ShieldApiService();
 
 let designInformation = ref({
+  "id": 0,
   "name": "",
   "image": "",
-  "color": "",
-  "secundario": "",
-  "terciario": "",
-  "escudo": ""
+  "primaryColorId": 0,
+  "secondaryColorId": 0,
+  "tertiaryColorId": 0,
+  "shieldId": 0,
+  "userId": 0
 });
+
+const constructDesignToUpdate = ( gottenDesign ) => {
+  designInformation.value.id = gottenDesign.id;
+  designInformation.value.name = gottenDesign.name;
+  designInformation.value.image = gottenDesign.image;
+  designInformation.value.primaryColorId = gottenDesign.primaryColor.id;
+  designInformation.value.secondaryColorId = gottenDesign.secondaryColor.id;
+  designInformation.value.tertiaryColorId = gottenDesign.tertiaryColor.id;
+  designInformation.value.shieldId = gottenDesign.shield.id;
+  designInformation.value.userId = gottenDesign.user.id;
+}
+
 const colors = ref([]);
 const shields = ref([]);
 
 const editDesign = async () => {
   await designsService.editDesign(designInformation.value);
 }
+
 const deleteItemDesign = async () => {
   await designsService.deleteDesign(designInformation.value.id);
 }
 
 const fetchDesignData = async () => {
-  designInformation.value = await designsService.getDesignbyid(route.params.id);
-
+  let gottenDesign = await designsService.getDesignbyid(route.params.id);
+  constructDesignToUpdate(gottenDesign);
 }
+
 const fetchColorData = async () => {
   let fetchedColors = await colorService.getColors();
   colors.value = [...colors.value, ...fetchedColors];
@@ -47,24 +64,34 @@ const areCorrectAllInputs = computed(() => {
     return false;
   }
 
-  if (designInformation.value.color === "") {
+  if (designInformation.value.primaryColorId === 0) {
     return false;
   }
 
-  if (designInformation.value.secundario === "") {
+  if (designInformation.value.secondaryColorId === 0) {
     return false;
   }
 
-  if (designInformation.value.terciario === "") {
+  if (designInformation.value.tertiaryColorId === 0) {
     return false;
   }
 
-  if (designInformation.value.escudo === "") {
+  if (designInformation.value.shieldId === 0) {
     return false;
   }
-  
+
   return true
 })
+
+const handleModifyDesign = async () => {
+  await editDesign();
+  router.push('/my-design');
+}
+
+const handleDeleteDesign = async () => {
+  await deleteItemDesign();
+  router.push('/my-design');
+}
 
 onMounted(async () => {
   fetchColorData();
@@ -81,72 +108,71 @@ onBeforeMount(()=>{
     <template #content>
       <div class="form-container">
         <div class="title-text">{{ $t('designs.edit') }}</div>
-        
+
         <img :src="designInformation.image" class="image-container"/>
-        
+
         <div class="inputs-container">
           <div class="subtitle-text">{{ $t('designs.name') }}</div>
           <pv-inputText class="info-container" v-model="designInformation.name"></pv-inputText>
-          
+
           <div class="subtitle-text">{{ $t('designs.fColor') }} </div>
-          <select v-model="designInformation.color" id="color-input">
+          <select v-model="designInformation.primaryColorId" id="color-input">
             <option
                 v-for="color in colors"
-                :value="color.name"
+                :value="color.id"
                 :key="color.id">
               {{ color.name }}
             </option>
           </select>
-          
+
           <div class="subtitle-text">{{ $t('designs.sColor') }}</div>
-          <select v-model="designInformation.secundario" id="color-input">
+          <select v-model="designInformation.secondaryColorId" id="color-input">
             <option
                 v-for="color in colors"
-                :value="color.name"
+                :value="color.id"
                 :key="color.id">
               {{ color.name }}
             </option>
           </select>
-          
+
           <div class="subtitle-text">{{ $t('designs.tColor') }}</div>
-          <select v-model="designInformation.terciario" id="color-input">
+          <select v-model="designInformation.tertiaryColorId" id="color-input">
             <option
                 v-for="color in colors"
-                :value="color.name"
+                :value="color.id"
                 :key="color.id">
               {{ color.name }}
             </option>
           </select>
-          
+
           <div class="subtitle-text">{{ $t('designs.shield') }}</div>
-          <select v-model="designInformation.escudo" id="color-input">
+          <select v-model="designInformation.shieldId" id="color-input">
             <option
                 v-for="shield in shields"
-                :value="shield.name"
+                :value="shield.id"
                 :key="shield.id">
-              {{ shield.name }}
+              {{ shield.nameTeam }}
             </option>
           </select>
         </div>
       </div>
       <div class="button-container">
-        <router-link 
-          :to="areCorrectAllInputs ? `/my-design` : ``"
-          aria-label="Edit design">
-          <pv-button 
-            class="button-style" 
+        <pv-button
+            class="button-style"
             aria-label="Apply changes"
             :disabled="!areCorrectAllInputs"
-            @click="editDesign">
-              {{ $t('designs.confirmButton') }}
-            </pv-button>
-        </router-link>
+            @click="handleModifyDesign">
+          {{ $t('designs.confirmButton') }}
+        </pv-button>
         <router-link to="/my-design">
           <pv-button class="button-style" aria-label="Cancel changes">{{ $t('designs.cancelButton') }}</pv-button>
         </router-link>
-        <router-link to="/my-design">
-          <pv-button class="button-style" @click="deleteItemDesign" aria-label="Delete a Design">{{ $t('designs.deleteButton') }}</pv-button>
-        </router-link>
+        <pv-button
+            class="button-style"
+            @click="handleDeleteDesign"
+            aria-label="Delete a Design">
+          {{ $t('designs.deleteButton') }}
+        </pv-button>
       </div>
     </template>
   </pv-card>
