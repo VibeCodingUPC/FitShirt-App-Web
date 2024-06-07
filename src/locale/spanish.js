@@ -118,6 +118,9 @@ const es = {
 
   register: {
     title: "Registrate",
+    name: "Nombre",
+    lastname: "Apellido",
+    birthdate: "Fecha de nacimiento",
     user: "Nombre de Usuario",
     password: "Contraseña",
     button: "Registrar",
@@ -127,7 +130,6 @@ const es = {
     oldmsg: "¿Ya tienes una cuenta?",
     signin: "Iniciar Sesión",
   },
-
 
 }
 

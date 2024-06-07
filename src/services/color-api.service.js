@@ -2,7 +2,7 @@ import useApi from '../hooks/useApi'
 
 export class ColorApiService{
     constructor() {
-        this.apiMehods = useApi('/color');
+        this.apiMehods = useApi('/colors');
     }
 
     async getColors() {

@@ -1,23 +1,30 @@
 <script setup>
 import {useI18n} from "vue-i18n";
 import { ref } from 'vue';
-  let userLogin = ref({
-    username: "",
-    password: ""
-  })
+import { AccountApiService } from "@/services/account-api.service";
+import router from "@/routes";
 
-  const validateLogin = () => {
+let userLogin = ref({
+  username: "",
+  password: ""
+})
 
-    if (userLogin.value.username.length < 6) {
-      return false;
-    }
+let loginError = ref("");
 
-    if (userLogin.value.password.length < 8) {
-      return false;
-    }
+const validateLogin = () => {
 
-    return true;
+  if (userLogin.value.username.length < 6) {
+    loginError.value="Username must be between 6 and 16 characters";
+    return false;
   }
+
+  if (userLogin.value.password.length < 8) {
+    loginError.value="Password must be between 8 and 32 characters";
+    return false;
+  }
+
+  return true;
+}
 
 const i18nLocale = useI18n();
 const changeLanguage = () => {
@@ -26,6 +33,37 @@ const changeLanguage = () => {
   }
   else {
     i18nLocale.locale.value='en'
+  }
+}
+
+const accountService = new AccountApiService();
+
+const handleLogin = async () => {
+  try {
+    let isValidLoginRequest = validateLogin();
+    if (isValidLoginRequest) {
+      let userLoginRequest = {
+        "username": userLogin.value.username,
+        "password": userLogin.value.password
+      }
+
+      let response = await accountService.login(userLoginRequest);
+
+      router.push('/catalogue');
+    }
+
+  } catch (error) {
+    if (error===404) {
+      userLogin.value.username="";
+      userLogin.value.password="";
+
+      loginError.value="Username was not found";
+    }
+    else if (error===400) {
+      userLogin.value.password="";
+
+      loginError.value="Incorrect password";
+    }
   }
 }
 
@@ -47,9 +85,12 @@ const changeLanguage = () => {
       <pv-inputText class="mb10" type="text" v-model="userLogin.username" aria-label="Enter a username" />
       <p class="cwhite">{{ $t('login.password') }}</p>
       <pv-inputText class="mb10" type="password" v-model="userLogin.password" aria-label="Enter a password"/>
-      <router-link to="/catalogue">
-        <pv-button :label="$t('login.button')" severity="info" class="button-container" />
-      </router-link>
+      <pv-button
+          :label="$t('login.button')"
+          severity="info"
+          class="button-container"
+          @click="handleLogin"/>
+      <p class="cwhite mb100 tac">{{ loginError }}</p>
       <p class="cwhite mb100 tac">{{ $t('login.forgotPassword') }}</p>
       <hr class="line-container" />
       <p class="cwhite mb10 tac register">
@@ -64,6 +105,7 @@ const changeLanguage = () => {
           {{ i18nLocale.locale.value }}
         </pv-button>
       </div>
+
     </div>
   </div>
 
