@@ -4,13 +4,13 @@
 
 <template>
   <div class="container" aria-label="Confirm process notification">
-    <h1>Realizar Mejora</h1>
-    <h2>Estimado cliente ¿Está seguro que desea realzar esta mejora</h2>
+    <h1>{{ $t('premium.titleconfirm') }}</h1>
+    <h2>{{ $t('premium.subtitle') }}</h2>
     <router-link to="/profile" tag="button" class="router-button">
-      Confirmar
+      {{ $t('premium.confirm') }}
     </router-link>
     <router-link to="/premium" tag="button" class="router-button">
-      Cancelar
+      {{ $t('premium.cancel') }}
     </router-link>
   </div>
 </template>

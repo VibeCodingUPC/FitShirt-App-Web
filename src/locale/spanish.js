@@ -142,7 +142,11 @@ const es = {
     premiumdesc3: "- Incrementa la cantidad de diseños que puedes ofrecer",
     premiumdesc4: "- Te permite destacar tus diseños y que sean más vistos",
     price: "S/50.00 al mes",
-    buy: "Comprar Premium"
+    buy: "Comprar Premium",
+    titleconfirm: "Realizar Mejora",
+    subtitle: "Estimado cliente ¿Está seguro que desea realzar esta mejora?",
+    confirm: "Confirmar",
+    cancel: "Cancelar"
   }
 
 }

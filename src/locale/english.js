@@ -145,7 +145,11 @@ const en = {
     premiumdesc3: "- Increase the number of designs you can offer",
     premiumdesc4: "- Allows you to highlight your designs and make them more seen",
     price: "S/50.00 per month",
-    buy: "Buy Premium"
+    buy: "Buy Premium",
+    titleconfirm: "Upgrade Account",
+    subtitle: "Dear customer, are you sure you want to enhance this improvement?",
+    confirm: "Confirm",
+    cancel: "Cancel"
   }
 
 }
