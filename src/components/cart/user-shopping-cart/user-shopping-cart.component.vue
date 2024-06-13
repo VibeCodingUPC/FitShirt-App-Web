@@ -1,27 +1,33 @@
 <script setup>
-  import { onMounted, ref } from 'vue';
-  import {CartApiService} from "@/services/cart-api.service.js";
-  import {reactive} from "vue";
+import { environment } from '@/environments/environment';
+import { useCart } from '@/hooks/useCart';
+import { PurchasesApiService } from '@/services/purchases-api.service';
 
-  const cartService = new CartApiService();
-  const state = reactive({
-    items: []
-  });
+const { cart, removeFromCart, clearCart } = useCart();
+const purchasesService = new PurchasesApiService();
 
-  const fetchCartData = async () => {
-    state.items = await cartService.getCartItems();
+const purchaseCreation = () => {
+  let items = cart.map(item => ({
+    "postId": item.postId,
+    "sizeId": item.sizeId,
+    "quantity": item.quantity
+  }));
+
+  let purchase = {
+    "userId": environment.userId,
+    "items": items
+  };
+
+  return purchase;
+}
+
+const handlePurchase = async () => {
+  if (cart.length !== 0) {
+    let purchase = purchaseCreation();
+    await purchasesService.postPurchase(purchase);
+    clearCart();
   }
-
-  const removeItemFromCart = async (id) => {
-    await cartService.deleteItemById(id);
-
-    state.items = state.items.filter(item => item.id !== id);
-  }
-
-
-  onMounted(async () => {
-    fetchCartData();
-  })
+}
 
 </script>
 
@@ -31,11 +37,14 @@
       <div class="header-container">
         <p>Subtotal:&nbsp </p>
         <div class="info-container" ></div>
-        <router-link to="/catalogue">
-          <pv-button class="button-style">{{ $t('cart.buy') }}</pv-button>
-        </router-link>
+        <pv-button
+            @click="handlePurchase"
+            class="button-style"
+            :disabled="cart.length===0">{{ $t('cart.buy') }}</pv-button>
+        <!-- <router-link to="/catalogue">
+        </router-link> -->
       </div>
-      <div v-for="item in state.items" :key="item.id">
+      <div v-for="(item, i) in cart" :key="i" >
         <div class="item-container">
           <div class="subitem-container">
             <img :src="item.image" alt="Item-Image" class="image-container"/>
@@ -43,11 +52,11 @@
           </div>
           <div class="subitem-container">
             <p>{{ $t('cart.quantity') }}:&nbsp</p>
-            <pv-inputText v-model="item.quantity" class="editableinfo-container"></pv-inputText>
+            <div class="info-container">{{ item.quantity }}</div>
           </div>
           <div class="subitem-container">
             <p>{{ $t('cart.price') }}:&nbsp</p>
-            <div class="info-container">S/. {{item.price}}</div>
+            <div class="info-container">S/. {{(item.price).toFixed(2)}}</div>
           </div>
           <div class="subitem-container">
             <p>{{ $t('cart.size') }}:&nbsp</p>
@@ -55,17 +64,19 @@
           </div>
           <div class="subitem-container">
             <p>Subtotal:&nbsp </p>
-            <div class="info-container">S/. {{item.price*item.quantity}}</div>
+            <div class="info-container">S/. {{(item.price*item.quantity).toFixed(2)}}</div>
           </div>
           <div>
-            <pv-button @click="removeItemFromCart(item.id)" class="trash-button" >
+            <pv-button
+                @click="removeFromCart(item.postId, item.sizeId)"
+                class="trash-button" >
               <img src="/images/bin.png" alt="bin-Image" class="bin-container">
             </pv-button>
           </div>
         </div>
-        </div>
       </div>
     </div>
+  </div>
 </template>
 
 <style scoped>

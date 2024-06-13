@@ -1,8 +1,10 @@
+import useAxios from '@/hooks/useAxios';
 import useApi from '../hooks/useApi'
 
 export class DesignsApiService {
     constructor() {
         this.apiMehods = useApi('/designs');
+        this.axiosInstance = useAxios();
     }
 
     async getDesign() {
@@ -11,6 +13,12 @@ export class DesignsApiService {
 
     async getDesignbyid(id) {
         return await this.apiMehods.getObjectById(id);
+    }
+
+    async getDesignsByUserId(userId) {
+        return await this.axiosInstance
+            .get(`designs/SearchByUser?userId=${userId}`)
+            .then(res => res.data);
     }
 
     async creatingDesign(design) {

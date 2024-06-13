@@ -1,19 +1,19 @@
 <script setup>
-  import { onMounted, ref } from 'vue';
-  import filters from './shirt-filters.component.vue';
-  import shirtCard from '../../shared/shirt-components/shirt-card.component.vue';
-  import { ShirtsApiService } from '@/services/shirts-api.service';
+import { onMounted, ref } from 'vue';
+import filters from './shirt-filters.component.vue';
+import shirtCard from '../../shared/shirt-components/shirt-card.component.vue';
+import { PostsApiService } from '@/services/posts-api.service';
 
-  let shirts=ref([]);
-  const shirtsService = new ShirtsApiService();
+let shirts=ref([]);
+const postsService = new PostsApiService();
 
-  const fetchShirtsData = async () => {
-    shirts.value = await shirtsService.getShirts();
-  }
+const fetchShirtsData = async () => {
+  shirts.value = await postsService.getPosts();
+}
 
-  onMounted(async () => {
-    fetchShirtsData();
-  })
+onMounted(async () => {
+  await fetchShirtsData();
+})
 </script>
 
 <template>

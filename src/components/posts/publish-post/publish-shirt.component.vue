@@ -5,6 +5,8 @@ import {PostsApiService} from "@/services/posts-api.service.js";
 import {CategoryApiService} from "@/services/category-api.service.js";
 import {ColorApiService} from "@/services/color-api.service.js";
 import {SizeApiService} from "@/services/size-api.service.js";
+import router from "@/routes";
+import { environment } from "@/environments/environment";
 
 const categoryService = new CategoryApiService();
 const colorService = new ColorApiService();
@@ -13,11 +15,12 @@ const postservice = new PostsApiService();
 
 let postInformation = ref({
   "image":"",
-  "category":"",
-  "color":"",
+  "categoryId":0,
+  "colorId":0,
   "name":"",
-  "stock":0,
-  "sizes":[],
+  "stock": 0,
+  "userId": environment.userId,
+  "sizeIds":[],
   "price":0
 })
 
@@ -48,10 +51,10 @@ const isWrongInputs = computed(() => {
   if (postInformation.value.name.length===0) {
     return true;
   }
-  if (postInformation.value.color.length===0) {
+  if (postInformation.value.colorId===0) {
     return true;
   }
-  if (postInformation.value.category.length===0) {
+  if (postInformation.value.categoryId===0) {
     return true;
   }
   if (postInformation.value.stock<=0) {
@@ -60,7 +63,7 @@ const isWrongInputs = computed(() => {
   if (!Number.isInteger(Number(postInformation.value.stock))) {
     return true
   }
-  if (postInformation.value.sizes.length===0) {
+  if (postInformation.value.sizeIds.length===0) {
     return true;
   }
   if (!postInformation.value.image.match(/\.(jpeg|jpg|png)$/i)) {
@@ -72,6 +75,11 @@ const isWrongInputs = computed(() => {
 
   return false;
 })
+
+const handleCreation = async () => {
+  await addPublish();
+  router.push('/published')
+}
 
 onMounted(async () => {
   fetchCategoryData();
@@ -88,71 +96,71 @@ onMounted(async () => {
         <div class="inputs-container">
           <div class="subtitle-text">{{ $t('posts.name') }}</div>
           <pv-inputText class="info-container" v-model="postInformation.name"></pv-inputText>
-          
+
           <div class="subtitle-text">{{ $t('posts.color') }}</div>
-          <select v-model="postInformation.color" id="color-input">
+          <select v-model="postInformation.colorId" id="color-input">
             <option
                 v-for="color in colors"
-                :value="color.name"
+                :value="color.id"
                 :key="color.id">
               {{ color.name }}
             </option>
           </select>
-          
+
           <div class="subtitle-text">{{ $t('posts.category') }} </div>
-          <select v-model="postInformation.category" id="category-input">
+          <select v-model="postInformation.categoryId" id="category-input">
             <option
                 v-for="category in categories"
-                :value="category.name"
+                :value="category.id"
                 :key="category.id">
               {{ category.name }}
             </option>
           </select>
-          
+
           <div class="subtitle-text">{{ $t('posts.quantity') }}</div>
-          <pv-inputText 
-            class="info-container" 
-            type="number" 
-            min="0"
-            step="1"
-            v-model="postInformation.stock">
+          <pv-inputText
+              class="info-container"
+              type="number"
+              min="0"
+              step="1"
+              v-model.number="postInformation.stock">
           </pv-inputText>
-          
+
           <div class="subtitle-text">{{ $t('posts.sizes') }}</div>
           <div v-for="size in sizes" :key="size.id">
             <input
-              type="checkbox"
-              :id="size.id"
-              :value="size.name"
-              v-model="postInformation.sizes"
+                type="checkbox"
+                :id="size.id"
+                :value="size.id"
+                v-model="postInformation.sizeIds"
             />
-            <label :for="size.id">{{ size.name }}</label>
+            <label :for="size.id">{{ size.value }}</label>
           </div>
-          
+
           <div class="subtitle-text">{{ $t('posts.image') }}</div>
-          <pv-inputText 
-            class="info-container" 
-            v-model="postInformation.image">
+          <pv-inputText
+              class="info-container"
+              v-model="postInformation.image">
           </pv-inputText>
-          
+
           <div class="subtitle-text">{{ $t('posts.price') }}</div>
-          <pv-inputText 
-            class="info-container"  
-            type="number" 
-            min="0"
-            v-model="postInformation.price">
+          <pv-inputText
+              class="info-container"
+              type="number"
+              min="0"
+              v-model.number="postInformation.price">
           </pv-inputText>
         </div>
         <div class="button-container">
-          <router-link :to="!isWrongInputs ? `/published` : null ">
-            <pv-button 
-              class="button-style" 
+          <!-- <router-link :to="!isWrongInputs ? `/published` : null ">
+          </router-link> -->
+          <pv-button
+              class="button-style"
               aria-label="Confirm a post"
               :disabled="isWrongInputs"
-              @click="addPublish">
-                {{ $t('posts.confirmButton') }}
-              </pv-button>
-          </router-link>
+              @click="handleCreation">
+            {{ $t('posts.confirmButton') }}
+          </pv-button>
           <router-link to="/published">
             <pv-button class="button-style" aria-label="Cancel a post">{{ $t('posts.cancelButton') }}</pv-button>
           </router-link>

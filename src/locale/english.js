@@ -121,6 +121,9 @@ const en = {
 
   register: {
     title: "Sign Up",
+    name: "Name",
+    lastname: "Lastname",
+    birthdate: "Birthdate",
     user: "Username",
     password: "Password",
     button: "Register",
@@ -131,7 +134,6 @@ const en = {
     signin: "Sign In",
 
   },
-
 
 }
 

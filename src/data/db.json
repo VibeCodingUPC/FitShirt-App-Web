@@ -215,22 +215,13 @@
       "escudo": "Manchester United FC"
     },
     {
-      "id": "3",
-      "name": "Polo verde",
-      "image": "/images/shirts/camiseta_3.png",
-      "color": "Green",
-      "secundario": "Green",
-      "terciario": "White",
-      "escudo": "Bayern Munich"
-    },
-    {
-      "id": "3159",
-      "name": "prueba",
-      "image": "/images/shirts/camiseta_3.png",
-      "color": "Purple",
-      "secundario": "Red",
-      "terciario": "Yellow",
-      "escudo": "AC Milan"
+      "id": "9d17",
+      "name": "New shirt",
+      "image": "/images/shirts/camiseta-personalizada.png",
+      "color": "Yellow",
+      "secundario": "Yellow",
+      "terciario": "Gray",
+      "escudo": "Paris Saint-Germain"
     }
   ],
   "posts": [

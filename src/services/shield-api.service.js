@@ -2,7 +2,7 @@ import useApi from '../hooks/useApi'
 
 export class ShieldApiService{
     constructor() {
-        this.apiMehods = useApi('/shield');
+        this.apiMehods = useApi('/shields');
     }
 
     async getShield() {

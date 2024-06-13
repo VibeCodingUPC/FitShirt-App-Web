@@ -1,26 +1,20 @@
 <script setup>
 import { CategoryApiService } from "@/services/category-api.service";
+import { ColorApiService } from "@/services/color-api.service";
 import { onMounted, ref } from 'vue';
 
 const categoryService = new CategoryApiService();
+const colorService = new ColorApiService();
 
 const selectedCategory = ref("Any");
 const categories = ref([
-  {"id": 99,"name": "Any"}
+  {"id": 99,"name": "Any" }
 ]);
 
 
 const selectedColor = ref("Any");
 const colors = ref([
   { "id": 99, "name": "Any" },
-  { "name": "Red" },
-  { "name": "Yellow" },
-  { "name": "Purple" },
-  { "name": "Gray" },
-  { "name": "White" },
-  { "name": "Black" },
-  { "name": "Green" },
-  { "name": "Blue" }
 ]);
 
 const fetchCategoryData = async () => {
@@ -28,8 +22,14 @@ const fetchCategoryData = async () => {
   categories.value = [...categories.value, ...fetchedCategories];
 }
 
+const fetchColorData = async () => {
+  let fetchedColors = await colorService.getColors();
+  colors.value = [...colors.value, ...fetchedColors];
+}
+
 onMounted(async () => {
   fetchCategoryData();
+  fetchColorData();
 })
 </script>
 
@@ -58,7 +58,7 @@ onMounted(async () => {
               v-for="color in colors"
               :value="color.name"
               :key="color.id || color.name">
-            {{ $t('catalogue.color' + color.name.charAt(0).toUpperCase() + color.name.slice(1)) }}
+            {{color.name}}
           </option>
         </select>
       </div>
