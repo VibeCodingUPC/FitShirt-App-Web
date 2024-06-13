@@ -134,6 +134,19 @@ const en = {
     signin: "Sign In",
 
   },
+  premium: {
+    title: "Upgrade to Premium",
+    free: "Free Version",
+    freedesc1: "- Allows you to make purchases of various designs",
+    freedesc2: "- Allows you to upload your designs and put them up for sale",
+    premium: "Premium Version",
+    premiumdesc1: "- Allows you to make purchases of various designs",
+    premiumdesc2: "- Allows you to upload your designs and put them up for sale",
+    premiumdesc3: "- Increase the number of designs you can offer",
+    premiumdesc4: "- Allows you to highlight your designs and make them more seen",
+    price: "S/50.00 per month",
+    buy: "Buy Premium"
+  }
 
 }
 

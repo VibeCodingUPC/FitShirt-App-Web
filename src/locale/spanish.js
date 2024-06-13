@@ -131,6 +131,20 @@ const es = {
     signin: "Iniciar Sesión",
   },
 
+  premium: {
+    title: "Mejora a Premium",
+    free: "Versión Gratuita",
+    freedesc1: "- Permite realizar compras de los diversos diseños",
+    freedesc2: "- Permite subir tus diseños y ponerlos a la venta",
+    premium: "Versión Premium",
+    premiumdesc1: "- Permite realizar compras de los diversos diseños",
+    premiumdesc2: "- Permite subir tus diseños y ponerlos a la venta",
+    premiumdesc3: "- Incrementa la cantidad de diseños que puedes ofrecer",
+    premiumdesc4: "- Te permite destacar tus diseños y que sean más vistos",
+    price: "S/50.00 al mes",
+    buy: "Comprar Premium"
+  }
+
 }
 
 export default es;
