@@ -1,7 +1,7 @@
 import axios from "axios";
 
 const useAxios = () => {
-  const baseUrl = `https://localhost:7281/api/v1`;
+  const baseUrl = `https://fitshirt.azurewebsites.net/api/v1`;
   const jwtHeader = {
     'Authorization' :'Bearer ' +  sessionStorage.getItem('jwt')
   }

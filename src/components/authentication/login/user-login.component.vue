@@ -60,7 +60,7 @@ const handleLogin = async () => {
 
       loginError.value="Username was not found";
     }
-    else if (error===400) {
+    else if (error===500) {
       userLogin.value.password="";
 
       loginError.value="Incorrect password";

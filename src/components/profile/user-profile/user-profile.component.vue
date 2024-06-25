@@ -10,8 +10,6 @@ import { UserApiService } from '@/services/user-api.service.js';
 
   const fetchUserData = async () => {
     userInformation.value = await userApiService.getUserById(authApiService.getUserIdFromToken());
-  
-    console.log(userInformation.value);
   }
 
   onBeforeMount(async () => {
