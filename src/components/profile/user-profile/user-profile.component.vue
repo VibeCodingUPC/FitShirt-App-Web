@@ -1,44 +1,41 @@
 <script setup>
-import { ref, onMounted } from 'vue';
+  import { AccountApiService } from '@/services/account-api.service';
+import { UserApiService } from '@/services/user-api.service.js';
+  import { ref, onBeforeMount } from 'vue';
 
-const userProfile = ref({
-  username: '',
-  email: '',
-  cellphone: '',
-});
+  const userApiService = new UserApiService();
+  const authApiService = new AccountApiService();
 
-const loadUserProfile = () => {
-  const loggedInUser = JSON.parse(localStorage.getItem('loggedInUser'));
-  if (loggedInUser) {
-    userProfile.value.username = loggedInUser.username || '';
-    userProfile.value.email = loggedInUser.email || '';
-    userProfile.value.cellphone = loggedInUser.cellphone || '';
+  let userInformation = ref({});
+
+  const fetchUserData = async () => {
+    userInformation.value = await userApiService.getUserById(authApiService.getUserIdFromToken());
+  
+    console.log(userInformation.value);
   }
-};
 
-onMounted(() => {
-  loadUserProfile();
-});
+  onBeforeMount(async () => {
+    fetchUserData();
+  })
+
 </script>
 
 <template>
-  <pv-card class="card-container">
+  <pv-card class="card-container" v-if="userInformation">
     <template #content>
       <div class="form-container">
         <div class="title-text">{{ $t('profile.title') }}</div>
         <div>
           <div class="subtitle-text">{{ $t('profile.name') }}</div>
-          <div class="info-container">{{ userProfile.username }}</div>
+          <div class="info-container">{{ userInformation.name + " " + userInformation.lastname }}</div>
+          <div class="subtitle-text">{{ $t('profile.username') }}</div>
+          <div class="info-container">{{ userInformation.username }}</div>
           <div class="subtitle-text">{{ $t('profile.email') }}</div>
-          <div class="info-container">{{ userProfile.email }}</div>
+          <div class="info-container">{{ userInformation.email }}</div>
           <div class="subtitle-text">{{ $t('profile.numC') }}</div>
-          <div class="info-container">{{ userProfile.cellphone }}</div>
-          <div class="subtitle-text">{{ $t('profile.numC2') }}</div>
-          <div class="info-container"></div>
-          <div class="subtitle-text">{{ $t('profile.id') }}</div>
-          <div class="info-container"></div>
-          <div class="subtitle-text">{{ $t('profile.address') }}</div>
-          <div class="info-container"></div>
+          <div class="info-container">{{ userInformation.cellphone }}</div>
+          <div class="subtitle-text">{{ $t('profile.birthdate') }}</div>
+          <div class="info-container">{{ userInformation.birthDate }}</div>
         </div>
       </div>
       <div class="button-container">
@@ -53,6 +50,9 @@ onMounted(() => {
         </router-link>
       </div>
     </template>
+  </pv-card>
+  <pv-card v-else>
+    <p>Loading...</p>
   </pv-card>
 </template>
 <style scoped>
@@ -108,8 +108,8 @@ onMounted(() => {
 .info-container {
   border-radius: 4px;
   background-color: #ffffff;
-  height: 20px;
-  width: 250px;
+  padding: .4em;
+  width: 300px;
   margin-bottom: 8px;
 }
 </style>

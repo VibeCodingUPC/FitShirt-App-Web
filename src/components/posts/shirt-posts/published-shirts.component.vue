@@ -3,15 +3,14 @@ import { onBeforeMount, ref } from 'vue';
 import filters from './shirt-filters.component.vue';
 import shirtCard from '../../shared/shirt-components/shirt-card.component.vue';
 import { PostsApiService } from "@/services/posts-api.service.js";
-import { environment } from '@/environments/environment';
-import { useAccount } from '@/hooks/useAccount';
+import { AccountApiService } from '@/services/account-api.service';
 
 let posts=ref([]);
 const postservice = new PostsApiService();
-const {user} = useAccount();
+const authApiService = new AccountApiService();
 
 const fetchPostsData = async () => {
-  posts.value = await postservice.getPostByUserId(environment.userId);
+  posts.value = await postservice.getPostByUserId(authApiService.getUserIdFromToken());
 }
 
 onBeforeMount(async () => {

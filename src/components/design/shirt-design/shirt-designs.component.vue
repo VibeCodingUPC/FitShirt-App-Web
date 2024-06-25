@@ -3,13 +3,14 @@ import { onBeforeMount, ref } from 'vue';
 import filters from './shirt-filters.component.vue';
 import shirtCard from '../../shared/shirt-components/shirt-card.component.vue';
 import {DesignsApiService} from "@/services/designs-api.service.js";
-import { environment } from '@/environments/environment';
+import { AccountApiService } from '@/services/account-api.service';
 
 let designs=ref([]);
 const designsService = new DesignsApiService();
+const authApiService = new AccountApiService();
 
 const fetchDesignsData = async () => {
-  designs.value = await designsService.getDesignsByUserId(environment.userId);
+  designs.value = await designsService.getDesignsByUserId(authApiService.getUserIdFromToken());
 }
 
 onBeforeMount(async () => {

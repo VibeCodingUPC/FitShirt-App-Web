@@ -9,12 +9,12 @@ const es = {
   },
 
   profile:{
-    title: "Mi perfil",
-    name: "Nombre Completo",
-    email: "Correo",
-    numC: "N° Contacto",
-    numC2: "N° Contacto Adicional",
-    id: "Dni o Ruc",
+    title: "My Profile",
+    name: "Full Name",
+    email: "E-mail",
+    numC: "Contact Number",
+    username: "Nombre de usuario",
+    birthdate: "Fecha de nacimiento",
     address: "Dirección",
     button1: "Editar Perfil",
     button2: "Editar Contraseña",

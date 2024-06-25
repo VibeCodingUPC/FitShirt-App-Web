@@ -1,10 +1,11 @@
 <script setup>
-import { environment } from '@/environments/environment';
 import { useCart } from '@/hooks/useCart';
+import { AccountApiService } from '@/services/account-api.service';
 import { PurchasesApiService } from '@/services/purchases-api.service';
 
 const { cart, removeFromCart, clearCart } = useCart();
 const purchasesService = new PurchasesApiService();
+const authApiService = new AccountApiService();
 
 const purchaseCreation = () => {
   let items = cart.map(item => ({
@@ -14,7 +15,7 @@ const purchaseCreation = () => {
   }));
 
   let purchase = {
-    "userId": environment.userId,
+    "userId": authApiService.getUserIdFromToken(),
     "items": items
   };
 

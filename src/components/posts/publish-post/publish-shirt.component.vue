@@ -6,12 +6,13 @@ import {CategoryApiService} from "@/services/category-api.service.js";
 import {ColorApiService} from "@/services/color-api.service.js";
 import {SizeApiService} from "@/services/size-api.service.js";
 import router from "@/routes";
-import { environment } from "@/environments/environment";
+import { AccountApiService } from "@/services/account-api.service";
 
 const categoryService = new CategoryApiService();
 const colorService = new ColorApiService();
 const sizeService = new SizeApiService();
 const postservice = new PostsApiService();
+const authApiService = new AccountApiService();
 
 let postInformation = ref({
   "image":"",
@@ -19,7 +20,7 @@ let postInformation = ref({
   "colorId":0,
   "name":"",
   "stock": 0,
-  "userId": environment.userId,
+  "userId": authApiService.getUserIdFromToken(),
   "sizeIds":[],
   "price":0
 })

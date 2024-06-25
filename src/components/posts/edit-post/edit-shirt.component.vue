@@ -14,7 +14,6 @@ const postService = new PostsApiService();
 const route = useRoute();
 
 let postInformation = ref({
-  "id": 0,
   "name":"",
   "image":"",
   "stock":0,
@@ -25,8 +24,10 @@ let postInformation = ref({
   "sizeIds":[],
 })
 
+let idPost = ref(0);
+
 const constructPostToUpdate = ( gottenPost ) => {
-  postInformation.value.id = gottenPost.id;
+  idPost.value = gottenPost.id;
   postInformation.value.name = gottenPost.name;
   postInformation.value.image = gottenPost.image;
   postInformation.value.stock = gottenPost.stock;
@@ -49,7 +50,7 @@ const colors = ref([]);
 const sizes = ref([]);
 
 const editPost = async () => {
-  await postService.editPost(postInformation.value);
+  await postService.editPost(idPost.value, postInformation.value);
 }
 
 const deleteItemPost = async () => {

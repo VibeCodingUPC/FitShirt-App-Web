@@ -41,13 +41,14 @@ const accountService = new AccountApiService();
 const handleLogin = async () => {
   try {
     let isValidLoginRequest = validateLogin();
+    
     if (isValidLoginRequest) {
       let userLoginRequest = {
         "username": userLogin.value.username,
         "password": userLogin.value.password
       }
 
-      let response = await accountService.login(userLoginRequest);
+      let token = await accountService.login(userLoginRequest);
 
       router.push('/catalogue');
     }
