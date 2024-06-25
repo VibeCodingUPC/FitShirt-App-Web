@@ -13,8 +13,8 @@ const en = {
     name: "Full Name",
     email: "E-mail",
     numC: "Contact Number",
-    numC2: "Additional Contact Number",
-    id: "ID number",
+    username: "Username",
+    birthdate: "Birthdate",
     address: "Address",
     button1: "Edit Profile",
     button2: "Edit Password",
@@ -134,6 +134,23 @@ const en = {
     signin: "Sign In",
 
   },
+  premium: {
+    title: "Upgrade to Premium",
+    free: "Free Version",
+    freedesc1: "- Allows you to make purchases of various designs",
+    freedesc2: "- Allows you to upload your designs and put them up for sale",
+    premium: "Premium Version",
+    premiumdesc1: "- Allows you to make purchases of various designs",
+    premiumdesc2: "- Allows you to upload your designs and put them up for sale",
+    premiumdesc3: "- Increase the number of designs you can offer",
+    premiumdesc4: "- Allows you to highlight your designs and make them more seen",
+    price: "S/50.00 per month",
+    buy: "Buy Premium",
+    titleconfirm: "Upgrade Account",
+    subtitle: "Dear customer, are you sure you want to enhance this improvement?",
+    confirm: "Confirm",
+    cancel: "Cancel"
+  }
 
 }
 

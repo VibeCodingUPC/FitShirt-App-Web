@@ -1,41 +1,58 @@
 <script setup>
+  import { AccountApiService } from '@/services/account-api.service';
+import { UserApiService } from '@/services/user-api.service.js';
+  import { ref, onBeforeMount } from 'vue';
+
+  const userApiService = new UserApiService();
+  const authApiService = new AccountApiService();
+
+  let userInformation = ref({});
+
+  const fetchUserData = async () => {
+    userInformation.value = await userApiService.getUserById(authApiService.getUserIdFromToken());
+  }
+
+  onBeforeMount(async () => {
+    fetchUserData();
+  })
+
 </script>
 
 <template>
-  <pv-card class="card-container">
+  <pv-card class="card-container" v-if="userInformation">
     <template #content>
-        <div class="form-container">
-          <div class="title-text"> {{ $t('profile.title') }}</div>
-          <div>
-            <div class="subtitle-text">{{ $t('profile.name') }}</div>
-            <div class="info-container"></div>
-            <div class="subtitle-text">{{ $t('profile.email') }}</div>
-            <div class="info-container"></div>
-            <div class="subtitle-text">{{ $t('profile.numC') }} </div>
-            <div class="info-container"></div>
-            <div class="subtitle-text">{{ $t('profile.numC2') }}</div>
-            <div class="info-container"></div>
-            <div class="subtitle-text">{{ $t('profile.id') }}</div>
-            <div class="info-container"></div>
-            <div class="subtitle-text">{{ $t('profile.address') }}</div>
-            <div class="info-container"></div>
-          </div>
+      <div class="form-container">
+        <div class="title-text">{{ $t('profile.title') }}</div>
+        <div>
+          <div class="subtitle-text">{{ $t('profile.name') }}</div>
+          <div class="info-container">{{ userInformation.name + " " + userInformation.lastname }}</div>
+          <div class="subtitle-text">{{ $t('profile.username') }}</div>
+          <div class="info-container">{{ userInformation.username }}</div>
+          <div class="subtitle-text">{{ $t('profile.email') }}</div>
+          <div class="info-container">{{ userInformation.email }}</div>
+          <div class="subtitle-text">{{ $t('profile.numC') }}</div>
+          <div class="info-container">{{ userInformation.cellphone }}</div>
+          <div class="subtitle-text">{{ $t('profile.birthdate') }}</div>
+          <div class="info-container">{{ userInformation.birthDate }}</div>
         </div>
-        <div class="button-container">
-          <router-link to="/edit-profile">
-            <pv-button class="button-style">{{ $t('profile.button1') }}</pv-button>
-          </router-link>
-          <router-link to="/edit-password">
-            <pv-button class="button-style">{{ $t('profile.button2') }}</pv-button>
-          </router-link>
-          <router-link to="/edit-payment-method">
-            <pv-button class="button-style">{{ $t('profile.button3') }}</pv-button>
-          </router-link>
-        </div>
+      </div>
+      <div class="button-container">
+        <router-link to="/edit-profile">
+          <pv-button class="button-style">{{ $t('profile.button1') }}</pv-button>
+        </router-link>
+        <router-link to="/edit-password">
+          <pv-button class="button-style">{{ $t('profile.button2') }}</pv-button>
+        </router-link>
+        <router-link to="/edit-payment-method">
+          <pv-button class="button-style">{{ $t('profile.button3') }}</pv-button>
+        </router-link>
+      </div>
     </template>
   </pv-card>
+  <pv-card v-else>
+    <p>Loading...</p>
+  </pv-card>
 </template>
-
 <style scoped>
 .card-container{
   background-color: #dadada;
@@ -89,8 +106,8 @@
 .info-container {
   border-radius: 4px;
   background-color: #ffffff;
-  height: 20px;
-  width: 250px;
+  padding: .4em;
+  width: 300px;
   margin-bottom: 8px;
 }
 </style>

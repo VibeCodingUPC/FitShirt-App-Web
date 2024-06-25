@@ -17,7 +17,7 @@ export class PostsApiService {
 
     async getPostByUserId(userId) {
         return await this.axiosInstance
-            .get(`posts/SearchByUser?userId=${userId}`)
+            .get(`posts/search-by-user?userId=${userId}`)
             .then(res => res.data);
     }
 
@@ -25,8 +25,8 @@ export class PostsApiService {
         return await this.apiMehods.postObject(post);
     }
 
-    async editPost(post){
-        return await this.apiMehods.putObject(post.id, post);
+    async editPost(id, post){
+        return await this.apiMehods.putObject(id, post);
     }
 
     async deletePost(id){

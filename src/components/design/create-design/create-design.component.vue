@@ -5,10 +5,12 @@ import {ColorApiService} from "@/services/color-api.service.js";
 import {ShieldApiService} from "@/services/shield-api.service.js";
 import { environment } from "@/environments/environment";
 import router from "@/routes";
+import { AccountApiService } from "@/services/account-api.service";
 
 const colorService = new ColorApiService();
 const designservice = new DesignsApiService();
 const shieldService = new ShieldApiService();
+const authApiService = new AccountApiService();
 
 let designInformation = ref ({
   "name": "",
@@ -16,7 +18,7 @@ let designInformation = ref ({
   "secondaryColorId": 0,
   "tertiaryColorId": 0,
   "shieldId": 0,
-  "userId": environment.userId
+  "userId": authApiService.getUserIdFromToken()
 })
 const colors = ref([]);
 const shields = ref([]);

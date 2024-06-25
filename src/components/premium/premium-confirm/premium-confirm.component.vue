@@ -1,25 +1,16 @@
-<script>
-import { onMounted, ref } from 'vue';
+<script setup>
 
-export default {
-  setup() {
-    const url = ref("");
-
-    onMounted(() => {
-      url.value = window.location.href;
-    });
-
-    return { url };
-  }
-};
 </script>
 
 <template>
-  <div class="container" aria-label="Error window if user types a non-existent url">
-    <h1>Error 404</h1>
-    <h2>La dirección solicitada, {{ url }}, no fue encontrada</h2>
-    <router-link to="/catalogue" tag="button" class="router-button">
-      Volver al inicio
+  <div class="container" aria-label="Confirm process notification">
+    <h1>{{ $t('premium.titleconfirm') }}</h1>
+    <h2>{{ $t('premium.subtitle') }}</h2>
+    <router-link to="/profile" tag="button" class="router-button">
+      {{ $t('premium.confirm') }}
+    </router-link>
+    <router-link to="/premium" tag="button" class="router-button">
+      {{ $t('premium.cancel') }}
     </router-link>
   </div>
 </template>

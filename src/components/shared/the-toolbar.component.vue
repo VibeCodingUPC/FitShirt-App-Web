@@ -82,6 +82,9 @@ const changeLanguage = () => {
               {{ i18nLocale.locale.value }}
             </pv-button>
           </div>
+          <router-link to="/login" class="logout-button">
+            <p>LogOut</p>
+          </router-link>
         </div>
       </template>
     </pv-sidebar>
@@ -143,12 +146,17 @@ const changeLanguage = () => {
   justify-content: center;
   margin-top: 20px;
 }
-.language-button {
+.logout-button {
   background-color: #4d94ff;
   color: white;
   padding: 10px 20px;
   border-radius: 5px;
   cursor: pointer;
+  text-align: center;
+  margin-top: 28em;
+  text-decoration: none; /* Remove underline */
+  display: inline-block; /* Ensure proper size */
+  font-weight: bold;
 }
 .language-button .pi-globe {
   margin-right: 5px;
