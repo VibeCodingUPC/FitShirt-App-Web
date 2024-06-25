@@ -24,7 +24,7 @@ const useApi = (endpoint) => {
 
   const putObject = (id,object) => {
     return axiosInstance
-        .put(`${endpoint}?id=${id}`, object)
+        .put(`${endpoint}/${id}`, object)
         .then(res => res.data)
   }
 

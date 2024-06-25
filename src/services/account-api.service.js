@@ -1,5 +1,7 @@
 import useAxios from '@/hooks/useAxios';
 import useApi from '../hooks/useApi'
+import { jwtDecode } from 'jwt-decode';
+import { environment } from '@/environments/environment';
 
 export class AccountApiService {
     constructor() {
@@ -20,10 +22,20 @@ export class AccountApiService {
     async login(userLoginRequest) {
         try {
             let res = await this.axiosInstance.post(`/account/login`, userLoginRequest);
-            return res.data;
+            let token = res.data;
+            sessionStorage.setItem('jwt', token);
+            return token;
         }
         catch (error) {
             throw error.response.data.StatusCode;
         }
     }
+
+    getUserIdFromToken() {
+        const token = sessionStorage.getItem('jwt');
+        if (!token) return environment.userId;
+        
+        const decodedToken = jwtDecode(token);
+        return parseInt(decodedToken.sid); 
+      }
 }
