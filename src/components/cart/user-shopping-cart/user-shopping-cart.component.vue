@@ -1,4 +1,5 @@
 <script setup>
+import { ref, computed } from 'vue';
 import { useCart } from '@/hooks/useCart';
 import { AccountApiService } from '@/services/account-api.service';
 import { PurchasesApiService } from '@/services/purchases-api.service';
@@ -6,6 +7,16 @@ import { PurchasesApiService } from '@/services/purchases-api.service';
 const { cart, removeFromCart, clearCart } = useCart();
 const purchasesService = new PurchasesApiService();
 const authApiService = new AccountApiService();
+
+const cardHolder = ref('');
+const cardNumber = ref('');
+const expirationDate = ref('');
+const cvv = ref('');
+
+// Cálculo dinámico del subtotal
+const subtotal = computed(() => {
+  return cart.reduce((total, item) => total + item.price * item.quantity, 0).toFixed(2);
+});
 
 const purchaseCreation = () => {
   let items = cart.map(item => ({
@@ -24,107 +35,119 @@ const purchaseCreation = () => {
 
 const handlePurchase = async () => {
   if (cart.length !== 0) {
+    if (!cardHolder.value || !cardNumber.value || !expirationDate.value || !cvv.value) {
+      alert("Por favor, complete todos los campos de la tarjeta.");
+      return;
+    }
+
     let purchase = purchaseCreation();
     await purchasesService.postPurchase(purchase);
     clearCart();
   }
 }
-
 </script>
 
 <template>
   <div class="main-container" aria-describedby="Jersey cart detail">
     <div class="cart-container">
-      <div class="header-container">
-        <p>Subtotal:&nbsp </p>
-        <div class="info-container" ></div>
+      <!-- Items del carrito -->
+      <div v-for="(item, i) in cart" :key="i" class="item-container">
+        <div class="subitem-container">
+          <img :src="item.image" alt="Item-Image" class="image-container"/>
+          <p>&nbsp{{ item.name }}&nbsp</p>
+          <p>{{ $t('cart.quantity') }}: {{ item.quantity }}</p>
+          <p>{{ $t('cart.price') }}: S/. {{ item.price.toFixed(2) }}</p>
+          <p>{{ $t('cart.size') }}: {{ item.size }}</p>
+          <p>Subtotal: S/. {{ (item.price * item.quantity).toFixed(2) }}</p>
+          <pv-button @click="removeFromCart(item.postId, item.sizeId)" class="trash-button">
+            <img src="/images/bin.png" alt="bin-Image" class="bin-container">
+          </pv-button>
+        </div>
+      </div>
+
+      <!-- Sección de datos de pago -->
+      <div class="payment-container">
+        <h3>Datos de Pago</h3>
+        <label for="card-holder">Titular de la tarjeta:</label>
+        <input type="text" id="card-holder" v-model="cardHolder" required/>
+
+        <label for="card-number">Número de la tarjeta:</label>
+        <input type="text" id="card-number" v-model="cardNumber" required/>
+
+        <label for="expiration-date">Fecha de vencimiento (MM/AA):</label>
+        <input type="text" id="expiration-date" v-model="expirationDate" required/>
+
+        <label for="cvv">CVV:</label>
+        <input type="text" id="cvv" v-model="cvv" required/>
+      </div>
+
+      <!-- Sección de Subtotal y botón de compra -->
+      <div class="footer-container">
+        <p>Total: S/. {{ subtotal }}</p>
         <pv-button
             @click="handlePurchase"
             class="button-style"
-            :disabled="cart.length===0">{{ $t('cart.buy') }}</pv-button>
-        <!-- <router-link to="/catalogue">
-        </router-link> -->
-      </div>
-      <div v-for="(item, i) in cart" :key="i" >
-        <div class="item-container">
-          <div class="subitem-container">
-            <img :src="item.image" alt="Item-Image" class="image-container"/>
-            <p>&nbsp{{item.name}}&nbsp</p>
-          </div>
-          <div class="subitem-container">
-            <p>{{ $t('cart.quantity') }}:&nbsp</p>
-            <div class="info-container">{{ item.quantity }}</div>
-          </div>
-          <div class="subitem-container">
-            <p>{{ $t('cart.price') }}:&nbsp</p>
-            <div class="info-container">S/. {{(item.price).toFixed(2)}}</div>
-          </div>
-          <div class="subitem-container">
-            <p>{{ $t('cart.size') }}:&nbsp</p>
-            <div class="info-container">{{item.size}}</div>
-          </div>
-          <div class="subitem-container">
-            <p>Subtotal:&nbsp </p>
-            <div class="info-container">S/. {{(item.price*item.quantity).toFixed(2)}}</div>
-          </div>
-          <div>
-            <pv-button
-                @click="removeFromCart(item.postId, item.sizeId)"
-                class="trash-button" >
-              <img src="/images/bin.png" alt="bin-Image" class="bin-container">
-            </pv-button>
-          </div>
-        </div>
+            :disabled="cart.length === 0">{{ $t('cart.buy') }}
+        </pv-button>
       </div>
     </div>
   </div>
 </template>
 
 <style scoped>
-.main-container{
+.main-container {
   background-color: #dadada;
   padding: 20px;
   flex: .95;
 }
+
 .cart-container {
   display: flex;
   flex-direction: column;
-  justify-content: center;
   align-items: center;
 }
-.trash-button{
+
+.payment-container {
+  margin-top: 20px;
+  padding: 20px;
+  background-color: #f5f5f5;
+  border-radius: 10px;
+  width: 100%;
+  max-width: 400px;
+}
+
+.payment-container h3 {
+  margin-bottom: 1em;
+}
+
+.payment-container label {
+  display: block;
+  margin-bottom: 0.5em;
+}
+
+.payment-container input {
+  width: 100%;
+  padding: 0.5em;
+  margin-bottom: 1em;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+}
+
+.trash-button {
   background-color: rgba(255, 255, 255, 0);
 }
-.subitem-container{
+
+.item-container {
   background-color: #cacaca;
   padding: 20px;
-  flex-direction: row;
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
-  align-items: center;
-}
-.bin-container{
-  height: 20px;
-}
-.header-container{
-  padding: 20px;
-  flex-direction: row;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
-.item-container{
-  background-color: #cacaca;
-  padding: 20px;
-  flex-direction: row;
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
-  align-items: center;
   margin: 5px;
+  width: 100%;
+  max-width: 600px;
+  display: flex;
+  flex-direction: column;
 }
-.image-container{
+
+.image-container {
   height: 140px;
   width: 150px;
   margin: 5px;
@@ -139,20 +162,27 @@ const handlePurchase = async () => {
   padding-top: 2px;
   margin-right: 10px;
 }
-.editableinfo-container {
-  border-radius: 4px;
-  background-color: #ffffff;
-  height: 20px;
-  width: 100px;
-  padding-left: 20px;
-}
+
 .button-style {
-  padding: .4em 1.8em;
-  margin: .2em 0;
+  padding: .6em 2em;
+  margin: .5em 0;
   border-radius: 6px;
-  font-size: .9em;
+  font-size: 1em;
   cursor: pointer;
   background-color: #4D94FF;
   color: #E5E5E5;
+}
+
+.footer-container {
+  margin-top: 20px;
+  padding: 10px;
+  background-color: #f5f5f5;
+  border-radius: 10px;
+  width: 100%;
+  max-width: 400px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 1.2em;
 }
 </style>
