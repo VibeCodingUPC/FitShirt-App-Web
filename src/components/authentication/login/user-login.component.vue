@@ -113,28 +113,9 @@ const handleLogin = async () => {
 </template>
 
 <style scoped>
-.line-container{
+.line-container {
   margin: 0 1rem 1rem 1rem;
   border: solid white 1px;
-}
-@media (max-width: 900px) {
-  .app-description{
-    display: none;
-  }
-  .img-container{
-    display: none;
-  }
-  .description-container{
-    display: none;
-  }
-}
-@media (min-width: 670px) {
-  .img-container{
-    width: 400px;
-  }
-  .description-container{
-    width: 400px;
-  }
 }
 
 .card-container {
@@ -142,55 +123,83 @@ const handleLogin = async () => {
   flex-direction: row;
   background-color: #dadada;
   min-height: 100vh;
-  justify-content: space-evenly;
+  justify-content: center;
   align-items: center;
+  box-sizing: border-box;
+  padding: 2em;
 }
+
+.img-container {
+  width: 400px;
+  display: flex;
+  justify-content: center;
+  margin-right: 20px;
+}
+
+.description-container {
+  width: 400px;
+  display: flex;
+  justify-content: center;
+}
+
 .login-card {
   background-color: #333333;
   border-radius: 25px;
-  padding: 3.2em;
-  display:flex;
+  padding: 3em;
+  display: flex;
   flex-direction: column;
+  box-sizing: border-box;
+  width: 100%;
+  max-width: 400px;
+  margin: 0;
 }
-.app-description{
+
+.app-description {
   text-align: justify;
   font-family: Roboto, sans-serif;
 }
-.title-container{
+
+.title-container {
   text-align: center;
-  align-items: center;
   font-size: 40px;
   font-family: Roboto, sans-serif;
   font-weight: bolder;
   margin-bottom: 20px;
   color: white;
 }
-.button-container{
-  width: 360px;
+
+.button-container {
+  width: 100%;
   background-color: #4d94ff;
   color: white;
   margin-bottom: 10px;
-  padding-bottom: 5px;
-  padding-top: 5px;
+  padding: 10px;
 }
-.cwhite{
+
+.cwhite {
   color: white;
 }
-.mb10{
+
+.mb10 {
   margin-bottom: 10px;
 }
-.mb100{
+
+.mb100 {
   margin-bottom: 1.2em;
 }
-.mb50{
+
+.mb50 {
   margin-bottom: 50px;
 }
-.tac{
+
+.tac {
   text-align: center;
 }
+
 .register:hover {
   text-decoration: underline;
 }
+
 .changelanguage {
   display: flex;
   justify-content: center;
@@ -207,5 +216,67 @@ const handleLogin = async () => {
 
 .language-button .pi-globe {
   margin-right: 5px;
+}
+
+@media (max-width: 900px) {
+  .app-description {
+    display: none;
+  }
+  .img-container {
+    display: none;
+  }
+  .description-container {
+    display: none;
+  }
+}
+
+@media (min-width: 600px) {
+  .login-card {
+    padding: 2em;
+    width: 100%;
+    max-width: 400px;
+    box-sizing: border-box;
+    margin: 0;
+  }
+
+  .img-container {
+    width: 400px;
+  }
+
+  .description-container {
+    width: 400px;
+  }
+
+  .title-container {
+    font-size: 24px;
+  }
+
+  .button-container {
+    padding: 10px;
+  }
+
+  .changelanguage {
+    margin-top: 10px;
+  }
+}
+
+@media (min-width: 901px) {
+  .card-container {
+    padding: 3em;
+  }
+
+  .img-container,
+  .description-container {
+    margin: 0 90px;
+  }
+
+  .title-container {
+    font-size: 40px;
+  }
+
+  .login-card {
+    padding: 3.5em;
+    margin: 0;
+  }
 }
 </style>
