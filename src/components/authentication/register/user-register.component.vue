@@ -157,84 +157,72 @@ const handleRegistration = async () => {
 </template>
 
 <style scoped>
-.login {
-  text-align: center;
-}
-@media (max-width: 900px) {
-  .app-description{
-    display: none;
-  }
-  .img-container{
-    display: none;
-  }
-  .description-container{
-    display: none;
-  }
-}
-@media (min-width: 670px) {
-  .img-container{
-    width: 400px;
-  }
-  .description-container{
-    width: 400px;
-  }
-}
-
 .card-container {
   display: flex;
   flex-direction: row;
   background-color: #dadada;
-  justify-content: space-evenly;
+  justify-content: center; /* Centrar el contenido horizontalmente */
   align-items: center;
   min-height: 100vh;
-  padding: .4em 0;
+  padding: 1em;
+  box-sizing: border-box;
+  flex-wrap: wrap; /* Permitir que los elementos se envuelvan en pantallas pequeñas */
 }
+
+.img-container {
+  max-width: 100%;
+  height: auto;
+  margin: 0 90px;
+}
+
+.description-container {
+  max-width: 400px;
+  margin: 0 90px;
+}
+
 .register-card {
   background-color: #333333;
   border-radius: 20px;
-  padding: 2.2em 3.2em;
-  display:flex;
+  padding: 2em;
+  display: flex;
   flex-direction: column;
+  width: 100%;
+  max-width: 400px;
+  margin: 1em;
 }
-.app-description{
-  text-align: justify;
-  font-family: Roboto, sans-serif;
-}
-.title-container{
+
+.title-container {
   text-align: center;
-  align-items: center;
-  font-size: 40px;
+  font-size: 30px;
   font-family: Roboto, sans-serif;
   font-weight: bolder;
   margin-bottom: 20px;
   color: white;
 }
-.button-container{
-  width: 360px;
-  background-color: #4d94ff;
-  color: white;
-  margin-bottom: 10px;
-  padding-bottom: 5px;
-  padding-top: 5px;
-}
-.cwhite{
+
+.cwhite {
   color: white;
 }
-.login {
-  margin-top: .8em;
-}
-.login:hover {
-  text-decoration: underline;
-}
-.mb10{
+
+.mb10 {
   margin-bottom: 10px;
 }
+
 .date-input {
-  padding: .8em;
+  padding: 0.8em;
   font-size: 1.1em;
   border-radius: 8px;
   margin-bottom: 10px;
 }
+
+.button-container {
+  width: 100%;
+  background-color: #4d94ff;
+  color: white;
+  margin-bottom: 10px;
+  padding: 10px;
+}
+
 .changelanguage {
   display: flex;
   justify-content: center;
@@ -251,5 +239,55 @@ const handleRegistration = async () => {
 
 .language-button .pi-globe {
   margin-right: 5px;
+}
+
+.tac {
+  text-align: center;
+}
+
+.login {
+  text-align: center;
+  margin-top: 0.8em;
+}
+
+.login:hover {
+  text-decoration: underline;
+}
+
+/* Media Queries */
+@media (max-width: 900px) {
+  .app-description {
+    display: none;
+  }
+
+  .img-container {
+    display: none;
+  }
+
+  .description-container {
+    display: none;
+  }
+
+  .register-card {
+    padding: 1.5em;
+    margin: 0 auto;
+  }
+}
+
+@media (min-width: 670px) {
+  .img-container {
+    width: 400px;
+  }
+
+  .description-container {
+    width: 400px;
+  }
+}
+
+@media (min-width: 900px) {
+  .card-container {
+    flex-direction: row;
+    justify-content: center;
+  }
 }
 </style>
