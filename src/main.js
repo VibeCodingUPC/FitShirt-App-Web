@@ -11,6 +11,7 @@ import InputText from "primevue/inputtext";
 import Button from 'primevue/button';
 import Sidebar from "primevue/sidebar";
 import Checkbox from "primevue/checkbox";
+import SelectButton from 'primevue/selectbutton';
 import i18n from './locale/i18n';
 import 'primeicons/primeicons.css'
 
@@ -25,5 +26,6 @@ app.component('pv-inputText',InputText);
 app.component('pv-sidebar',Sidebar);
 app.component('pv-button',Button);
 app.component('pv-checkbox',Checkbox);
+app.component('pv-select', SelectButton);
 
 app.mount('#app');

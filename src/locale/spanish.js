@@ -129,6 +129,9 @@ const es = {
     phone: "Celular",
     oldmsg: "¿Ya tienes una cuenta?",
     signin: "Iniciar Sesión",
+    userRole: "Rol",
+    userClient: "Cliente",
+    userBusiness: "Comerciante",
   },
 
   premium: {

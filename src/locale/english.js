@@ -132,6 +132,9 @@ const en = {
     phone: "Phone Number",
     oldmsg: "Do you already have an account?",
     signin: "Sign In",
+    userRole: "Role",
+    userClient: "Client",
+    userBusiness: "Businessman",
 
   },
   premium: {

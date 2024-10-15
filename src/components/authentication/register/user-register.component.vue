@@ -1,5 +1,5 @@
 <script setup>
-import { ref } from 'vue';
+import {computed, ref} from 'vue';
 import {useI18n} from "vue-i18n";
 import { AccountApiService } from "@/services/account-api.service";
 import router from "@/routes";
@@ -12,8 +12,14 @@ let userRegistration = ref({
   "password": "",
   "confirmPassword": "",
   "email": "",
-  "cellphone": ""
+  "cellphone": "",
+  "userRole": ""
 });
+const { t } = useI18n();
+let options = computed(() => [
+  t('register.userClient'),
+  t('register.userBusiness'),
+]);
 
 const accountService = new AccountApiService();
 
@@ -137,6 +143,9 @@ const handleRegistration = async () => {
       <p class="cwhite">{{ $t('register.phone') }}</p>
       <pv-inputText class="mb10" type="text" v-model="userRegistration.cellphone" aria-label="Enter a phone" />
 
+      <p class="cwhite">{{ $t('register.userRole') }}</p>
+      <pv-select class="mb10" v-model="userRegistration.userRole" :options="options" aria-labelledby="basic" />
+
       <p class="cwhite mb100 tac">{{ registrationError }}</p>
 
       <pv-button :label="$t('register.button')" severity="info" class="button-container" @click="handleRegistration" />
@@ -161,12 +170,12 @@ const handleRegistration = async () => {
   display: flex;
   flex-direction: row;
   background-color: #dadada;
-  justify-content: center; /* Centrar el contenido horizontalmente */
+  justify-content: center;
   align-items: center;
   min-height: 100vh;
   padding: 1em;
   box-sizing: border-box;
-  flex-wrap: wrap; /* Permitir que los elementos se envuelvan en pantallas pequeñas */
+  flex-wrap: wrap;
 }
 
 .img-container {
