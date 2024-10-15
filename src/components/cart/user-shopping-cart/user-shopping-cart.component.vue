@@ -13,6 +13,11 @@ const cardNumber = ref('');
 const expirationDate = ref('');
 const cvv = ref('');
 
+const cardHolderError = ref('');
+const cardNumberError = ref('');
+const expirationDateError = ref('');
+const cvvError = ref('');
+
 // Cálculo dinámico del subtotal
 const subtotal = computed(() => {
   return cart.reduce((total, item) => total + item.price * item.quantity, 0).toFixed(2);
@@ -33,16 +38,52 @@ const purchaseCreation = () => {
   return purchase;
 }
 
-const handlePurchase = async () => {
-  if (cart.length !== 0) {
-    if (!cardHolder.value || !cardNumber.value || !expirationDate.value || !cvv.value) {
-      alert("Por favor, complete todos los campos de la tarjeta.");
-      return;
-    }
+// Función de validación de entrada
+const validateInputs = () => {
+  let isValid = true;
 
+  if (!cardHolder.value) {
+    cardHolderError.value = 'El nombre del titular es obligatorio.';
+    isValid = false;
+  } else {
+    cardHolderError.value = '';
+  }
+
+  const cardNumberPattern = /^[0-9]{16}$/;
+  if (!cardNumberPattern.test(cardNumber.value)) {
+    cardNumberError.value = 'Número de tarjeta inválido. Debe contener 16 dígitos.';
+    isValid = false;
+  } else {
+    cardNumberError.value = '';
+  }
+
+  const expirationPattern = /^(0[1-9]|1[0-2])\/\d{2}$/;
+  if (!expirationPattern.test(expirationDate.value)) {
+    expirationDateError.value = 'Fecha de vencimiento inválida. Debe estar en el formato MM/AA.';
+    isValid = false;
+  } else {
+    expirationDateError.value = '';
+  }
+
+  const cvvPattern = /^[0-9]{3,4}$/;
+  if (!cvvPattern.test(cvv.value)) {
+    cvvError.value = 'CVV inválido. Debe contener 3 o 4 dígitos.';
+    isValid = false;
+  } else {
+    cvvError.value = '';
+  }
+
+  return isValid;
+}
+
+const handlePurchase = async () => {
+  if (cart.length === 0) return;
+
+  if (validateInputs()) {
     let purchase = purchaseCreation();
     await purchasesService.postPurchase(purchase);
     clearCart();
+    alert("¡Pago exitoso!");
   }
 }
 </script>
@@ -70,15 +111,19 @@ const handlePurchase = async () => {
         <h3>Datos de Pago</h3>
         <label for="card-holder">Titular de la tarjeta:</label>
         <input type="text" id="card-holder" v-model="cardHolder" required/>
+        <p v-if="cardHolderError" class="error-message">{{ cardHolderError }}</p>
 
         <label for="card-number">Número de la tarjeta:</label>
-        <input type="text" id="card-number" v-model="cardNumber" required/>
+        <input type="text" id="card-number" v-model="cardNumber" maxlength="16" required/>
+        <p v-if="cardNumberError" class="error-message">{{ cardNumberError }}</p>
 
         <label for="expiration-date">Fecha de vencimiento (MM/AA):</label>
-        <input type="text" id="expiration-date" v-model="expirationDate" required/>
+        <input type="text" id="expiration-date" v-model="expirationDate" maxlength="5" placeholder="MM/AA" required/>
+        <p v-if="expirationDateError" class="error-message">{{ expirationDateError }}</p>
 
         <label for="cvv">CVV:</label>
-        <input type="text" id="cvv" v-model="cvv" required/>
+        <input type="text" id="cvv" v-model="cvv" maxlength="4" required/>
+        <p v-if="cvvError" class="error-message">{{ cvvError }}</p>
       </div>
 
       <!-- Sección de Subtotal y botón de compra -->
@@ -95,6 +140,12 @@ const handlePurchase = async () => {
 </template>
 
 <style scoped>
+.error-message {
+  color: red;
+  font-size: 0.9em;
+  margin-top: -10px;
+  margin-bottom: 10px;
+}
 .main-container {
   background-color: #dadada;
   padding: 20px;
