@@ -180,7 +180,6 @@ onBeforeMount(()=>{
 
 <style scoped>
 .card-container{
-  background-color: #dadada;
   height: 100%;
   display: flex;
   justify-content: center;
@@ -188,7 +187,6 @@ onBeforeMount(()=>{
   align-self: center;
 }
 .form-container {
-  background-color: #dadada;
   padding: 20px;
   flex-direction: column;
   width: auto;

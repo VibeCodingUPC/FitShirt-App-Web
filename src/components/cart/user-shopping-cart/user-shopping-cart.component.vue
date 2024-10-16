@@ -147,7 +147,6 @@ const handlePurchase = async () => {
   margin-bottom: 10px;
 }
 .main-container {
-  background-color: #dadada;
   padding: 20px;
   flex: .95;
 }

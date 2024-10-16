@@ -127,58 +127,75 @@ onMounted(() => {
 </template>
 
 <style scoped>
+/* Contenedor principal */
 .shirt-description-container {
   display: flex;
   flex-direction: row;
-  padding: .8em 0;
+  padding: 1em;
   flex: .95;
   align-self: center;
+  background-color: #ffffff; /* Fondo blanco */
+  border-radius: 8px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
 }
+
+/* Detalles de la camiseta */
 .shirt-details {
   flex: 1;
   padding: 20px;
-  border-radius: 8px;
-  border: solid black .01em;
+  background-color: #e0e7ff; /* Fondo azul claro */
+  border-radius: 12px;
 }
+
 .shirt-detail {
   margin: .6em 0;
 }
+
 .shirt-detail b {
   font-weight: 600;
+  color: #3B82F6; /* Azul principal */
 }
+
 #category {
-  font-size: .8em;
+  font-size: .9em;
   font-style: italic;
+  color: #4d94ff; /* Azul más claro */
 }
+
 #name {
-  font-size: 1.6em;
+  font-size: 1.8em;
   font-weight: 600;
   text-align: center;
+  color: #3B82F6;
 }
+
 #price {
-  font-size: 1.4em;
+  font-size: 1.6em;
   font-weight: 500;
   text-align: center;
-  font-style: italic;
+  color: #4d94ff;
 }
+
 #size {
   display: flex;
   flex-direction: column;
 }
+
 #size label {
   font-weight: 600;
   margin-bottom: .4em;
 }
+
 #size select {
   padding: .6em;
   margin: auto;
-  width: 200px;
+  width: 220px;
   border-radius: 12px;
+  border: 1px solid #4d94ff;
+  background-color: #ffffff;
 }
-#quantity-detail {
-  display: flex;
-  flex-direction: column;
-}
+
+/* Cantidad */
 #quantity-detail .quantity {
   margin: auto;
   width: 100px;
@@ -186,45 +203,56 @@ onMounted(() => {
   justify-content: space-around;
   align-items: center;
 }
+
 #quantity-detail .quantity button {
   width: 32px;
-  height: 24px;
+  height: 32px;
   border-radius: 4px;
-  background-color: #bbbbbb;
+  background-color: #4d94ff; /* Botones en azul */
+  color: #ffffff;
   cursor: pointer;
+  border: none;
 }
-#card-detail {
-  display: flex;
-  justify-content: center;
-}
+
 #card-detail button {
-  padding: .4em 1.8em;
+  padding: .6em 2em;
   margin: .2em 0;
   border-radius: 6px;
-  font-size: 1.05em;
+  font-size: 1.1em;
   cursor: pointer;
-  background-color: #4D94FF;
-  color: #E5E5E5;
+  background-color: #3B82F6;
+  color: #ffffff; /* Texto en blanco */
+  border: none;
 }
+
 #seller-detail {
-  font-size: .8em;
+  font-size: .85em;
   text-align: end;
+  color: #4d94ff;
 }
+
+/* Imagen de la camiseta */
 .shirt-image {
   width: 400px;
   height: 400px;
   display: flex;
+  background-color: #ffffff;
+  border-radius: 12px;
+  border: 1px solid #e0e7ff;
 }
+
 .shirt-image img {
   max-width: 100%;
   height: 300px;
   margin: auto;
   object-fit: contain;
 }
+
+/* Media Queries para móviles */
 @media (max-width: 880px) {
   .shirt-description-container {
     flex-direction: column-reverse;
-    height: 800px;
+    height: auto;
   }
 
   .shirt-details,
@@ -235,12 +263,7 @@ onMounted(() => {
 
   .shirt-image {
     margin: 0;
-    height: 300px;
-  }
-  .shirt-image img {
-    height: 100%;
-
+    height: auto;
   }
 }
-
 </style>

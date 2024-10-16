@@ -1,12 +1,12 @@
 <script setup>
-import theToolbar from '../../shared/the-toolbar.component.vue';
-import PublishShirt from "@/components/posts/publish-post/publish-shirt.component.vue";
+import TheToolbar from "@/components/shared/the-toolbar.component.vue";
+import ClientDashboardContent from "./dashboard-client.component.vue";
 </script>
 
 <template>
   <main class="main">
     <the-toolbar/>
-    <publish-shirt/>
+    <ClientDashboardContent/>
   </main>
 </template>
 
@@ -14,6 +14,7 @@ import PublishShirt from "@/components/posts/publish-post/publish-shirt.componen
 .main {
   display: flex;
   justify-content: space-around;
+  min-height: 100vh;
   margin: auto;
 }
 @media (max-width: 600px) {

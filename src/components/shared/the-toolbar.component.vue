@@ -1,151 +1,177 @@
 <script setup>
-import { ref } from "vue";
-import {useI18n} from "vue-i18n";
+import { onMounted, ref } from "vue";
+import { useI18n } from "vue-i18n";
 
 const visible = ref(false);
+const isMobile = ref(false);
 const i18nLocale = useI18n();
+const userRole = ref(localStorage.getItem('userRole') || 'Businessman');
+
+const checkMobileView = () => {
+  isMobile.value = window.innerWidth <= 768;
+};
+
 const changeLanguage = () => {
-  if (i18nLocale.locale.value == 'en') {
-    i18nLocale.locale.value='es'
+  i18nLocale.locale.value = i18nLocale.locale.value === 'en' ? 'es' : 'en';
+};
+
+const closeMenu = (event) => {
+  const sidebar = document.querySelector('.sidebar');
+  if (isMobile.value && visible.value && sidebar && !sidebar.contains(event.target) && !event.target.closest('.burger-button')) {
+    visible.value = false;
   }
-  else {
-    i18nLocale.locale.value='en'
+};
+
+const menuOptions = ref([]);
+
+const loadMenuOptions = () => {
+  if (userRole.value === 'Client') {
+    menuOptions.value = [
+      { path: '/profile', icon: '/icons/ProfileIcon.png', label: 'toolbar.profile' },
+      { path: '/catalogue', icon: '/icons/ShopIcon.png', label: 'toolbar.catalogue' },
+      { path: '/my-design', icon: '/icons/DesignIcon.png', label: 'toolbar.designs' },
+      { path: '/cart', icon: '/icons/CartIcon.png', label: 'toolbar.cart' },
+      { path: '/shopping-list', icon: '/icons/ShoppingList.png', label: 'toolbar.shopList'},
+        //Falta
+      { path: '/merchants', icon: '/icons/BusinessMan.png', label: 'toolbar.merchants'}
+
+    ];
+  } else if (userRole.value === 'Businessman') {
+    menuOptions.value = [
+      { path: '/profile', icon: '/icons/ProfileIcon.png', label: 'toolbar.profile' },
+      { path: '/published', icon: '/icons/ShopIcon.png', label: 'toolbar.posts' },
+        //Falta
+      { path: '/clients', icon: '/icons/Clients.png', label: 'toolbar.clients' },
+    ];
   }
-}
+};
+
+onMounted(() => {
+  checkMobileView();
+  loadMenuOptions();
+  window.addEventListener('resize', checkMobileView);
+  window.addEventListener('click', closeMenu);
+});
 </script>
 
 <template>
-  <div class="sidebar-container">
-  <pv-button class="button-style" icon="pi pi-bars" @click="visible = true"></pv-button>
-    <pv-sidebar v-model:visible="visible">
-      <template #container>
-        <div class="flex flex-column h-full">
-          <div class="overflow-y-auto">
-            <ul class="list-none p-3 ">
-              <li>
-                <ul class="list-none overflow-y-auto">
-                  <router-link to="/profile">
-                    <li>
-                      <a class="icons-container">
-                        <img src="/icons/ProfileIcon.png" alt="profile-Image" class="icon-container">
-                        <span >{{ $t('toolbar.profile') }}</span>
-                      </a>
-                    </li>
-                  </router-link>
-                  <router-link to="/catalogue">
-                    <li>
-                      <a class="icons-container">
-                        <img src="/icons/ShopIcon.png" alt="shop-Image" class="icon-container">
-                        <span >{{ $t('toolbar.catalogue') }}</span>
-                      </a>
-                    </li>
-                  </router-link>
-                  <router-link to="/published">
-                    <li>
-                      <a class="icons-container">
-                        <img src="/icons/ShopIcon.png" alt="shop-Image" class="icon-container">
-                        <span >{{ $t('toolbar.posts') }}</span>
-                      </a>
-                    </li>
-                  </router-link>
-                  <router-link to="/my-design">
-                    <li>
-                      <a class="icons-container">
-                        <img src="/icons/DesignIcon.png" alt="shop-Image" class="icon-container">
-                        <span >{{ $t('toolbar.designs') }}</span>
-                      </a>
-                    </li>
-                  </router-link>
-                  <router-link to="/cart">
-                    <li>
-                      <a class="icons-container">
-                        <img src="/icons/CartIcon.png" alt="shop-Image" class="icon-container">
-                        <span >{{ $t('toolbar.cart') }}</span>
-                      </a>
-                    </li>
-                  </router-link>
-                  <router-link to="/premium">
-                    <li>
-                      <a class="icons-container">
-                        <img src="/icons/PremiumIcon.png" alt="shop-Image" class="icon-container">
-                        <span >{{ $t('toolbar.premium') }}</span>
-                      </a>
-                    </li>
-                  </router-link>
-                </ul>
-              </li>
-            </ul>
-          </div>
-          <div class="footer">
-            <pv-button @click="changeLanguage" class="language-button">
-              <i class="pi pi-globe"></i>
-              {{ i18nLocale.locale.value }}
-            </pv-button>
-          </div>
-          <router-link to="/login" class="logout-button">
-            <p>LogOut</p>
-          </router-link>
+  <div class="toolbar-container">
+    <pv-button class="button-style burger-button" icon="pi pi-bars" @click="visible = !visible" v-if="isMobile" style="margin: auto;"></pv-button>
+
+    <div :class="['sidebar', { 'mobile-visible': visible }]" v-if="!isMobile || visible">
+      <div class="flex flex-column h-full">
+        <div class="overflow-y-auto">
+          <ul class="list-none p-3">
+            <li>
+              <ul class="list-none overflow-y-auto">
+                <router-link v-for="option in menuOptions" :key="option.path" :to="option.path">
+                  <li>
+                    <a class="icons-container">
+                      <img :src="option.icon" alt="option.label" class="icon-container" />
+                      <span>{{ $t(option.label) }}</span>
+                    </a>
+                  </li>
+                </router-link>
+              </ul>
+            </li>
+          </ul>
         </div>
-      </template>
-    </pv-sidebar>
+        <div class="footer">
+          <pv-button @click="changeLanguage" class="language-button">
+            <i class="pi pi-globe"></i>
+            {{ i18nLocale.locale.value }}
+          </pv-button>
+        </div>
+        <router-link to="/login" class="logout-button">
+          <p>Log out</p>
+        </router-link>
+      </div>
+    </div>
   </div>
 </template>
 
 <style scoped>
-.sidebar-container {
-  position: relative;
-  flex: .05;
+.toolbar-container {
+  display: flex;
+  height: 100vh;
+  overflow: hidden;
 }
+
+.sidebar {
+  width: 300px;
+  background-color: #ffffff;
+  padding: 1rem;
+  border-right: 2px solid #ddd;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  transition: transform 0.1s ease;
+  z-index: 1000;
+  box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1);
+}
+
+.sidebar.mobile-visible {
+  transform: translateX(0);
+}
+
+.burger-button {
+  display: none;
+  position: absolute;
+  top: 10px;
+  left: 10px;
+}
+
+@media (max-width: 768px) {
+  .sidebar {
+    transform: translateX(-100%);
+    position: fixed;
+    height: 100%;
+    transition: transform 0.3s ease;
+  }
+
+  .sidebar.mobile-visible {
+    transform: translateX(0);
+  }
+
+  .burger-button {
+    display: block;
+    margin: 0;
+  }
+}
+
 .button-style {
   width: 36px;
   height: 36px;
-  padding: .8em;
-  border-radius: 12px;
-  background-color: #cacaca;
   cursor: pointer;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
-.icons-container{
-  display:flex;
+
+.icons-container {
+  display: flex;
   align-items: center;
   cursor: pointer;
-  background-color: rgba(37, 99, 235, 0.26);
-  overflow: hidden;
   font-weight: 600;
   border-radius: 0.25rem;
   padding: 0.725rem;
-  margin: 10px;
-}
-.flex {
-  display: flex;
-}
-
-.flex-column {
-  flex-direction: column;
+  margin: 10px 0;
+  width: 100%;
+  background-color: #e0e7ff;
+  justify-content: flex-start;
 }
 
-.h-full {
-}
-.icon-container{
+.icon-container {
   width: 1.2rem;
   height: 1.2rem;
-  margin-right: 0.5rem;
-}
-.overflow-y-auto {
-  overflow-y: auto;
-}
-.list-none {
-  list-style-type: none;
-}
-
-.p-3 {
-  padding: 0.75rem;
+  margin-right: 10px;
 }
 
 .footer {
-  display: flex;
-  justify-content: center;
   margin-top: 20px;
+  text-align: center;
 }
+
 .logout-button {
   background-color: #4d94ff;
   color: white;
@@ -153,13 +179,13 @@ const changeLanguage = () => {
   border-radius: 5px;
   cursor: pointer;
   text-align: center;
-  margin-top: 28em;
-  text-decoration: none; /* Remove underline */
-  display: inline-block; /* Ensure proper size */
+  margin: 20px auto;
+  text-decoration: none;
   font-weight: bold;
+  width: 80%;
 }
+
 .language-button .pi-globe {
   margin-right: 5px;
 }
-
 </style>

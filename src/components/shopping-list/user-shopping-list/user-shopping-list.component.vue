@@ -43,7 +43,6 @@ const subtotal = computed(() => {
 
 <style scoped>
 .main-container {
-  background-color: #dadada;
   padding: 20px;
   flex: .95;
 }

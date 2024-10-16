@@ -121,7 +121,6 @@ const handleLogin = async () => {
 .card-container {
   display: flex;
   flex-direction: row;
-  background-color: #dadada;
   min-height: 100vh;
   justify-content: center;
   align-items: center;

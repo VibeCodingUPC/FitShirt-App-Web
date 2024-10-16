@@ -5,7 +5,9 @@ const es = {
     posts: "Publicaciones",
     designs: "Diseños",
     cart: "Carrito",
-    premium: "Premium"
+    shopList: "Lista de Compras",
+    merchants: "Comerciantes",
+    clients: "Clientes"
   },
 
   profile:{
@@ -34,7 +36,6 @@ const es = {
     expiration: "Fecha de Vencimiento",
     code: "Código de Seguridad",
     deleteCard: "Eliminar Tarjeta"
-
   },
 
   catalogue:{
@@ -83,6 +84,7 @@ const es = {
     limit: "Limite de diseños = Ilimitado",
     create: "Crear Diseño",
     name: "Nombre de Camiseta",
+    edit: "Editar Diseño",
     fColor: "Color Primario",
     sColor: "Color Secundario",
     tColor: "Color Terciario",
@@ -90,8 +92,8 @@ const es = {
     confirmButton: "Confirmar",
     cancelButton: "Cancelar",
     deleteButton: "Eliminar Diseño",
-
   },
+
   cart: {
     buy: "Comprar",
     quantity: "Cantidad",
@@ -150,6 +152,21 @@ const es = {
     subtitle: "Estimado cliente ¿Está seguro que desea realzar esta mejora?",
     confirm: "Confirmar",
     cancel: "Cancelar"
+  },
+  dashClient: {
+    welcomeClient: "¡Bienvenido, Cliente!",
+    personalizedDashboard: "Este es tu panel personalizado",
+    checkProfile: "Revisa tu perfil",
+    browseCatalogue: "Explora el catálogo",
+    manageDesigns: "Administra tus diseños",
+    viewCart: "Consulta tu carrito y lista de compras"
+  },
+  dashBusinessman: {
+    welcomeBusiness: "¡Bienvenido, Empresario!",
+    manageOperations: "Aquí puedes gestionar tus operaciones comerciales.",
+    viewProducts: "Ver tus productos publicados",
+    manageClients: "Gestionar clientes",
+    updateProfile: "Actualizar tu perfil"
   }
 
 }

@@ -169,7 +169,6 @@ const handleRegistration = async () => {
 .card-container {
   display: flex;
   flex-direction: row;
-  background-color: #dadada;
   justify-content: center;
   align-items: center;
   min-height: 100vh;
