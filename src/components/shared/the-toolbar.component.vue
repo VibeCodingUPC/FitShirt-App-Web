@@ -32,6 +32,7 @@ const loadMenuOptions = () => {
       { path: '/my-design', icon: '/icons/DesignIcon.png', label: 'toolbar.designs' },
       { path: '/cart', icon: '/icons/CartIcon.png', label: 'toolbar.cart' },
       { path: '/shopping-list', icon: '/icons/ShoppingList.png', label: 'toolbar.shopList'},
+
         //Falta
       { path: '/merchants', icon: '/icons/BusinessMan.png', label: 'toolbar.merchants'}
 
@@ -42,6 +43,7 @@ const loadMenuOptions = () => {
       { path: '/published', icon: '/icons/ShopIcon.png', label: 'toolbar.posts' },
         //Falta
       { path: '/clients', icon: '/icons/Clients.png', label: 'toolbar.clients' },
+
     ];
   }
 };
