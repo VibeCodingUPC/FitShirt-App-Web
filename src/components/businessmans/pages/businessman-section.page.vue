@@ -49,10 +49,10 @@ import ListBusinessmans from "@/components/businessmans/components/list-business
 
 .scroll-panel {
   width: fit-content;
-  height: fit-content;
+  height: 950px;
   overflow-y: auto; /* Activa el scroll vertical */
   border: 1px solid #ccc;
-  padding: 10px;
+  padding: 100px;
 }
 
 /* Estilos del Scrollbar */
