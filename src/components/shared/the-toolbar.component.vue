@@ -44,7 +44,7 @@ const loadMenuOptions = () => {
       { path: '/published', icon: '/icons/ShopIcon.png', label: 'toolbar.posts' },
         //Falta
       { path: '/clients', icon: '/icons/Clients.png', label: 'toolbar.clients' },
-      {path:'/businessman-list',label:'toolbar.businessman'}
+      {path:'/businessman-list', icon: '/icons/BusinessMan.png',label:'toolbar.businessman'}
 
     ];
   }
