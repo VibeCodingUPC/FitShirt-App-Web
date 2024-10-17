@@ -12,8 +12,21 @@ export default {
 </script>
 
 <template>
-<pv-card>
-  <p>probando probando</p>
+<pv-card >
+  <template #header>
+
+  </template>
+  <template #title>
+    {{businessEntity.name}} {{businessEntity.lastName}}
+  </template>
+  <template #subtitle>
+  {{businessEntity.userName}}
+  </template>
+  <template #content>
+    E-mail: {{businessEntity.email}}<br>
+    Celular: {{businessEntity.cellphone}}<br>
+  </template>
+
 </pv-card>
 </template>
 
