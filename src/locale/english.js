@@ -7,7 +7,8 @@ const en = {
     cart: "Shopping Cart",
     shopList: "Shopping List",
     merchants: "Merchants",
-    clients: "Clients"
+    clients: "Clients",
+    businessman: "Businessmans"
   },
 
   profile:{

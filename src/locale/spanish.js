@@ -7,7 +7,8 @@ const es = {
     cart: "Carrito",
     shopList: "Lista de Compras",
     merchants: "Comerciantes",
-    clients: "Clientes"
+    clients: "Clientes",
+    businessman: "Comerciantes"
   },
 
   profile:{

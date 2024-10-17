@@ -9,6 +9,7 @@ import { shoppingList } from "./modules/shopping-list.routes.js";
 import { dashboardRoutes } from "./modules/dashboard.routes.js";
 import UserLoginPage from "@/components/authentication/login/user-login.page.vue";
 import {premiumRoutes} from "@/routes/modules/premium.routes.js";
+import {businessmansRoutes} from "@/routes/modules/businessmans.routes.js";
 
 export default [
   { path: '/', component: UserLoginPage },
@@ -21,5 +22,6 @@ export default [
   ...shoppingCart,
   ...dashboardRoutes,
   ...profileRoutes,
-  ...premiumRoutes
+  ...premiumRoutes,
+  ...businessmansRoutes
 ];
