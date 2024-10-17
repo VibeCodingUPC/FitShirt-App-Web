@@ -1,5 +1,5 @@
 <script setup>
-import { ref } from 'vue';
+import {computed, ref} from 'vue';
 import {useI18n} from "vue-i18n";
 import { AccountApiService } from "@/services/account-api.service";
 import router from "@/routes";
@@ -7,19 +7,24 @@ import router from "@/routes";
 let userRegistration = ref({
   "name": "",
   "lastname": "",
-  "birthdate": "2000-01-01",
   "username": "",
   "password": "",
   "confirmPassword": "",
   "email": "",
-  "cellphone": ""
+  "cellphone": "",
+  "userRole": ""
 });
+const { t } = useI18n();
+let options = computed(() => [
+  { label: t('register.userClient'), value: 'CLIENT' },
+  { label: t('register.userSeller'), value: 'SELLER' }
+]);
 
 const accountService = new AccountApiService();
 
 let registrationError = ref("");
 const validateRegistration = () => {
-  const today = new Date();
+/*  const today = new Date();
   const year = today.getFullYear();
   const month = String(today.getMonth() + 1).padStart(2, '0'); // Los meses en JS son 0-indexados
   const day = String(today.getDate()).padStart(2, '0');
@@ -28,18 +33,18 @@ const validateRegistration = () => {
   const birthDate = new Date(userRegistration.value.birthdate);
   const ageDiff = today - birthDate;
   const ageDate = new Date(ageDiff);
-  const age = Math.abs(ageDate.getUTCFullYear() - 1970);
+  const age = Math.abs(ageDate.getUTCFullYear() - 1970);*/
 
   const reEmail = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
-  if (userRegistration.value.birthdate>maxDate) {
+/*  if (userRegistration.value.birthdate>maxDate) {
     registrationError.value = "Birthdate must be an actual date";
     return false;
   }
   if (age<18) {
     registrationError.value = "You must be at least 18 years old."
     return false;
-  }
+  }*/
   if (userRegistration.value.username.length < 6) {
     registrationError.value = "Username must be at least 6 characters long";
     return false;
@@ -65,11 +70,9 @@ const validateRegistration = () => {
 };
 
 
-
-
 const i18nLocale = useI18n();
 const changeLanguage = () => {
-  if (i18nLocale.locale.value == 'en') {
+  if (i18nLocale.locale.value === 'en') {
     i18nLocale.locale.value='es'
   }
   else {
@@ -115,13 +118,6 @@ const handleRegistration = async () => {
       <p class="cwhite">{{ $t('register.lastname') }}</p>
       <pv-inputText class="mb10" type="text" v-model="userRegistration.lastname" aria-label="Enter a username" />
 
-      <p class="cwhite">{{ $t('register.birthdate') }}</p>
-      <input class="date-input"
-             type="date"
-             id="date"
-             aria-label="Birthday input"
-             v-model="userRegistration.birthdate" />
-
       <p class="cwhite">{{ $t('register.user') }}</p>
       <pv-inputText class="mb10" type="text" v-model="userRegistration.username" aria-label="Enter a username" />
 
@@ -136,6 +132,10 @@ const handleRegistration = async () => {
 
       <p class="cwhite">{{ $t('register.phone') }}</p>
       <pv-inputText class="mb10" type="text" v-model="userRegistration.cellphone" aria-label="Enter a phone" />
+
+      <p class="cwhite">{{ $t('register.userRole') }}</p>
+      <pv-select class="mb10" v-model="userRegistration.userRole" :options="options" option-label="label"
+                 option-value="value" aria-labelledby="basic" />
 
       <p class="cwhite mb100 tac">{{ registrationError }}</p>
 
@@ -157,84 +157,71 @@ const handleRegistration = async () => {
 </template>
 
 <style scoped>
-.login {
-  text-align: center;
-}
-@media (max-width: 900px) {
-  .app-description{
-    display: none;
-  }
-  .img-container{
-    display: none;
-  }
-  .description-container{
-    display: none;
-  }
-}
-@media (min-width: 670px) {
-  .img-container{
-    width: 400px;
-  }
-  .description-container{
-    width: 400px;
-  }
-}
-
 .card-container {
   display: flex;
   flex-direction: row;
-  background-color: #dadada;
-  justify-content: space-evenly;
+  justify-content: center;
   align-items: center;
   min-height: 100vh;
-  padding: .4em 0;
+  padding: 1em;
+  box-sizing: border-box;
+  flex-wrap: wrap;
 }
+
+.img-container {
+  max-width: 100%;
+  height: auto;
+  margin: 0 90px;
+}
+
+.description-container {
+  max-width: 400px;
+  margin: 0 90px;
+}
+
 .register-card {
   background-color: #333333;
   border-radius: 20px;
-  padding: 2.2em 3.2em;
-  display:flex;
+  padding: 2em;
+  display: flex;
   flex-direction: column;
+  width: 100%;
+  max-width: 400px;
+  margin: 1em;
 }
-.app-description{
-  text-align: justify;
-  font-family: Roboto, sans-serif;
-}
-.title-container{
+
+.title-container {
   text-align: center;
-  align-items: center;
-  font-size: 40px;
+  font-size: 30px;
   font-family: Roboto, sans-serif;
   font-weight: bolder;
   margin-bottom: 20px;
   color: white;
 }
-.button-container{
-  width: 360px;
-  background-color: #4d94ff;
-  color: white;
-  margin-bottom: 10px;
-  padding-bottom: 5px;
-  padding-top: 5px;
-}
-.cwhite{
+
+.cwhite {
   color: white;
 }
-.login {
-  margin-top: .8em;
-}
-.login:hover {
-  text-decoration: underline;
-}
-.mb10{
+
+.mb10 {
   margin-bottom: 10px;
 }
+
 .date-input {
-  padding: .8em;
+  padding: 0.8em;
   font-size: 1.1em;
   border-radius: 8px;
   margin-bottom: 10px;
 }
+
+.button-container {
+  width: 100%;
+  background-color: #4d94ff;
+  color: white;
+  margin-bottom: 10px;
+  padding: 10px;
+}
+
 .changelanguage {
   display: flex;
   justify-content: center;
@@ -251,5 +238,55 @@ const handleRegistration = async () => {
 
 .language-button .pi-globe {
   margin-right: 5px;
+}
+
+.tac {
+  text-align: center;
+}
+
+.login {
+  text-align: center;
+  margin-top: 0.8em;
+}
+
+.login:hover {
+  text-decoration: underline;
+}
+
+/* Media Queries */
+@media (max-width: 900px) {
+  .app-description {
+    display: none;
+  }
+
+  .img-container {
+    display: none;
+  }
+
+  .description-container {
+    display: none;
+  }
+
+  .register-card {
+    padding: 1.5em;
+    margin: 0 auto;
+  }
+}
+
+@media (min-width: 670px) {
+  .img-container {
+    width: 400px;
+  }
+
+  .description-container {
+    width: 400px;
+  }
+}
+
+@media (min-width: 900px) {
+  .card-container {
+    flex-direction: row;
+    justify-content: center;
+  }
 }
 </style>

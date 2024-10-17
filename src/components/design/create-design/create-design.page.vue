@@ -14,12 +14,8 @@ import CreateDesign from "@/components/design/create-design/create-design.compon
 .main {
   display: flex;
   justify-content: space-around;
-  width: 85vw;
   min-height: 100vh;
-  max-width: 1050px;
-  padding: .6em 1.2em;
   margin: auto;
-  background-color: #f3f3f3;
 }
 @media (max-width: 600px) {
   .main {

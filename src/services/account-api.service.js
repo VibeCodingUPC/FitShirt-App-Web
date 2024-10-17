@@ -22,11 +22,15 @@ export class AccountApiService {
     async login(userLoginRequest) {
         try {
             let res = await this.axiosInstance.post(`/account/login`, userLoginRequest);
-            let token = res.data;
+            const token = res.data;
+
             sessionStorage.setItem('jwt', token);
-            return token;
-        }
-        catch (error) {
+
+            const decodedToken = jwtDecode(token);
+            const userId = parseInt(decodedToken.sid);
+
+            return { token, userId };
+        } catch (error) {
             throw error.response.data.StatusCode;
         }
     }

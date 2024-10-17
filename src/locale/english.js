@@ -5,7 +5,10 @@ const en = {
     posts: "Posts",
     designs: "Designs",
     cart: "Shopping Cart",
-    premium: "Premium"
+    shopList: "Shopping List",
+    merchants: "Merchants",
+    clients: "Clients",
+    businessman: "Businessmans"
   },
 
   profile:{
@@ -90,7 +93,6 @@ const en = {
     confirmButton: "Confirm",
     cancelButton: "Cancel",
     deleteButton: "Delete Design",
-
   },
 
   cart: {
@@ -98,9 +100,7 @@ const en = {
     quantity: "Quantity",
     price: "Price",
     size: "Size",
-
   },
-
   login: {
     description: "We hope you enjoy browsing and using our app.\n" +
         "          In our development team we work hard to create\n" +
@@ -109,6 +109,7 @@ const en = {
         "          and needs. If you have any comments or suggestions on how\n" +
         "          we can improve our application to make it even more useful,\n" +
         "          Please don't hesitate to let us know.",
+
     title: "Sign In",
     user: "Username",
     password: "Password",
@@ -116,7 +117,6 @@ const en = {
     forgotPassword: "Forgot your password?",
     newmsg: "New in Fit Shirt?",
     signup: "Sign Up",
-
   },
 
   register: {
@@ -132,7 +132,9 @@ const en = {
     phone: "Phone Number",
     oldmsg: "Do you already have an account?",
     signin: "Sign In",
-
+    userRole: "Role",
+    userClient: "Client",
+    userSeller: "Seller",
   },
   premium: {
     title: "Upgrade to Premium",
@@ -150,6 +152,21 @@ const en = {
     subtitle: "Dear customer, are you sure you want to enhance this improvement?",
     confirm: "Confirm",
     cancel: "Cancel"
+  },
+  dashClient: {
+    welcomeClient: "Welcome, Client!",
+    personalizedDashboard: "This is your personalized dashboard",
+    checkProfile: "Check your profile",
+    browseCatalogue: "Browse the catalogue",
+    manageDesigns: "Manage your designs",
+    viewCart: "View your cart and shopping list"
+  },
+  dashBusinessman: {
+    welcomeBusiness: "Welcome, Business Owner!",
+    manageOperations: "Here you can manage your business operations.",
+    viewProducts: "View your published products",
+    manageClients: "Manage clients",
+    updateProfile: "Update your profile"
   }
 
 }

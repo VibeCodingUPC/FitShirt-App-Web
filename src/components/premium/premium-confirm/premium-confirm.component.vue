@@ -1,14 +1,18 @@
 <script setup>
-
+function handleConfirm() {
+  // URL de pago de Lemon Squeezy para un monto de 50 soles
+  const paymentUrl = "https://www.lemonsqueezy.com/checkout/URL_DEL_PRODUCTO?amount=50";
+  window.location.href = paymentUrl;
+}
 </script>
 
 <template>
   <div class="container" aria-label="Confirm process notification">
     <h1>{{ $t('premium.titleconfirm') }}</h1>
     <h2>{{ $t('premium.subtitle') }}</h2>
-    <router-link to="/profile" tag="button" class="router-button">
+    <button @click="handleConfirm" class="router-button">
       {{ $t('premium.confirm') }}
-    </router-link>
+    </button>
     <router-link to="/premium" tag="button" class="router-button">
       {{ $t('premium.cancel') }}
     </router-link>
