@@ -3,5 +3,3 @@ import UserShoppingList from "@/components/shopping-list/user-shopping-list/user
 export const shoppingList = [
   { path: '/shopping-list', component: UserShoppingList }
 ]
-export class shoppinglistRoutes {
-}

@@ -3,11 +3,11 @@ import useApi from '../hooks/useApi';
 
 export class UserApiService {
   constructor() {
-      this.apiMehods = useApi('/users');
+      this.apiMethods = useApi('/users');
       this.axiosInstance = useAxios();
   }
 
   async getUserById(id) {
-    return await this.apiMehods.getObjectById(id);
+    return await this.apiMethods.getObjectById(id);
   }
 }

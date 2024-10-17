@@ -133,8 +133,7 @@ const en = {
     signin: "Sign In",
     userRole: "Role",
     userClient: "Client",
-    userBusiness: "Businessman",
-
+    userSeller: "Seller",
   },
   premium: {
     title: "Upgrade to Premium",

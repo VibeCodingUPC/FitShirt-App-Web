@@ -133,7 +133,7 @@ const es = {
     signin: "Iniciar Sesión",
     userRole: "Rol",
     userClient: "Cliente",
-    userBusiness: "Comerciante",
+    userSeller: "Comerciante",
   },
 
   premium: {

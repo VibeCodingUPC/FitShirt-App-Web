@@ -5,7 +5,7 @@ import { useI18n } from "vue-i18n";
 const visible = ref(false);
 const isMobile = ref(false);
 const i18nLocale = useI18n();
-const userRole = ref(localStorage.getItem('userRole') || 'Businessman');
+const userRole = ref(localStorage.getItem('userRole'));
 
 const checkMobileView = () => {
   isMobile.value = window.innerWidth <= 768;
@@ -25,7 +25,7 @@ const closeMenu = (event) => {
 const menuOptions = ref([]);
 
 const loadMenuOptions = () => {
-  if (userRole.value === 'Client') {
+  if (userRole.value === 'CLIENT') {
     menuOptions.value = [
       { path: '/profile', icon: '/icons/ProfileIcon.png', label: 'toolbar.profile' },
       { path: '/catalogue', icon: '/icons/ShopIcon.png', label: 'toolbar.catalogue' },
@@ -36,7 +36,7 @@ const loadMenuOptions = () => {
       { path: '/merchants', icon: '/icons/BusinessMan.png', label: 'toolbar.merchants'}
 
     ];
-  } else if (userRole.value === 'Businessman') {
+  } else if (userRole.value === 'SELLER') {
     menuOptions.value = [
       { path: '/profile', icon: '/icons/ProfileIcon.png', label: 'toolbar.profile' },
       { path: '/published', icon: '/icons/ShopIcon.png', label: 'toolbar.posts' },

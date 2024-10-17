@@ -7,7 +7,6 @@ import router from "@/routes";
 let userRegistration = ref({
   "name": "",
   "lastname": "",
-  "birthdate": "2000-01-01",
   "username": "",
   "password": "",
   "confirmPassword": "",
@@ -17,15 +16,15 @@ let userRegistration = ref({
 });
 const { t } = useI18n();
 let options = computed(() => [
-  t('register.userClient'),
-  t('register.userBusiness'),
+  { label: t('register.userClient'), value: 'CLIENT' },
+  { label: t('register.userSeller'), value: 'SELLER' }
 ]);
 
 const accountService = new AccountApiService();
 
 let registrationError = ref("");
 const validateRegistration = () => {
-  const today = new Date();
+/*  const today = new Date();
   const year = today.getFullYear();
   const month = String(today.getMonth() + 1).padStart(2, '0'); // Los meses en JS son 0-indexados
   const day = String(today.getDate()).padStart(2, '0');
@@ -34,18 +33,18 @@ const validateRegistration = () => {
   const birthDate = new Date(userRegistration.value.birthdate);
   const ageDiff = today - birthDate;
   const ageDate = new Date(ageDiff);
-  const age = Math.abs(ageDate.getUTCFullYear() - 1970);
+  const age = Math.abs(ageDate.getUTCFullYear() - 1970);*/
 
   const reEmail = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
-  if (userRegistration.value.birthdate>maxDate) {
+/*  if (userRegistration.value.birthdate>maxDate) {
     registrationError.value = "Birthdate must be an actual date";
     return false;
   }
   if (age<18) {
     registrationError.value = "You must be at least 18 years old."
     return false;
-  }
+  }*/
   if (userRegistration.value.username.length < 6) {
     registrationError.value = "Username must be at least 6 characters long";
     return false;
@@ -71,11 +70,9 @@ const validateRegistration = () => {
 };
 
 
-
-
 const i18nLocale = useI18n();
 const changeLanguage = () => {
-  if (i18nLocale.locale.value == 'en') {
+  if (i18nLocale.locale.value === 'en') {
     i18nLocale.locale.value='es'
   }
   else {
@@ -121,13 +118,6 @@ const handleRegistration = async () => {
       <p class="cwhite">{{ $t('register.lastname') }}</p>
       <pv-inputText class="mb10" type="text" v-model="userRegistration.lastname" aria-label="Enter a username" />
 
-      <p class="cwhite">{{ $t('register.birthdate') }}</p>
-      <input class="date-input"
-             type="date"
-             id="date"
-             aria-label="Birthday input"
-             v-model="userRegistration.birthdate" />
-
       <p class="cwhite">{{ $t('register.user') }}</p>
       <pv-inputText class="mb10" type="text" v-model="userRegistration.username" aria-label="Enter a username" />
 
@@ -144,7 +134,8 @@ const handleRegistration = async () => {
       <pv-inputText class="mb10" type="text" v-model="userRegistration.cellphone" aria-label="Enter a phone" />
 
       <p class="cwhite">{{ $t('register.userRole') }}</p>
-      <pv-select class="mb10" v-model="userRegistration.userRole" :options="options" aria-labelledby="basic" />
+      <pv-select class="mb10" v-model="userRegistration.userRole" :options="options" option-label="label"
+                 option-value="value" aria-labelledby="basic" />
 
       <p class="cwhite mb100 tac">{{ registrationError }}</p>
 
