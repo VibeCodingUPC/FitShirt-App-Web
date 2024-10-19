@@ -2,6 +2,7 @@
 import {useI18n} from "vue-i18n";
 import { ref } from 'vue';
 import { AccountApiService } from "@/services/account-api.service";
+import { UserApiService } from "@/services/user-api.service";
 import router from "@/routes";
 
 let userLogin = ref({
@@ -37,6 +38,7 @@ const changeLanguage = () => {
 }
 
 const accountService = new AccountApiService();
+const userService = new UserApiService();
 
 const handleLogin = async () => {
   try {
@@ -48,9 +50,19 @@ const handleLogin = async () => {
         "password": userLogin.value.password
       }
 
-      let token = await accountService.login(userLoginRequest);
+      let { token, userId } = await accountService.login(userLoginRequest);
+      const user = await userService.getUserById(userId);
 
-      router.push('/catalogue');
+
+      sessionStorage.setItem('userRole', user.role);
+
+      if (user.role === 'CLIENT') {
+        router.push('/client-dashboard');
+      } else if (user.role === 'SELLER') {
+        router.push('/businessman-dashboard');
+      } else {
+        loginError.value = "Role not recognized";
+      }
     }
 
   } catch (error) {

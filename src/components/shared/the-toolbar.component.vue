@@ -6,7 +6,7 @@ import BusinessmanSectionPage from "@/components/businessmans/pages/businessman-
 const visible = ref(false);
 const isMobile = ref(false);
 const i18nLocale = useI18n();
-const userRole = ref(localStorage.getItem('userRole'));
+const userRole = ref(sessionStorage.getItem('userRole'));
 
 const checkMobileView = () => {
   isMobile.value = window.innerWidth <= 768;
@@ -35,8 +35,7 @@ const loadMenuOptions = () => {
       { path: '/shopping-list', icon: '/icons/ShoppingList.png', label: 'toolbar.shopList'},
 
         //Falta
-      { path: '/merchants', icon: '/icons/BusinessMan.png', label: 'toolbar.merchants'}
-
+      {path:'/businessman-list', icon: '/icons/BusinessMan.png',label:'toolbar.businessman'}
     ];
   } else if (userRole.value === 'SELLER') {
     menuOptions.value = [
@@ -44,8 +43,6 @@ const loadMenuOptions = () => {
       { path: '/published', icon: '/icons/ShopIcon.png', label: 'toolbar.posts' },
         //Falta
       { path: '/clients', icon: '/icons/Clients.png', label: 'toolbar.clients' },
-      {path:'/businessman-list', icon: '/icons/BusinessMan.png',label:'toolbar.businessman'}
-
     ];
   }
 };
