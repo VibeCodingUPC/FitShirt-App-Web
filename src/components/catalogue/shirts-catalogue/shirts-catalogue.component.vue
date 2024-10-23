@@ -46,4 +46,8 @@ onMounted(async () => {
     margin: auto;
     flex-wrap: wrap;
   }
+  ::v-deep .shirt-card {
+    background-color: #e0e7ff;
+  }
+
 </style>

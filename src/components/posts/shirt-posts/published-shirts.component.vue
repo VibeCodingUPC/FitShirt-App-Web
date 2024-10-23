@@ -6,11 +6,11 @@ import { PostsApiService } from "@/services/posts-api.service.js";
 import { AccountApiService } from '@/services/account-api.service';
 
 let posts=ref([]);
-const postservice = new PostsApiService();
+const postService = new PostsApiService();
 const authApiService = new AccountApiService();
 
 const fetchPostsData = async () => {
-  posts.value = await postservice.getPostByUserId(authApiService.getUserIdFromToken());
+  posts.value = await postService.getPostByUserId(authApiService.getUserIdFromToken());
 }
 
 onBeforeMount(async () => {

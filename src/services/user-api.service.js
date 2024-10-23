@@ -8,6 +8,6 @@ export class UserApiService {
   }
 
   async getUserById(id) {
-    return await this.apiMethods.getObjectById(id);
+    return this.apiMethods.getObjectById(id);
   }
 }

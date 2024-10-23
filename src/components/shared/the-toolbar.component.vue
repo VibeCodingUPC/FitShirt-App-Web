@@ -1,7 +1,6 @@
 <script setup>
 import { onMounted, ref } from "vue";
 import { useI18n } from "vue-i18n";
-import BusinessmanSectionPage from "@/components/businessmans/pages/businessman-section.page.vue";
 
 const visible = ref(false);
 const isMobile = ref(false);

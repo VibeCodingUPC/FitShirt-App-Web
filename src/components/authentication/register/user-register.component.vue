@@ -72,12 +72,7 @@ const validateRegistration = () => {
 
 const i18nLocale = useI18n();
 const changeLanguage = () => {
-  if (i18nLocale.locale.value === 'en') {
-    i18nLocale.locale.value='es'
-  }
-  else {
-    i18nLocale.locale.value='en'
-  }
+  i18nLocale.locale.value = i18nLocale.locale.value === 'en' ? 'es' : 'en';
 }
 
 const handleRegistration = async () => {

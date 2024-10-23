@@ -29,12 +29,7 @@ const validateLogin = () => {
 
 const i18nLocale = useI18n();
 const changeLanguage = () => {
-  if (i18nLocale.locale.value == 'en') {
-    i18nLocale.locale.value='es'
-  }
-  else {
-    i18nLocale.locale.value='en'
-  }
+  i18nLocale.locale.value = i18nLocale.locale.value === 'en' ? 'es' : 'en';
 }
 
 const accountService = new AccountApiService();
@@ -43,7 +38,7 @@ const userService = new UserApiService();
 const handleLogin = async () => {
   try {
     let isValidLoginRequest = validateLogin();
-    
+
     if (isValidLoginRequest) {
       let userLoginRequest = {
         "username": userLogin.value.username,
@@ -75,7 +70,7 @@ const handleLogin = async () => {
     else if (error===500) {
       userLogin.value.password="";
 
-      loginError.value="Incorrect password";
+      loginError.value="Username or password incorrect";
     }
   }
 }
@@ -103,7 +98,7 @@ const handleLogin = async () => {
           severity="info"
           class="button-container"
           @click="handleLogin"/>
-      <p class="cwhite mb100 tac">{{ loginError }}</p>
+      <p v-if="loginError" class="error-message">{{ loginError }}</p>
       <p class="cwhite mb100 tac">{{ $t('login.forgotPassword') }}</p>
       <hr class="line-container" />
       <p class="cwhite mb10 tac register">
@@ -185,6 +180,11 @@ const handleLogin = async () => {
   color: white;
   margin-bottom: 10px;
   padding: 10px;
+}
+.error-message {
+  color: red;
+  text-align: center;
+  margin-top: 10px;
 }
 
 .cwhite {

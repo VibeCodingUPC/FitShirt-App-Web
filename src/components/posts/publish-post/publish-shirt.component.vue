@@ -11,7 +11,7 @@ import { AccountApiService } from "@/services/account-api.service";
 const categoryService = new CategoryApiService();
 const colorService = new ColorApiService();
 const sizeService = new SizeApiService();
-const postservice = new PostsApiService();
+const postService = new PostsApiService();
 const authApiService = new AccountApiService();
 
 let postInformation = ref({
@@ -32,7 +32,7 @@ const colors = ref([]);
 const sizes = ref([]);
 
 const addPublish = async () =>{
-  await postservice.publishPost(postInformation.value);
+  await postService.publishPost(postInformation.value);
 }
 
 const fetchCategoryData = async () => {

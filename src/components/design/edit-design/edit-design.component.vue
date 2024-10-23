@@ -179,91 +179,105 @@ onBeforeMount(()=>{
 </template>
 
 <style scoped>
-.card-container{
+.card-container {
   height: 100%;
   display: flex;
   justify-content: center;
   flex: .95;
   align-self: center;
+  background-color: #e0e7ff;
+  border-radius: 12px;
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.1);
+  padding: 20px;
 }
+
 .form-container {
   padding: 20px;
   flex-direction: column;
-  width: auto;
+  width: 100%;
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
   align-items: center;
+  background-color: #ffffff;
+  border-radius: 12px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
-.button-container {
-  margin-top: 30px;
-  width: auto;
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
-  gap: 10px;
-  padding: .8em 0;
-}
-.button-style {
-  padding: .4em 1.8em;
-  margin: .2em 0;
-  border-radius: 6px;
-  font-size: .9em;
-  cursor: pointer;
-  background-color: #4D94FF;
-  color: #E5E5E5;
-}
+
 .inputs-container {
-  width: 50%;
-  min-width: 300px;
-  display: flex;
-  flex-direction: column;
-  gap: .4em;
+  width: 85%;
+  max-width: 1100px;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-gap: 20px;
+  margin-top: 15px;
 }
+
 .title-text {
-  font-size: 2.8em;
-  font-weight: 600;
-  font-family: Roboto,math;
-  color: #000000;
-  margin-bottom: 30px;
+  font-size: 2.4em;
+  font-weight: 700;
+  font-family: 'Roboto', sans-serif;
+  color: #333333;
+  text-align: center;
+  margin-bottom: 20px;
+  grid-column: span 2;
 }
+
 .subtitle-text {
-  font-size: 20px;
-  font-family: Roboto,math;
-  color: #000000;
+  font-size: 1.2em;
+  font-family: 'Roboto', sans-serif;
+  color: #3B82F6;
 }
+
 .info-container {
-  border-radius: 4px;
+  border-radius: 8px;
   background-color: #ffffff;
   width: 100%;
-}
-.subitem-container{
-  background-color: #cacaca;
-  padding: 20px;
-  flex-direction: row;
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
-  align-items: center;
+  border: 1px solid #3B82F6;
+  padding: 0.8em;
 }
 
-.image-container{
-  height: 220px;
+select {
+  border-radius: 8px;
+  padding: 0.8em;
+  border: 1px solid #3B82F6;
+  background-color: #ffffff;
+  font-size: 1em;
+  color: #333333;
+}
+
+.image-container {
+  height: 200px;
   object-fit: contain;
   margin: 5px;
+  border-radius: 12px;
+  border: 1px solid #e0e7ff;
+  grid-column: span 2;
+  justify-self: center;
 }
 
-.subitem-container{
-  background-color: #cacaca;
-  padding: 20px;
-  flex-direction: row;
+.button-container {
+  margin-top: 20px;
   display: flex;
-  flex-wrap: wrap;
   justify-content: center;
-  align-items: center;
+  gap: 10px;
+  grid-column: span 2;
 }
-select {
-  border-radius: 4px;
-  padding: .8em;
+
+.button-style {
+  padding: 0.4em 1.6em;
+  margin: 0.2em 0;
+  border-radius: 6px;
+  font-size: 1em;
+  cursor: pointer;
+  background-color: #4d94ff;
+  color: #ffffff;
+  border: none;
+  transition: background-color 0.3s ease;
 }
+
+.button-style:hover {
+  background-color: #3B82F6;
+}
+
 </style>

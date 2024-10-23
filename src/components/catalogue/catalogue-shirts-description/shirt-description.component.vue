@@ -127,23 +127,21 @@ onMounted(() => {
 </template>
 
 <style scoped>
-/* Contenedor principal */
 .shirt-description-container {
   display: flex;
   flex-direction: row;
   padding: 1em;
   flex: .95;
   align-self: center;
-  background-color: #ffffff; /* Fondo blanco */
+  background-color: #ffffff;
   border-radius: 8px;
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
 }
 
-/* Detalles de la camiseta */
 .shirt-details {
   flex: 1;
   padding: 20px;
-  background-color: #e0e7ff; /* Fondo azul claro */
+  background-color: #e0e7ff;
   border-radius: 12px;
 }
 
@@ -153,13 +151,13 @@ onMounted(() => {
 
 .shirt-detail b {
   font-weight: 600;
-  color: #3B82F6; /* Azul principal */
+  color: #3B82F6;
 }
 
 #category {
   font-size: .9em;
   font-style: italic;
-  color: #4d94ff; /* Azul más claro */
+  color: #4d94ff;
 }
 
 #name {
@@ -195,7 +193,6 @@ onMounted(() => {
   background-color: #ffffff;
 }
 
-/* Cantidad */
 #quantity-detail .quantity {
   margin: auto;
   width: 100px;
@@ -205,13 +202,14 @@ onMounted(() => {
 }
 
 #quantity-detail .quantity button {
-  width: 32px;
-  height: 32px;
+  width: 24px;
+  height: 24px;
   border-radius: 4px;
-  background-color: #4d94ff; /* Botones en azul */
+  background-color: #4d94ff;
   color: #ffffff;
   cursor: pointer;
   border: none;
+  margin: 5px 8px;
 }
 
 #card-detail button {
@@ -221,7 +219,7 @@ onMounted(() => {
   font-size: 1.1em;
   cursor: pointer;
   background-color: #3B82F6;
-  color: #ffffff; /* Texto en blanco */
+  color: #ffffff;
   border: none;
 }
 
@@ -231,7 +229,6 @@ onMounted(() => {
   color: #4d94ff;
 }
 
-/* Imagen de la camiseta */
 .shirt-image {
   width: 400px;
   height: 400px;
@@ -248,11 +245,11 @@ onMounted(() => {
   object-fit: contain;
 }
 
-/* Media Queries para móviles */
 @media (max-width: 880px) {
   .shirt-description-container {
     flex-direction: column-reverse;
     height: auto;
+    margin-top: 40px;
   }
 
   .shirt-details,
