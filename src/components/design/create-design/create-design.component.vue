@@ -226,7 +226,7 @@ select {
   margin: 5px;
   border-radius: 12px;
   border: 1px solid #e0e7ff;
-  grid-column: span 2; /* La imagen ocupa ambas columnas */
+  grid-column: span 2;
   justify-self: center;
 }
 
@@ -254,20 +254,19 @@ select {
   background-color: #3B82F6;
 }
 
-/* Estilos responsive */
 @media (max-width: 768px) {
   .inputs-container {
-    grid-template-columns: 1fr;  /* Cambiar a una sola columna en pantallas pequeñas */
+    grid-template-columns: 1fr;
     grid-gap: 5px;
   }
 
   .title-text {
-    font-size: 1.8em; /* Reducir tamaño del título en pantallas pequeñas */
+    font-size: 1.8em;
     margin-bottom: 10px;
   }
 
   .image-container {
-    height: 150px;  
+    height: 150px;
   }
 
   .info-container, select {
