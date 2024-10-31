@@ -8,7 +8,6 @@ import { profileRoutes } from "./modules/profile.routes.js";
 import { shoppingList } from "./modules/shopping-list.routes.js";
 import { dashboardRoutes } from "./modules/dashboard.routes.js";
 import UserLoginPage from "@/components/authentication/login/user-login.page.vue";
-import {premiumRoutes} from "@/routes/modules/premium.routes.js";
 import {businessmansRoutes} from "@/routes/modules/businessmans.routes.js";
 
 export default [
@@ -22,6 +21,5 @@ export default [
   ...shoppingCart,
   ...dashboardRoutes,
   ...profileRoutes,
-  ...premiumRoutes,
   ...businessmansRoutes
 ];
