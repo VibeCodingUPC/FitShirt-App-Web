@@ -1,12 +1,12 @@
 <script setup>
 import { onMounted, ref } from "vue";
 import { useI18n } from "vue-i18n";
-import BusinessmanSectionPage from "@/components/businessmans/pages/businessman-section.page.vue";
+
 
 const visible = ref(false);
 const isMobile = ref(false);
 const i18nLocale = useI18n();
-const userRole = ref(localStorage.getItem('userRole') || 'Businessman');
+const userRole = ref(localStorage.getItem('userRole'));
 
 const checkMobileView = () => {
   isMobile.value = window.innerWidth <= 768;
@@ -33,9 +33,9 @@ const loadMenuOptions = () => {
       { path: '/my-design', icon: '/icons/DesignIcon.png', label: 'toolbar.designs' },
       { path: '/cart', icon: '/icons/CartIcon.png', label: 'toolbar.cart' },
       { path: '/shopping-list', icon: '/icons/ShoppingList.png', label: 'toolbar.shopList'},
-
+      {path:'/businessman-list', icon: '/icons/BusinessMan.png',label:'toolbar.businessman'},
         //Falta
-      { path: '/merchants', icon: '/icons/BusinessMan.png', label: 'toolbar.merchants'}
+     // { path: '/merchants', icon: '/icons/BusinessMan.png', label: 'toolbar.merchants'}
 
     ];
   } else if (userRole.value === 'Businessman') {
@@ -44,7 +44,7 @@ const loadMenuOptions = () => {
       { path: '/published', icon: '/icons/ShopIcon.png', label: 'toolbar.posts' },
         //Falta
       { path: '/clients', icon: '/icons/Clients.png', label: 'toolbar.clients' },
-      {path:'/businessman-list', icon: '/icons/BusinessMan.png',label:'toolbar.businessman'}
+
 
     ];
   }
