@@ -2,8 +2,6 @@
 import TheToolbar from "/src/components/shared/the-toolbar.component.vue";
 import ListBusinessmans from "@/components/businessmans/components/list-businessmans.component.vue";
 
-
-
 </script>
 
 <template>

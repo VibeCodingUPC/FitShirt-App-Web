@@ -1,7 +1,9 @@
 ﻿<script>
 
+
 export default {
   name: "item-businessman",
+
 
   props:{
     businessEntity:{
@@ -12,7 +14,7 @@ export default {
 </script>
 
 <template>
-<pv-card >
+<pv-card style="width: 25rem">
   <template #header>
 
   </template>
@@ -21,9 +23,14 @@ export default {
   </template>
   <template #subtitle>
   {{businessEntity.userName}}
+    <div style="width: fit-content; margin-left: auto; ">
+      <router-link :to="`/businessman/${businessEntity.id}`">
+        <pv-button  label="INFO" class="w-full" style="background-color: black; border-color: black"/>
+      </router-link>
+    </div>
   </template>
   <template #content>
-    E-mail: {{businessEntity.email}}<br>
+    E-mail: {{businessEntity.email}}<br><br>
     Celular: {{businessEntity.cellphone}}<br>
   </template>
 

@@ -24,4 +24,5 @@ export default [
   ...profileRoutes,
   ...premiumRoutes,
   ...businessmansRoutes
+
 ];
