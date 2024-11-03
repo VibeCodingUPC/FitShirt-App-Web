@@ -1,13 +1,15 @@
 ﻿<script setup>
 
 import TheToolbar from "@/components/shared/the-toolbar.component.vue";
+import InfoBusinessman from "@/components/businessmans/components/info-businessman.vue";
+
 
 </script>
 
 <template>
   <main class="main">
     <the-toolbar/>
-
+    <info-businessman></info-businessman>
 
   </main>
 </template>
