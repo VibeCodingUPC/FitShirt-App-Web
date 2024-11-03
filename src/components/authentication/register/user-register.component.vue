@@ -1,6 +1,5 @@
 <script setup>
 import { onMounted, computed, ref } from 'vue';
-
 import {useI18n} from "vue-i18n";
 import { AccountApiService } from "@/services/account-api.service";
 import router from "@/routes";
@@ -13,7 +12,6 @@ onMounted(() => {
   document.head.appendChild(script);
 });
 
-
 let userRegistration = ref({
   "name": "",
   "lastname": "",
@@ -24,6 +22,7 @@ let userRegistration = ref({
   "cellphone": "",
   "userRole": ""
 });
+
 const { t } = useI18n();
 let options = computed(() => [
   { label: t('register.userClient'), value: 'CLIENT' },
@@ -31,7 +30,6 @@ let options = computed(() => [
 ]);
 
 const accountService = new AccountApiService();
-
 let captchaResponse = ref("");
 let registrationError = ref("");
 
@@ -65,7 +63,6 @@ const validateRegistration = () => {
   registrationError.value = "";
   return true;
 };
-
 
 const i18nLocale = useI18n();
 const changeLanguage = () => {
@@ -102,10 +99,8 @@ const handleRegistration = async () => {
 
         let response = await accountService.register(registrationData);
 
-        // Verifica si el registro fue exitoso
         console.log("User registered successfully:", response);
 
-        // Añade mensajes de depuración antes de la redirección
         console.log("Redirecting to login...");
         try {
           await router.push('/login');
@@ -126,6 +121,7 @@ const handleRegistration = async () => {
     registrationError.value = "Error processing the registration. Please try again.";
   }
 };
+
 </script>
 
 <template>

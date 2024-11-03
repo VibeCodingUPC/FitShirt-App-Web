@@ -61,19 +61,27 @@ const handleLogin = async () => {
     }
 
   } catch (error) {
-    if (error===404) {
-      userLogin.value.username="";
-      userLogin.value.password="";
-
-      loginError.value="Username was not found";
+    // Verifica si el error contiene un mensaje o un código de respuesta de la API
+    if (error.response) {
+      const statusCode = error.response.status;
+      if (statusCode === 401) {
+        loginError.value = "The username or password provided is incorrect.";
+      } else if (statusCode === 404) {
+        loginError.value = "Username was not found";
+      } else if (statusCode === 500) {
+        loginError.value = "Server error. Please try again later.";
+      } else {
+        loginError.value = "An unknown error occurred. Please try again.";
+      }
+    } else {
+      // Error general en caso de que no haya respuesta de la API
+      loginError.value = "Network error. Please check your connection.";
     }
-    else if (error===500) {
-      userLogin.value.password="";
 
-      loginError.value="Username or password incorrect";
-    }
+    // Limpia los campos de entrada después de un error
+    userLogin.value.password = "";
   }
-}
+};
 
 
 </script>
@@ -87,10 +95,10 @@ const handleLogin = async () => {
         <p class="app-description"> {{ $t('login.description') }}</p>
       </div>
     </div>
-    <div class ="login-card">
+    <div class="login-card">
       <p class="title-container">{{ $t('login.title') }}</p>
       <p class="cwhite">{{ $t('login.user') }}</p>
-      <pv-inputText class="mb10" type="text" v-model="userLogin.username" aria-label="Enter a username" />
+      <pv-inputText class="mb10" type="text" v-model="userLogin.username" aria-label="Enter a username"/>
       <p class="cwhite">{{ $t('login.password') }}</p>
       <pv-inputText class="mb10" type="password" v-model="userLogin.password" aria-label="Enter a password"/>
       <pv-button
@@ -100,7 +108,7 @@ const handleLogin = async () => {
           @click="handleLogin"/>
       <p v-if="loginError" class="error-message">{{ loginError }}</p>
       <p class="cwhite mb100 tac">{{ $t('login.forgotPassword') }}</p>
-      <hr class="line-container" />
+      <hr class="line-container"/>
       <p class="cwhite mb10 tac register">
         {{ $t('login.newmsg') }}
         <router-link to="/register">
@@ -181,6 +189,7 @@ const handleLogin = async () => {
   margin-bottom: 10px;
   padding: 10px;
 }
+
 .error-message {
   color: red;
   text-align: center;
@@ -233,9 +242,11 @@ const handleLogin = async () => {
   .app-description {
     display: none;
   }
+
   .img-container {
     display: none;
   }
+
   .description-container {
     display: none;
   }
