@@ -1,6 +1,4 @@
 ﻿<script >
-
-
 import ItemBusinessman from "@/components/businessmans/components/item-businessman.component.vue";
 import {BusinessmansApiService} from "@/components/businessmans/services/businessmans-api.service.js";
 import {businessMan} from "@/components/businessmans/model/Businessman.entity.js";
