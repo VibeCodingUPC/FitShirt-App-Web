@@ -1,22 +1,27 @@
 ﻿<script setup>
-import TheToolbar from "/src/components/shared/the-toolbar.component.vue";
-import ListBusinessmans from "@/components/client-layout/businessmans/components/list-businessmans.component.vue";
+
+import TheToolbar from "@/components/shared/the-toolbar.component.vue";
+import InfoBusinessman from "@/components/client-layout/businessmans/components/info-businessman.component.vue";
+import ListShirtBusinessman from "@/components/client-layout/businessmans/components/list-shirt-businessman.component.vue";
+
+
 
 </script>
 
 <template>
   <main class="main">
     <the-toolbar/>
+    <div>
+      <info-businessman></info-businessman>
+    </div>
 
     <div class="scroll-panel">
       <div class="content">
-
         <div id="list">
-          <list-businessmans></list-businessmans>
+          <list-shirt-businessman></list-shirt-businessman>
         </div>
       </div>
     </div>
-
   </main>
 </template>
 
@@ -46,12 +51,14 @@ import ListBusinessmans from "@/components/client-layout/businessmans/components
 }
 
 .scroll-panel {
+
   width: fit-content;
   height: 950px;
   overflow-y: auto; /* Activa el scroll vertical */
-  border: 1px solid #ccc;
+  border-left: 3px solid #000;
   padding: 100px;
 }
+
 
 /* Estilos del Scrollbar */
 .scroll-panel::-webkit-scrollbar {
@@ -76,5 +83,4 @@ import ListBusinessmans from "@/components/client-layout/businessmans/components
 .content {
   height: 1000px; /* Asegura que el contenido sea lo suficientemente grande para que aparezca el scroll */
 }
-
 </style>
