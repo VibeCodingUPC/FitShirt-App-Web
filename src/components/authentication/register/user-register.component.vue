@@ -1,8 +1,16 @@
 <script setup>
-import {computed, ref} from 'vue';
+import { onMounted, computed, ref } from 'vue';
 import {useI18n} from "vue-i18n";
 import { AccountApiService } from "@/services/account-api.service";
 import router from "@/routes";
+
+onMounted(() => {
+  const script = document.createElement('script');
+  script.src = "https://www.google.com/recaptcha/api.js";
+  script.async = true;
+  script.defer = true;
+  document.head.appendChild(script);
+});
 
 let userRegistration = ref({
   "name": "",
@@ -14,6 +22,7 @@ let userRegistration = ref({
   "cellphone": "",
   "userRole": ""
 });
+
 const { t } = useI18n();
 let options = computed(() => [
   { label: t('register.userClient'), value: 'CLIENT' },
@@ -21,30 +30,12 @@ let options = computed(() => [
 ]);
 
 const accountService = new AccountApiService();
-
+let captchaResponse = ref("");
 let registrationError = ref("");
+
 const validateRegistration = () => {
-/*  const today = new Date();
-  const year = today.getFullYear();
-  const month = String(today.getMonth() + 1).padStart(2, '0'); // Los meses en JS son 0-indexados
-  const day = String(today.getDate()).padStart(2, '0');
-  const maxDate = `${year}-${month}-${day}`;
-
-  const birthDate = new Date(userRegistration.value.birthdate);
-  const ageDiff = today - birthDate;
-  const ageDate = new Date(ageDiff);
-  const age = Math.abs(ageDate.getUTCFullYear() - 1970);*/
-
   const reEmail = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
-/*  if (userRegistration.value.birthdate>maxDate) {
-    registrationError.value = "Birthdate must be an actual date";
-    return false;
-  }
-  if (age<18) {
-    registrationError.value = "You must be at least 18 years old."
-    return false;
-  }*/
   if (userRegistration.value.username.length < 6) {
     registrationError.value = "Username must be at least 6 characters long";
     return false;
@@ -65,40 +56,71 @@ const validateRegistration = () => {
     registrationError.value = "Cellphone must be 9 digits long";
     return false;
   }
+  if (!captchaResponse.value) {
+    registrationError.value = "Please complete the CAPTCHA";
+    return false;
+  }
   registrationError.value = "";
   return true;
 };
 
-
 const i18nLocale = useI18n();
 const changeLanguage = () => {
-  if (i18nLocale.locale.value === 'en') {
-    i18nLocale.locale.value='es'
-  }
-  else {
-    i18nLocale.locale.value='en'
-  }
+  i18nLocale.locale.value = i18nLocale.locale.value === 'en' ? 'es' : 'en';
 }
+
+const onCaptchaVerified = (response) => {
+  captchaResponse.value = response;
+  console.log(captchaResponse.value);
+};
 
 const handleRegistration = async () => {
-  let isCorrectRegistrationRequest = validateRegistration();
-  if (isCorrectRegistrationRequest) {
-    try {
-      let response = await accountService.register(userRegistration.value);
+  try {
+    // Obtener el token del CAPTCHA antes de hacer la solicitud
+    captchaResponse.value = grecaptcha.getResponse();
+    console.log("Captcha Response:", captchaResponse.value);
 
-      router.push('/login');
+    if (!captchaResponse.value) {
+      registrationError.value = "Please complete the CAPTCHA";
+      return;
+    }
 
-    } catch (error) {
-      if (error === 409) {
-        registrationError.value="Username, email or phone number is already registered";
-      }
-      else {
-        registrationError.value="Invalidate tokens. Try again";
+    let isCorrectRegistrationRequest = validateRegistration();
+    if (isCorrectRegistrationRequest) {
+      try {
+        let registrationData = {
+          registerUser: {
+            ...userRegistration.value
+          },
+          validateCaptcha: {
+            captchaResponse: captchaResponse.value
+          }
+        };
+
+        let response = await accountService.register(registrationData);
+
+        console.log("User registered successfully:", response);
+
+        console.log("Redirecting to login...");
+        try {
+          await router.push('/login');
+          console.log("Redirection successful");
+        } catch (err) {
+          console.error("Error during redirection:", err);
+        }
+      } catch (error) {
+        if (error.response && error.response.status === 409) {
+          registrationError.value = "Username, email or phone number is already registered";
+        } else {
+          registrationError.value = "Invalid tokens. Try again";
+        }
       }
     }
+  } catch (error) {
+    console.error("Error during registration:", error);
+    registrationError.value = "Error processing the registration. Please try again.";
   }
-  //console.log(userRegistration.value);
-}
+};
 
 </script>
 
@@ -137,6 +159,8 @@ const handleRegistration = async () => {
       <pv-select class="mb10" v-model="userRegistration.userRole" :options="options" option-label="label"
                  option-value="value" aria-labelledby="basic" />
 
+      <div class="g-recaptcha" data-sitekey="6LcsgGsqAAAAAKvtF90CX_OMRukq7SyWOkyhjFUb" @verify="onCaptchaVerified"></div>
+
       <p class="cwhite mb100 tac">{{ registrationError }}</p>
 
       <pv-button :label="$t('register.button')" severity="info" class="button-container" @click="handleRegistration" />
@@ -152,9 +176,9 @@ const handleRegistration = async () => {
         </pv-button>
       </div>
     </div>
-
   </div>
 </template>
+
 
 <style scoped>
 .card-container {

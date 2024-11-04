@@ -2,6 +2,7 @@
 import {useI18n} from "vue-i18n";
 import { ref } from 'vue';
 import { AccountApiService } from "@/services/account-api.service";
+import { UserApiService } from "@/services/user-api.service";
 import router from "@/routes";
 
 let userLogin = ref({
@@ -28,45 +29,59 @@ const validateLogin = () => {
 
 const i18nLocale = useI18n();
 const changeLanguage = () => {
-  if (i18nLocale.locale.value == 'en') {
-    i18nLocale.locale.value='es'
-  }
-  else {
-    i18nLocale.locale.value='en'
-  }
+  i18nLocale.locale.value = i18nLocale.locale.value === 'en' ? 'es' : 'en';
 }
 
 const accountService = new AccountApiService();
+const userService = new UserApiService();
 
 const handleLogin = async () => {
   try {
     let isValidLoginRequest = validateLogin();
-    
+
     if (isValidLoginRequest) {
       let userLoginRequest = {
         "username": userLogin.value.username,
         "password": userLogin.value.password
       }
 
-      let token = await accountService.login(userLoginRequest);
+      let { token, userId } = await accountService.login(userLoginRequest);
+      const user = await userService.getUserById(userId);
 
-      router.push('/catalogue');
+
+      sessionStorage.setItem('userRole', user.role);
+
+      if (user.role === 'CLIENT') {
+        router.push('/client-dashboard');
+      } else if (user.role === 'SELLER') {
+        router.push('/businessman-dashboard');
+      } else {
+        loginError.value = "Role not recognized";
+      }
     }
 
   } catch (error) {
-    if (error===404) {
-      userLogin.value.username="";
-      userLogin.value.password="";
-
-      loginError.value="Username was not found";
+    // Verifica si el error contiene un mensaje o un código de respuesta de la API
+    if (error.response) {
+      const statusCode = error.response.status;
+      if (statusCode === 401) {
+        loginError.value = "The username or password provided is incorrect.";
+      } else if (statusCode === 404) {
+        loginError.value = "Username was not found";
+      } else if (statusCode === 500) {
+        loginError.value = "Server error. Please try again later.";
+      } else {
+        loginError.value = "An unknown error occurred. Please try again.";
+      }
+    } else {
+      // Error general en caso de que no haya respuesta de la API
+      loginError.value = "Network error. Please check your connection.";
     }
-    else if (error===500) {
-      userLogin.value.password="";
 
-      loginError.value="Incorrect password";
-    }
+    // Limpia los campos de entrada después de un error
+    userLogin.value.password = "";
   }
-}
+};
 
 
 </script>
@@ -80,10 +95,10 @@ const handleLogin = async () => {
         <p class="app-description"> {{ $t('login.description') }}</p>
       </div>
     </div>
-    <div class ="login-card">
+    <div class="login-card">
       <p class="title-container">{{ $t('login.title') }}</p>
       <p class="cwhite">{{ $t('login.user') }}</p>
-      <pv-inputText class="mb10" type="text" v-model="userLogin.username" aria-label="Enter a username" />
+      <pv-inputText class="mb10" type="text" v-model="userLogin.username" aria-label="Enter a username"/>
       <p class="cwhite">{{ $t('login.password') }}</p>
       <pv-inputText class="mb10" type="password" v-model="userLogin.password" aria-label="Enter a password"/>
       <pv-button
@@ -91,9 +106,9 @@ const handleLogin = async () => {
           severity="info"
           class="button-container"
           @click="handleLogin"/>
-      <p class="cwhite mb100 tac">{{ loginError }}</p>
+      <p v-if="loginError" class="error-message">{{ loginError }}</p>
       <p class="cwhite mb100 tac">{{ $t('login.forgotPassword') }}</p>
-      <hr class="line-container" />
+      <hr class="line-container"/>
       <p class="cwhite mb10 tac register">
         {{ $t('login.newmsg') }}
         <router-link to="/register">
@@ -175,6 +190,12 @@ const handleLogin = async () => {
   padding: 10px;
 }
 
+.error-message {
+  color: red;
+  text-align: center;
+  margin-top: 10px;
+}
+
 .cwhite {
   color: white;
 }
@@ -221,9 +242,11 @@ const handleLogin = async () => {
   .app-description {
     display: none;
   }
+
   .img-container {
     display: none;
   }
+
   .description-container {
     display: none;
   }

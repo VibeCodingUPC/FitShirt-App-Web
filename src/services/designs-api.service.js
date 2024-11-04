@@ -17,7 +17,7 @@ export class DesignsApiService {
 
     async getDesignsByUserId(userId) {
         return await this.axiosInstance
-            .get(`designs/search-by-user?userId=${userId}`)
+            .get(`/designs/search-by-user?userId=${userId}`)
             .then(res => res.data);
     }
 
