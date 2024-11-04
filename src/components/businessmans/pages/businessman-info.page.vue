@@ -59,6 +59,7 @@ import ListShirtBusinessman from "@/components/businessmans/components/list-shir
   padding: 100px;
 }
 
+
 /* Estilos del Scrollbar */
 .scroll-panel::-webkit-scrollbar {
   width: 12px; /* Ancho del scrollbar */
