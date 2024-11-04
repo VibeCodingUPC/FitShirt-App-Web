@@ -77,7 +77,9 @@ const es = {
     edit: "Editar Publicación",
     deleteButton: "Eliminar Post",
     upload: "Subir publicación",
-    image: "Imagen (Ingrese una URL de imagen)",
+    image: "Imagen (Seleccione una imagen)",
+    uploadedImage: "Imagen cargada:",
+    deleteImage: "Eliminar imagen:",
     error: "La URL tiene que ser de una imagen en formato PNG o JPG",
   },
 
