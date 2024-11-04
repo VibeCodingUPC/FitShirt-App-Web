@@ -55,7 +55,7 @@ import ListShirtBusinessman from "@/components/businessmans/components/list-shir
   width: fit-content;
   height: 950px;
   overflow-y: auto; /* Activa el scroll vertical */
-  border: 1px solid #ccc;
+  border-left: 3px solid #000;
   padding: 100px;
 }
 
