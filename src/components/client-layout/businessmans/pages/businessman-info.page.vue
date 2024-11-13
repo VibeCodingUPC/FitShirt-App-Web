@@ -32,7 +32,7 @@ onMounted(async () => {
     <div>
       <info-businessman></info-businessman>
     </div>
-    <div v-if="!empty">
+    <div v-if="!empty" class="scroll-wrapper">
       <div class="scroll-panel">
         <div class="content">
           <div id="list">
@@ -68,14 +68,19 @@ onMounted(async () => {
   color: #00FF01;
   -webkit-box-shadow: 0 0 1px rgba(255,255,255,.5);
 }
-
+.scroll-wrapper {
+  display: flex;
+  flex-grow: 1;
+  width: 90%; /* Ajusta el ancho según sea necesario */
+}
 .scroll-panel {
 
-  width: fit-content;
-  height: 950px;
+  width: 100%;
+  max-height: 100vh; /* Limita la altura al 80% de la ventana */
   overflow-y: auto; /* Activa el scroll vertical */
   border-left: 3px solid #000;
-  padding: 100px;
+  padding: 20px; /* Reduce el padding para mejor adaptación */
+  box-sizing: border-box; /* Incluye el padding en las dimensiones */
 }
 
 
@@ -101,5 +106,10 @@ onMounted(async () => {
 
 .content {
   height: 1000px; /* Asegura que el contenido sea lo suficientemente grande para que aparezca el scroll */
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 20px;
+  padding-bottom: 20px;
 }
 </style>
