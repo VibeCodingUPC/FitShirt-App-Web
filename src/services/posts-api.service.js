@@ -21,6 +21,22 @@ export class PostsApiService {
             .then(res => res.data);
     }
 
+    async filterPosts(categoryId, colorId) {
+        const params = {};
+
+        // Agregar parámetros solo si están definidos
+        if (categoryId) params.categoryId = categoryId;
+        if (colorId) params.colorId = colorId;
+
+        try {
+            const response = await this.axiosInstance.get('posts/filter-posts', { params });
+            return response.data;
+        } catch (error) {
+            console.error("Error al obtener las camisetas filtradas:", error);
+            throw new Error("Error fetching filtered posts");
+        }
+    }
+
     async publishPost(post){
         return await this.apiMehods.postObject(post);
     }

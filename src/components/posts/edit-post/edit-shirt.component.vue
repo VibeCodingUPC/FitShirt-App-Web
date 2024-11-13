@@ -30,21 +30,31 @@ let postInformation = ref({
 
 let idPost = ref(0);
 
-const constructPostToUpdate = (gottenPost) => {
+const constructPostToUpdate = async (gottenPost) => {
   idPost.value = gottenPost.id;
   postInformation.value.name = gottenPost.name;
-  postInformation.value.image = gottenPost.image;
   postInformation.value.stock = gottenPost.stock;
   postInformation.value.price = gottenPost.price;
   postInformation.value.categoryId = gottenPost.category.id;
   postInformation.value.colorId = gottenPost.color.id;
   postInformation.value.userId = gottenPost.user.id;
   postInformation.value.sizeIds = gottenPost.sizes.map(size => size['size']['id']);
+
+  if (gottenPost.image) {
+    postInformation.value.image = await urlToFile(gottenPost.image, "image.jpg", "image/jpeg");
+  }
 };
+
+const urlToFile = async (url, filename, mimeType) => {
+  const response = await fetch(url);
+  const data = await response.blob();
+  return new File([data], filename, { type: mimeType });
+};
+
 
 const fetchPostInformation = async () => {
   let gottenPost = await postService.getPostById(route.params.id);
-  constructPostToUpdate(gottenPost);
+  await constructPostToUpdate(gottenPost);
 };
 
 const categories = ref([]);
@@ -54,28 +64,34 @@ const sizes = ref([]);
 const editPost = async () => {
   const formData = new FormData();
   formData.append("name", postInformation.value.name);
-  formData.append("image", postInformation.value.image);
   formData.append("stock", postInformation.value.stock);
   formData.append("price", postInformation.value.price);
   formData.append("categoryId", postInformation.value.categoryId);
   formData.append("colorId", postInformation.value.colorId);
   formData.append("userId", postInformation.value.userId);
 
-  // Agregar sizeIds como múltiples entradas en FormData
-  postInformation.value.sizeIds.forEach(sizeId => formData.append("sizeIds", sizeId));
-  // Log para verificar los datos en formData
-  console.log("Contenido de formData antes de enviar:");
-  for (let [key, value] of formData.entries()) {
-    console.log(`${key}: ${value}`);
+  if (postInformation.value.image instanceof File) {
+    formData.append("image", postInformation.value.image);
+  } else {
+    formData.append("image", postInformation.value.image);
   }
+
+  postInformation.value.sizeIds.forEach((sizeId) => {
+    formData.append("sizeIds", sizeId);
+  });
 
   try {
     await postService.editPost(idPost.value, formData);
-    router.push('/published');
+    router.push("/published");
   } catch (error) {
-    console.error("Error al editar el post:", error);
+    if (error.response) {
+      console.error("Error al editar el post:", error.response.data);
+    } else {
+      console.error("Error al editar el post:", error);
+    }
   }
 };
+
 
 const deleteItemPost = async () => {
   await postService.deletePost(postInformation.value.id);
@@ -118,25 +134,14 @@ onMounted(async () => {
   fetchSizeData();
 });
 
-const handleFileChange = async (event) => {
+const handleFileChange = (event) => {
   const file = event.target.files[0];
   if (file) {
-    const formData = new FormData();
-    formData.append("file", file);
-    formData.append("upload_preset", UPLOAD_PRESET);
-
-    try {
-      const response = await fetch(CLOUDINARY_URL, {
-        method: "POST",
-        body: formData,
-      });
-      const data = await response.json();
-      postInformation.value.image = data.secure_url;
-    } catch (error) {
-      console.error("Error uploading image:", error);
-    }
+    postInformation.value.image = file;
+    imagePreview.value = URL.createObjectURL(file);
   }
 };
+
 
 const handleModify = async () => {
   await editPost();

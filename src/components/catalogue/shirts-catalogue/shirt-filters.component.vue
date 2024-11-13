@@ -1,37 +1,39 @@
 <script setup>
 import { CategoryApiService } from "@/services/category-api.service";
 import { ColorApiService } from "@/services/color-api.service";
-import { onMounted, ref } from 'vue';
+import { onMounted, ref, watch} from 'vue';
 
 const categoryService = new CategoryApiService();
 const colorService = new ColorApiService();
 
 const selectedCategory = ref("Any");
-const categories = ref([
-  {"id": 99,"name": "Any" }
-]);
-
-
 const selectedColor = ref("Any");
-const colors = ref([
-  { "id": 99, "name": "Any" },
-]);
+const categories = ref([{ "id": 99, "name": "Any" }]);
+const colors = ref([{ "id": 99, "name": "Any" }]);
 
 const fetchCategoryData = async () => {
-  let fetchedCategories = await categoryService.getCategories();
+  const fetchedCategories = await categoryService.getCategories();
   categories.value = [...categories.value, ...fetchedCategories];
-}
+};
 
 const fetchColorData = async () => {
-  let fetchedColors = await colorService.getColors();
+  const fetchedColors = await colorService.getColors();
   colors.value = [...colors.value, ...fetchedColors];
-}
+};
 
-onMounted(async () => {
+onMounted(() => {
   fetchCategoryData();
   fetchColorData();
-})
+});
+
+const emit = defineEmits(['filterChanged']);
+
+
+watch([selectedCategory, selectedColor], () => {
+  emit('filterChanged', { category: selectedCategory.value, color: selectedColor.value });
+});
 </script>
+
 
 <template>
   <div class="filter-container" aria-describedby="Browser filters">
