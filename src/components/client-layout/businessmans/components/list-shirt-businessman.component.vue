@@ -20,8 +20,6 @@ export default {
         dataShirt.forEach(item => {
           this.shirtLists = this.buildShirtFromResponsiveData(dataShirt)
         })
-          console.log(this.shirtlists)
-          console.log(this.shirtlists[0])
         })
   },
   methods:{
@@ -39,9 +37,10 @@ export default {
 </script>
 
 <template>
-<div v-for="shirt in this.shirtLists">
+
+  <div v-for="shirt in this.shirtLists">
   <shirt-businessman :shirt-entity="shirt"></shirt-businessman>
-</div>
+  </div>
 </template>
 
 <style scoped>

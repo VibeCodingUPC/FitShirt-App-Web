@@ -7,9 +7,7 @@ export default {
       type:Object,
     }
   },
-  created(){
-    console.log(this.shirtEntity);
-  }
+
 
 }
 </script>
