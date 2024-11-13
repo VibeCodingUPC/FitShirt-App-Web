@@ -1,11 +1,29 @@
 ﻿<script setup>
-
+import {onMounted, ref} from "vue";
 import TheToolbar from "@/components/shared/the-toolbar.component.vue";
 import InfoBusinessman from "@/components/client-layout/businessmans/components/info-businessman.component.vue";
 import ListShirtBusinessman from "@/components/client-layout/businessmans/components/list-shirt-businessman.component.vue";
+import {BusinessmansApiService} from "@/components/client-layout/businessmans/services/businessmans-api.service.js";
+import {useRoute} from "vue-router";
 
 
+let list = ref([]);
+const apiService = new BusinessmansApiService();
+const route = useRoute();
+const empty = ref(false);
 
+const fetchData = async() => {
+  console.log(route.params.id);
+list = await apiService.getPostByUserId2(route.params.id);
+list.value = list.data
+
+  // Validar si la lista está vacía
+  empty.value = list.value.length === 0;
+
+}
+onMounted(async () => {
+  await fetchData();
+})
 </script>
 
 <template>
@@ -14,11 +32,12 @@ import ListShirtBusinessman from "@/components/client-layout/businessmans/compon
     <div>
       <info-businessman></info-businessman>
     </div>
-
-    <div class="scroll-panel">
-      <div class="content">
-        <div id="list">
-          <list-shirt-businessman></list-shirt-businessman>
+    <div v-if="!empty">
+      <div class="scroll-panel">
+        <div class="content">
+          <div id="list">
+            <list-shirt-businessman></list-shirt-businessman>
+          </div>
         </div>
       </div>
     </div>
