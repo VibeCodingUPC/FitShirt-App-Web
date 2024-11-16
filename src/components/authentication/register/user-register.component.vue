@@ -158,9 +158,11 @@ const handleRegistration = async () => {
       <router-link to="/catalogue">
       </router-link>
 
-      <p class="cwhite login">{{ $t('register.oldmsg') }} <router-link to="/login">{{ $t('register.signin')
-          }}</router-link>
+      <router-link to="/login">
+      <p class="cwhite login">{{ $t('register.oldmsg') }} <br> {{ $t('register.signin')
+          }}
       </p>
+    </router-link>
       <div class="changelanguage">
         <pv-button @click="changeLanguage" class="language-button">
           <i class="pi pi-globe"></i>
