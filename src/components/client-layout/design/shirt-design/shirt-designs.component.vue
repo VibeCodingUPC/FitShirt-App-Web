@@ -2,10 +2,13 @@
 import { onBeforeMount, ref } from 'vue';
 import filters from './shirt-filters.component.vue';
 import shirtCard from '@/components/shared/shirt-components/shirt-card.component.vue';
-import {DesignsApiService} from "@/services/designs-api.service.js";
+import { DesignsApiService } from "@/services/designs-api.service.js";
 import { AccountApiService } from '@/services/account-api.service';
 
-let designs=ref([]);
+// Variables reactivas
+let designs = ref([]);
+let isLoading = ref(true); // Estado del loader
+
 const designsService = new DesignsApiService();
 const authApiService = new AccountApiService();
 
@@ -21,21 +24,30 @@ const fetchDesignsData = async () => {
     console.log('Fetched Designs:', designs.value);
   } catch (error) {
     console.error('Error fetching designs:', error);
+  } finally {
+    isLoading.value = false; // Ocultar el loader después de la carga
   }
-}
-
+};
 
 onBeforeMount(async () => {
   await fetchDesignsData();
-})
+});
 </script>
 
 <template>
   <div
-      class="catalogue-container"
-      aria-describedby="Catalog of designs made by the user">
-    <div v-if="designs.length > 0" class="shirts-container">
-      <shirt-card
+    class="catalogue-container"
+    aria-describedby="Catalog of designs made by the user">
+    
+    <!-- Mostrar loader mientras se cargan los datos -->
+    <div v-if="isLoading" class="loader-container">
+      <img src="/images/loanding.webp" alt="loader" class="loader" />
+    </div>
+
+    <!-- Mostrar contenido cuando los datos estén disponibles -->
+    <div v-else>
+      <div v-if="designs.length > 0" class="shirts-container">
+        <shirt-card
           v-for="design in designs"
           :key="design.id"
           :id="design.id"
@@ -43,15 +55,15 @@ onBeforeMount(async () => {
           :name="design.name"
           name-router="editDesign"
           :ariaLabelRouter="`Edit design ${design.name}`"
-      />
+        />
+      </div>
+      <div v-else>
+        <p class="no-designs-text">No designs available</p>
+      </div>
+      <filters/>
     </div>
-    <div v-else>
-      <p>No designs available</p>
-    </div>
-    <filters/>
   </div>
 </template>
-
 
 <style scoped>
 .catalogue-container {
@@ -74,6 +86,18 @@ onBeforeMount(async () => {
   flex-wrap: wrap;
   width: 100%;
   max-width: 1200px;
+}
+
+.loader-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 50vh; /* Ajustar altura según diseño */
+}
+
+.loader {
+  width: 16vw;
+  height: 20vh;
 }
 
 .shirt-card {
@@ -143,6 +167,4 @@ onBeforeMount(async () => {
     padding: 10px;
   }
 }
-
-
 </style>
