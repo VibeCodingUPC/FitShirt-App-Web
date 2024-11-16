@@ -1,9 +1,9 @@
 <script setup>
-import {onBeforeMount, onMounted, ref, computed} from "vue";
-import {DesignsApiService} from "@/services/designs-api.service.js";
-import {useRoute} from "vue-router";
-import {ColorApiService} from "@/services/color-api.service.js";
-import {ShieldApiService} from "@/services/shield-api.service.js";
+import { onBeforeMount, onMounted, ref, computed } from "vue";
+import { DesignsApiService } from "@/services/designs-api.service.js";
+import { useRoute } from "vue-router";
+import { ColorApiService } from "@/services/color-api.service.js";
+import { ShieldApiService } from "@/services/shield-api.service.js";
 import router from "@/routes";
 
 const route = useRoute();
@@ -13,17 +13,17 @@ const designsService = new DesignsApiService();
 const shieldService = new ShieldApiService();
 
 let designInformation = ref({
-  "id": 0,
-  "name": "",
-  "image": "",
-  "primaryColorId": 0,
-  "secondaryColorId": 0,
-  "tertiaryColorId": 0,
-  "shieldId": 0,
-  "userId": 0
+  id: 0,
+  name: "",
+  image: "",
+  primaryColorId: 0,
+  secondaryColorId: 0,
+  tertiaryColorId: 0,
+  shieldId: 0,
+  userId: 0,
 });
 
-const constructDesignToUpdate = ( gottenDesign ) => {
+const constructDesignToUpdate = (gottenDesign) => {
   designInformation.value.id = gottenDesign.id;
   designInformation.value.name = gottenDesign.name;
   designInformation.value.image = gottenDesign.image;
@@ -32,125 +32,102 @@ const constructDesignToUpdate = ( gottenDesign ) => {
   designInformation.value.tertiaryColorId = gottenDesign.tertiaryColor.id;
   designInformation.value.shieldId = gottenDesign.shield.id;
   designInformation.value.userId = gottenDesign.user.id;
-}
+};
 
 const colors = ref([]);
 const shields = ref([]);
 
 const editDesign = async () => {
   await designsService.editDesign(designInformation.value);
-}
+};
 
 const deleteItemDesign = async () => {
   await designsService.deleteDesign(designInformation.value.id);
-}
+};
 
 const fetchDesignData = async () => {
   let gottenDesign = await designsService.getDesignbyid(route.params.id);
   constructDesignToUpdate(gottenDesign);
-}
+};
 
 const fetchColorData = async () => {
   let fetchedColors = await colorService.getColors();
   colors.value = [...colors.value, ...fetchedColors];
-}
+};
+
 const fetchShieldData = async () => {
   let fetchedShields = await shieldService.getShield();
   shields.value = [...shields.value, ...fetchedShields];
-}
+};
 
 const areCorrectAllInputs = computed(() => {
-  if (designInformation.value.name === "") {
-    return false;
-  }
-
-  if (designInformation.value.primaryColorId === 0) {
-    return false;
-  }
-
-  if (designInformation.value.secondaryColorId === 0) {
-    return false;
-  }
-
-  if (designInformation.value.tertiaryColorId === 0) {
-    return false;
-  }
-
-  if (designInformation.value.shieldId === 0) {
-    return false;
-  }
-
-  return true
-})
+  return (
+      designInformation.value.name &&
+      designInformation.value.primaryColorId &&
+      designInformation.value.secondaryColorId &&
+      designInformation.value.tertiaryColorId &&
+      designInformation.value.shieldId
+  );
+});
 
 const handleModifyDesign = async () => {
   await editDesign();
-  router.push('/my-design');
-}
+  router.push("/my-design");
+};
 
 const handleDeleteDesign = async () => {
   await deleteItemDesign();
-  router.push('/my-design');
-}
+  router.push("/my-design");
+};
 
 onMounted(async () => {
   fetchColorData();
   fetchShieldData();
-})
-onBeforeMount(()=>{
+});
+onBeforeMount(() => {
   fetchDesignData();
-})
-
+});
 </script>
 
 <template>
   <pv-card class="card-container">
     <template #content>
       <div class="form-container">
-        <div class="title-text">{{ $t('designs.edit') }}</div>
+        <div class="title-text">{{ $t("designs.edit") }}</div>
 
-        <img :src="designInformation.image" class="image-container"/>
+        <img :src="designInformation.image" class="image-container" />
 
         <div class="inputs-container">
-          <div class="subtitle-text">{{ $t('designs.name') }}</div>
-          <pv-inputText class="info-container" v-model="designInformation.name"></pv-inputText>
+          <div class="subtitle-text">{{ $t("designs.name") }}</div>
+          <pv-inputText
+              class="info-container"
+              v-model="designInformation.name"
+          ></pv-inputText>
 
-          <div class="subtitle-text">{{ $t('designs.fColor') }} </div>
+          <div class="subtitle-text">{{ $t("designs.fColor") }} </div>
           <select v-model="designInformation.primaryColorId" id="color-input">
-            <option
-                v-for="color in colors"
-                :value="color.id"
-                :key="color.id">
+            <option v-for="color in colors" :value="color.id" :key="color.id">
               {{ color.name }}
             </option>
           </select>
 
-          <div class="subtitle-text">{{ $t('designs.sColor') }}</div>
+          <div class="subtitle-text">{{ $t("designs.sColor") }}</div>
           <select v-model="designInformation.secondaryColorId" id="color-input">
-            <option
-                v-for="color in colors"
-                :value="color.id"
-                :key="color.id">
+            <option v-for="color in colors" :value="color.id" :key="color.id">
               {{ color.name }}
             </option>
           </select>
 
-          <div class="subtitle-text">{{ $t('designs.tColor') }}</div>
+          <div class="subtitle-text">{{ $t("designs.tColor") }}</div>
           <select v-model="designInformation.tertiaryColorId" id="color-input">
-            <option
-                v-for="color in colors"
-                :value="color.id"
-                :key="color.id">
+            <option v-for="color in colors" :value="color.id" :key="color.id">
               {{ color.name }}
             </option>
           </select>
 
-          <div class="subtitle-text">{{ $t('designs.shield') }}</div>
+          <div class="subtitle-text">{{ $t("designs.shield") }}</div>
           <select v-model="designInformation.shieldId" id="color-input">
-            <option
-                v-for="shield in shields"
-                :value="shield.id"
-                :key="shield.id">
+            <option v-for="shield in shields" :value="shield.id" :key="shield.id">
               {{ shield.nameTeam }}
             </option>
           </select>
@@ -161,18 +138,28 @@ onBeforeMount(()=>{
             class="button-style"
             aria-label="Apply changes"
             :disabled="!areCorrectAllInputs"
-            @click="handleModifyDesign">
-          {{ $t('designs.confirmButton') }}
+            @click="handleModifyDesign"
+        >
+          {{ $t("designs.confirmButton") }}
         </pv-button>
         <router-link to="/my-design">
-          <pv-button class="button-style" aria-label="Cancel changes">{{ $t('designs.cancelButton') }}</pv-button>
+          <pv-button class="button-style" aria-label="Cancel changes">
+            {{ $t("designs.cancelButton") }}
+          </pv-button>
         </router-link>
         <pv-button
             class="button-style"
             @click="handleDeleteDesign"
-            aria-label="Delete a Design">
-          {{ $t('designs.deleteButton') }}
+            aria-label="Delete a Design"
+        >
+          {{ $t("designs.deleteButton") }}
         </pv-button>
+        <!-- New Button Added -->
+        <router-link :to="{ path: '/businessman-list', meta: { requiresAuth: true, userRole: 'CLIENT' } }">
+          <pv-button class="button-style" aria-label="Businessman List">
+            {{ $t("designs.businessmanListButton") }}
+          </pv-button>
+        </router-link>
       </div>
     </template>
   </pv-card>
@@ -183,7 +170,7 @@ onBeforeMount(()=>{
   height: 100%;
   display: flex;
   justify-content: center;
-  flex: .95;
+  flex: 0.95;
   align-self: center;
   background-color: #e0e7ff;
   border-radius: 12px;
@@ -216,7 +203,7 @@ onBeforeMount(()=>{
 .title-text {
   font-size: 2.4em;
   font-weight: 700;
-  font-family: 'Roboto', sans-serif;
+  font-family: "Roboto", sans-serif;
   color: #333333;
   text-align: center;
   margin-bottom: 20px;
@@ -225,22 +212,22 @@ onBeforeMount(()=>{
 
 .subtitle-text {
   font-size: 1.2em;
-  font-family: 'Roboto', sans-serif;
-  color: #3B82F6;
+  font-family: "Roboto", sans-serif;
+  color: #3b82f6;
 }
 
 .info-container {
   border-radius: 8px;
   background-color: #ffffff;
   width: 100%;
-  border: 1px solid #3B82F6;
+  border: 1px solid #3b82f6;
   padding: 0.8em;
 }
 
 select {
   border-radius: 8px;
   padding: 0.8em;
-  border: 1px solid #3B82F6;
+  border: 1px solid #3b82f6;
   background-color: #ffffff;
   font-size: 1em;
   color: #333333;
@@ -277,7 +264,6 @@ select {
 }
 
 .button-style:hover {
-  background-color: #3B82F6;
+  background-color: #3b82f6;
 }
-
 </style>
