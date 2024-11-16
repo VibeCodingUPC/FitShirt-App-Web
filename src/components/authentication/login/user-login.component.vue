@@ -110,8 +110,9 @@ const handleLogin = async () => {
       <p class="cwhite mb100 tac">{{ $t('login.forgotPassword') }}</p>
       <hr class="line-container"/>
       <p class="cwhite mb10 tac register">
-        {{ $t('login.newmsg') }}
         <router-link to="/register">
+        {{ $t('login.newmsg') }}
+        <br>
           {{ $t('login.signup') }}
         </router-link>
       </p>
