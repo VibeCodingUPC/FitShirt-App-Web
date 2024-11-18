@@ -33,7 +33,6 @@ const changeLanguage = () => {
 }
 
 const accountService = new AccountApiService();
-const userService = new UserApiService();
 
 const handleLogin = async () => {
   try {
@@ -45,15 +44,14 @@ const handleLogin = async () => {
         "password": userLogin.value.password
       }
 
-      let { token, userId } = await accountService.login(userLoginRequest);
-      const user = await userService.getUserById(userId);
+      let decodedToken = await accountService.login(userLoginRequest);
+      let userRole = decodedToken.Role;
 
+      sessionStorage.setItem('userRole', decodedToken.Role);
 
-      sessionStorage.setItem('userRole', user.role);
-
-      if (user.role === 'CLIENT') {
+      if (userRole === 'CLIENT') {
         router.push('/client-dashboard');
-      } else if (user.role === 'SELLER') {
+      } else if (userRole === 'SELLER') {
         router.push('/businessman-dashboard');
       } else {
         loginError.value = "Role not recognized";

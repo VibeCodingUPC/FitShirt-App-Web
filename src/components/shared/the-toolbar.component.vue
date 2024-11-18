@@ -1,4 +1,5 @@
 <script setup>
+import router from "@/routes";
 import { onMounted, ref } from "vue";
 import { useI18n } from "vue-i18n";
 
@@ -21,6 +22,10 @@ const closeMenu = (event) => {
     visible.value = false;
   }
 };
+
+const clearSessionStorage = () => {
+  sessionStorage.clear();
+}
 
 const menuOptions = ref([]);
 
@@ -82,7 +87,7 @@ onMounted(() => {
             {{ i18nLocale.locale.value }}
           </pv-button>
         </div>
-        <router-link to="/login" class="logout-button">
+        <router-link @click="clearSessionStorage" to="/login" class="logout-button">
           <p>Log out</p>
         </router-link>
       </div>
