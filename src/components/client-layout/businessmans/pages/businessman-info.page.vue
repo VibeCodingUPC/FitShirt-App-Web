@@ -1,11 +1,29 @@
 ﻿<script setup>
-
+import {onMounted, ref} from "vue";
 import TheToolbar from "@/components/shared/the-toolbar.component.vue";
 import InfoBusinessman from "@/components/client-layout/businessmans/components/info-businessman.component.vue";
 import ListShirtBusinessman from "@/components/client-layout/businessmans/components/list-shirt-businessman.component.vue";
+import {BusinessmansApiService} from "@/components/client-layout/businessmans/services/businessmans-api.service.js";
+import {useRoute} from "vue-router";
 
 
+let list = ref([]);
+const apiService = new BusinessmansApiService();
+const route = useRoute();
+const empty = ref(false);
 
+const fetchData = async() => {
+  console.log(route.params.id);
+list = await apiService.getPostByUserId2(route.params.id);
+list.value = list.data
+
+  // Validar si la lista está vacía
+  empty.value = list.value.length === 0;
+
+}
+onMounted(async () => {
+  await fetchData();
+})
 </script>
 
 <template>
@@ -14,11 +32,12 @@ import ListShirtBusinessman from "@/components/client-layout/businessmans/compon
     <div>
       <info-businessman></info-businessman>
     </div>
-
-    <div class="scroll-panel">
-      <div class="content">
-        <div id="list">
-          <list-shirt-businessman></list-shirt-businessman>
+    <div v-if="!empty" class="scroll-wrapper">
+      <div class="scroll-panel">
+        <div class="content">
+          <div id="list">
+            <list-shirt-businessman></list-shirt-businessman>
+          </div>
         </div>
       </div>
     </div>
@@ -49,14 +68,19 @@ import ListShirtBusinessman from "@/components/client-layout/businessmans/compon
   color: #00FF01;
   -webkit-box-shadow: 0 0 1px rgba(255,255,255,.5);
 }
-
+.scroll-wrapper {
+  display: flex;
+  flex-grow: 1;
+  width: 90%; /* Ajusta el ancho según sea necesario */
+}
 .scroll-panel {
 
-  width: fit-content;
-  height: 950px;
+  width: 100%;
+  max-height: 100vh; /* Limita la altura al 80% de la ventana */
   overflow-y: auto; /* Activa el scroll vertical */
   border-left: 3px solid #000;
-  padding: 100px;
+  padding: 20px; /* Reduce el padding para mejor adaptación */
+  box-sizing: border-box; /* Incluye el padding en las dimensiones */
 }
 
 
@@ -82,5 +106,10 @@ import ListShirtBusinessman from "@/components/client-layout/businessmans/compon
 
 .content {
   height: 1000px; /* Asegura que el contenido sea lo suficientemente grande para que aparezca el scroll */
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 20px;
+  padding-bottom: 20px;
 }
 </style>

@@ -7,15 +7,13 @@ import ListBusinessmans from "@/components/client-layout/businessmans/components
 <template>
   <main class="main">
     <the-toolbar/>
-
-    <div class="scroll-panel">
-      <div class="content">
-
-        <div id="list">
-          <list-businessmans></list-businessmans>
+      <div class="scroll-panel">
+        <div class="content">
+          <div id="list">
+            <list-businessmans></list-businessmans>
+          </div>
         </div>
       </div>
-    </div>
 
   </main>
 </template>
@@ -46,11 +44,11 @@ import ListBusinessmans from "@/components/client-layout/businessmans/components
 }
 
 .scroll-panel {
-  width: fit-content;
-  height: 950px;
+  width: 100%;
+  max-height: 100vh;
   overflow-y: auto; /* Activa el scroll vertical */
-  border: 1px solid #ccc;
-  padding: 100px;
+  padding: 50px;
+  box-sizing: border-box; /* Incluye el padding en las dimensiones */
 }
 
 /* Estilos del Scrollbar */
@@ -74,7 +72,11 @@ import ListBusinessmans from "@/components/client-layout/businessmans/components
 }
 
 .content {
-  height: 1000px; /* Asegura que el contenido sea lo suficientemente grande para que aparezca el scroll */
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 20px;
+  padding-bottom: 20px;
 }
 
 </style>

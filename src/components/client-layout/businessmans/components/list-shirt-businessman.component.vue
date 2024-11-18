@@ -23,6 +23,7 @@ export default {
       .finally(() => {
         this.isLoading = false; // Ocultar el loader al finalizar la carga
       });
+      
   },
   methods: {
     buildShirtFromResponsiveData(shirts) {
@@ -40,6 +41,7 @@ export default {
 </script>
 
 <template>
+
   <div>
     <!-- Mostrar loader mientras se cargan los datos -->
     <div v-if="isLoading" class="loader-container">
