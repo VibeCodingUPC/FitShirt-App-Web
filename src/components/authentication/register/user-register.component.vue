@@ -1,6 +1,6 @@
 <script setup>
 import { onMounted, computed, ref } from 'vue';
-import {useI18n} from "vue-i18n";
+import { useI18n } from "vue-i18n";
 import { AccountApiService } from "@/services/account-api.service";
 import router from "@/routes";
 
@@ -20,7 +20,8 @@ let userRegistration = ref({
   "confirmPassword": "",
   "email": "",
   "cellphone": "",
-  "userRole": ""
+  "userRole": "",
+  "captchaResponse": ""
 });
 
 const { t } = useI18n();
@@ -30,7 +31,7 @@ let options = computed(() => [
 ]);
 
 const accountService = new AccountApiService();
-let captchaResponse = ref("");
+//let captchaResponse = ref("");
 let registrationError = ref("");
 
 const validateRegistration = () => {
@@ -56,7 +57,7 @@ const validateRegistration = () => {
     registrationError.value = "Cellphone must be 9 digits long";
     return false;
   }
-  if (!captchaResponse.value) {
+  if (!userRegistration.value.captchaResponse) {
     registrationError.value = "Please complete the CAPTCHA";
     return false;
   }
@@ -77,10 +78,10 @@ const onCaptchaVerified = (response) => {
 const handleRegistration = async () => {
   try {
     // Obtener el token del CAPTCHA antes de hacer la solicitud
-    captchaResponse.value = grecaptcha.getResponse();
-    console.log("Captcha Response:", captchaResponse.value);
+    let captchaResponse = grecaptcha.getResponse();
+    userRegistration.value.captchaResponse = captchaResponse;
 
-    if (!captchaResponse.value) {
+    if (!captchaResponse) {
       registrationError.value = "Please complete the CAPTCHA";
       return;
     }
@@ -88,23 +89,11 @@ const handleRegistration = async () => {
     let isCorrectRegistrationRequest = validateRegistration();
     if (isCorrectRegistrationRequest) {
       try {
-        let registrationData = {
-          registerUser: {
-            ...userRegistration.value
-          },
-          validateCaptcha: {
-            captchaResponse: captchaResponse.value
-          }
-        };
 
-        let response = await accountService.register(registrationData);
+        let response = await accountService.register(userRegistration.value);
 
-        console.log("User registered successfully:", response);
-
-        console.log("Redirecting to login...");
         try {
           await router.push('/login');
-          console.log("Redirection successful");
         } catch (err) {
           console.error("Error during redirection:", err);
         }
@@ -132,7 +121,7 @@ const handleRegistration = async () => {
         <p class="app-description"> {{ $t('login.description') }}</p>
       </div>
     </div>
-    <div class ="register-card">
+    <div class="register-card">
       <p class="title-container">{{ $t('register.title') }}</p>
       <p class="cwhite">{{ $t('register.name') }}</p>
       <pv-inputText class="mb10" type="text" v-model="userRegistration.name" aria-label="Enter a username" />
@@ -147,7 +136,8 @@ const handleRegistration = async () => {
       <pv-inputText class="mb10" type="password" v-model="userRegistration.password" aria-label="Enter a password" />
 
       <p class="cwhite">{{ $t('register.confirmP') }}</p>
-      <pv-inputText class="mb10" type="password" v-model="userRegistration.confirmPassword" aria-label="Confirm the password"/>
+      <pv-inputText class="mb10" type="password" v-model="userRegistration.confirmPassword"
+        aria-label="Confirm the password" />
 
       <p class="cwhite">{{ $t('register.email') }}</p>
       <pv-inputText class="mb10" type="text" v-model="userRegistration.email" aria-label="Enter a email" />
@@ -157,9 +147,10 @@ const handleRegistration = async () => {
 
       <p class="cwhite">{{ $t('register.userRole') }}</p>
       <pv-select class="mb10" v-model="userRegistration.userRole" :options="options" option-label="label"
-                 option-value="value" aria-labelledby="basic" />
+        option-value="value" aria-labelledby="basic" />
 
-      <div class="g-recaptcha" data-sitekey="6LcsgGsqAAAAAKvtF90CX_OMRukq7SyWOkyhjFUb" @verify="onCaptchaVerified"></div>
+      <div class="g-recaptcha" data-sitekey="6LcsgGsqAAAAAKvtF90CX_OMRukq7SyWOkyhjFUb" @verify="onCaptchaVerified">
+      </div>
 
       <p class="cwhite mb100 tac">{{ registrationError }}</p>
 
@@ -167,8 +158,11 @@ const handleRegistration = async () => {
       <router-link to="/catalogue">
       </router-link>
 
-      <p class="cwhite login">{{ $t('register.oldmsg') }} <router-link to="/login">{{ $t('register.signin') }}</router-link>
+      <router-link to="/login">
+      <p class="cwhite login">{{ $t('register.oldmsg') }} <br> {{ $t('register.signin')
+          }}
       </p>
+    </router-link>
       <div class="changelanguage">
         <pv-button @click="changeLanguage" class="language-button">
           <i class="pi pi-globe"></i>

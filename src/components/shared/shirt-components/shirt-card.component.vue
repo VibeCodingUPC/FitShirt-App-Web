@@ -50,7 +50,7 @@
   .shirt-card {
     width: 180px;
     min-height: 240px;
-    background-color: #D9D9D9;
+    background-color: #ffffff;
     border-radius: 6px;
     padding: 1.1em .6em 0 .6em;
     display: flex;

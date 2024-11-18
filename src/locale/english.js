@@ -77,7 +77,9 @@ const en = {
     edit: "Edit Post",
     deleteButton: "Delete Post",
     upload: "Upload post",
-    image: "Image (Enter an image url)",
+    image: "Image (Select an image)",
+    uploadedImage: "Uploaded image:",
+    deleteImage: "Delete image:",
     error: "The URL must be an image in PNG or JPG format",
   },
 

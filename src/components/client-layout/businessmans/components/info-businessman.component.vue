@@ -1,54 +1,69 @@
 ﻿<script>
-
-import {BusinessmansApiService} from "@/components/client-layout/businessmans/services/businessmans-api.service.js";
-import {PostsApiService} from "@/services/posts-api.service.js";
+import { BusinessmansApiService } from "@/components/client-layout/businessmans/services/businessmans-api.service.js";
 
 export default {
   name: "info-businessman",
-  data(){
+  data() {
     return {
-      businessman:[],
+      businessman: null, // Cambiar a null para diferenciar entre cargado o vacío
+      isLoading: true, // Estado para controlar el loader
       dataApi: new BusinessmansApiService(),
-      post:[],
-    }
+    };
   },
-  created(){
-
-      this.dataApi.getBusinessmansByIdApiService(this.$route.params.id)
+  created() {
+    this.dataApi
+      .getBusinessmansByIdApiService(this.$route.params.id)
       .then((response) => {
-      let dataMans = response;
-      this.businessman = dataMans;
+        this.businessman = response;
       })
-
- }
-}
-
-
+      .finally(() => {
+        this.isLoading = false; // Ocultar el loader al finalizar la carga
+      });
+  },
+};
 </script>
 
 <template>
-  <pv-card class="businessman-card">
-    <template #header>
-      <!-- Aquí podrías agregar una imagen si es necesario -->
-    </template>
-    <template #title>
-      <h3 class="businessman-name">{{ businessman.name }} {{ businessman.lastname }}</h3>
-    </template>
-    <template #subtitle>
-      <p class="businessman-username">@{{ businessman.username }}</p>
-    </template>
-    <template #content>
-      <div class="contact-info">
-        <p><strong>E-mail:</strong> {{ businessman.email }}</p>
-        <p><strong>Celular:</strong> {{ businessman.cellphone }}</p>
-      </div>
-    </template>
-  </pv-card>
+  <div>
+    <!-- Mostrar loader mientras se cargan los datos -->
+    <div v-if="isLoading" class="loader-container">
+      <img src="/images/loanding.webp" alt="loader" class="loader" />
+    </div>
 
-
+    <!-- Mostrar la tarjeta del businessman una vez cargados los datos -->
+    <pv-card v-else class="businessman-card">
+      <template #header>
+        <!-- Aquí podrías agregar una imagen si es necesario -->
+      </template>
+      <template #title>
+        <h3 class="businessman-name">{{ businessman.name }} {{ businessman.lastname }}</h3>
+      </template>
+      <template #subtitle>
+        <p class="businessman-username">@{{ businessman.username }}</p>
+      </template>
+      <template #content>
+        <div class="contact-info">
+          <p><strong>E-mail:</strong> {{ businessman.email }}</p>
+          <p><strong>Celular:</strong> {{ businessman.cellphone }}</p>
+        </div>
+      </template>
+    </pv-card>
+  </div>
 </template>
 
 <style scoped>
+.loader-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 50vh; /* Ajustar según el diseño */
+}
+
+.loader {
+  width: 16vw;
+  height: 20vh;
+}
+
 .businessman-card {
   width: 25rem;
   padding: 16px;
