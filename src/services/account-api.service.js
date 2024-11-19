@@ -27,9 +27,8 @@ export class AccountApiService {
             sessionStorage.setItem('jwt', token);
 
             const decodedToken = jwtDecode(token);
-            const userId = parseInt(decodedToken.sid);
 
-            return { token, userId };
+            return decodedToken;
         } catch (error) {
             throw error.response.data.StatusCode;
         }
@@ -38,8 +37,8 @@ export class AccountApiService {
     getUserIdFromToken() {
         const token = sessionStorage.getItem('jwt');
         if (!token) return environment.userId;
-        
+
         const decodedToken = jwtDecode(token);
-        return parseInt(decodedToken.sid); 
-      }
+        return parseInt(decodedToken.sid);
+    }
 }
