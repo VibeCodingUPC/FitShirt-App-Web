@@ -18,7 +18,8 @@ let designInformation = ref ({
   "secondaryColorId": 0,
   "tertiaryColorId": 0,
   "userId": authApiService.getUserIdFromToken(),
-  "shieldId": 0
+  "shieldId": 0,
+  "imageUrl": null
 })
 
 let designInformation2 = ref ({})
@@ -46,6 +47,7 @@ const generateDynamicImageUrl = async () => {
 
 };
 const addDesign = async () => {
+  designInformation.value.imageUrl = aiImageUrl.value;
   await designService.creatingDesign(designInformation.value);
 }
 
@@ -117,14 +119,17 @@ onMounted(async () => {
         <div class="title-text">
           {{ $t('designs.create') }}
         </div>
-        <div v-if="activeImage">
-          <img :src="environment.designImagePath" class="image-container"/>
-        </div>
-        <div v-if="activeAIImage">
-          <img :src="aiImageUrl" alt="AI Generated Design" max-width="200" height="200">
-        </div>
 
-
+        <!-- Mostrar imagen generada o cargando -->
+        <div>
+          <img v-if="activeAIImage"
+            :src="aiImageUrl || '/images/loanding.webp'" 
+            :alt="aiImageUrl ? 'AI Generated Design' : 'Loading image...'" 
+            max-width="200" 
+            height="200" 
+          />
+          <img v-else :src="environment.designImagePath" class="image-container"/>
+        </div>
 
 
         <div class="inputs-container">
