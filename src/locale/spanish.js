@@ -93,6 +93,8 @@ const es = {
     tColor: "Color Terciario",
     shield: "Escudo",
     confirmButton: "Confirmar",
+    businessmanListButton: "Lista de diseñadores",
+    aibutton: "Diseño IA",
     cancelButton: "Cancelar",
     deleteButton: "Eliminar Diseño",
   },
