@@ -31,7 +31,7 @@ export default {
         <!-- New WhatsApp Button -->
         <a :href="`https://wa.me/${businessEntity.cellphone}`" target="_blank">
           <pv-button
-              label="CHAT"
+              icon="pi pi-whatsapp"
               class="w-full"
               style="background-color: green; border-color: green; margin-top: 5px;"
           />

@@ -18,12 +18,36 @@ let designInformation = ref ({
   "secondaryColorId": 0,
   "tertiaryColorId": 0,
   "userId": authApiService.getUserIdFromToken(),
-  "shieldId": 0
+  "shieldId": 0,
+  "imageUrl": null
 })
+
+let designInformation2 = ref ({})
+
+
 const colors = ref([]);
 const shields = ref([]);
 
+const aiImageUrl = ref('');
+
+
+const generateDynamicImageUrl = async () => {
+  const primaryColor = colors.value.find(color => color.id === designInformation.value.primaryColorId)?.name;
+  const secondaryColor = colors.value.find(color => color.id === designInformation.value.secondaryColorId)?.name;
+  const tertiaryColor = colors.value.find(color => color.id === designInformation.value.tertiaryColorId)?.name;
+  let shieldTeam = shields.value.find(shield => shield.id === designInformation.value.shieldId)?.nameTeam;
+
+  let shieldTeam2 = shieldTeam.split(' ').join('_');
+
+  console.log(shieldTeam2)
+
+  const imageUrl = `https://pollinations.ai/p/A%20sporty%20${primaryColor}%20jersey%20with%20a%20vibrant%20and%20dynamic%20design,%20featuring%20sleek%20${secondaryColor}%20and%20${tertiaryColor}%20accent%20lines%20along%20the%20sides%20for%20contrast%20and%20energy.%20Crafted%20with%20high-tech,%20breathable%20fabric%20that%20conveys%20comfort%20and%20freshness%20through%20subtle%20texture.%20Includes%20a%20smooth%20V-neck%20collar%20and%20short%20sleeves,%20with%20a%20small%20${shieldTeam2}%20logo%20on%20the%20left%20chest%20and%20a%20bold%20number%20on%20the%20back.%20The%20overall%20style%20is%20clean,%20minimalistic,%20and%20tailored%20for%20high-energy%20sports%20like%20soccer%20or%20athletics.`;
+  console.log(imageUrl);
+  aiImageUrl.value = imageUrl; // Guardar la URL generada
+
+};
 const addDesign = async () => {
+  designInformation.value.imageUrl = aiImageUrl.value;
   await designService.creatingDesign(designInformation.value);
 }
 
@@ -70,9 +94,21 @@ const handleDesignCreation = async () => {
 
 
 
+const activeAIImage = computed(
+    ()  => {
+      return areCorrectAllInputs.value;
+    }
+)
+
+const activeImage= computed (() => {
+  console.log(generateDynamicImageUrl.value)
+  return !areCorrectAllInputs.value;
+})
+
 onMounted(async () => {
   await fetchColorData();
   await fetchShieldData();
+  console.log(areCorrectAllInputs.value);
 })
 </script>
 
@@ -84,7 +120,17 @@ onMounted(async () => {
           {{ $t('designs.create') }}
         </div>
 
-        <img :src="environment.designImagePath" class="image-container"/>
+        <!-- Mostrar imagen generada o cargando -->
+        <div>
+          <img v-if="activeAIImage"
+            :src="aiImageUrl || '/images/loanding.webp'" 
+            :alt="aiImageUrl ? 'AI Generated Design' : 'Loading image...'" 
+            max-width="200" 
+            height="200" 
+          />
+          <img v-else :src="environment.designImagePath" class="image-container"/>
+        </div>
+
 
         <div class="inputs-container">
           <div class="subtitle-text">{{ $t('designs.name') }}</div>
@@ -139,6 +185,17 @@ onMounted(async () => {
             @click="handleDesignCreation">
           {{ $t('designs.confirmButton') }}
         </pv-button>
+
+        <pv-button
+            class="button-style"
+            aria-label="AI design"
+            :disabled="!areCorrectAllInputs"
+            @click="generateDynamicImageUrl"
+        >
+          {{ $t('designs.aibutton') }}
+        </pv-button>
+
+
         <router-link to="/my-design" aria-label="Cancel a design">
           <pv-button class="button-style">{{ $t('designs.cancelButton') }}</pv-button>
         </router-link>
