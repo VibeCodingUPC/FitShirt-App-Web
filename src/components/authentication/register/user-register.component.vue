@@ -4,7 +4,11 @@ import { useI18n } from "vue-i18n";
 import { AccountApiService } from "@/services/account-api.service";
 import router from "@/routes";
 
+const SITE_KEY = import.meta.env.VITE_RECAPTCHA_SITE_KEY;
+
 onMounted(() => {
+  const script = document.createElement('script');
+  script.src = `https://www.google.com/recaptcha/api.js?render=${SITE_KEY}`;
   script.async = true;
   script.defer = true;
   document.head.appendChild(script);
@@ -75,37 +79,23 @@ const onCaptchaVerified = (response) => {
 
 const handleRegistration = async () => {
   try {
-    // Obtener el token del CAPTCHA antes de hacer la solicitud
-    let captchaResponse = grecaptcha.getResponse();
-    userRegistration.value.captchaResponse = captchaResponse;
-
-    if (!captchaResponse) {
-      registrationError.value = "Please complete the CAPTCHA";
-      return;
-    }
+    // Ejecutar reCAPTCHA v3
+    const captchaToken = await grecaptcha.execute(SITE_KEY, { action: 'submit' });
+    userRegistration.value.captchaResponse = captchaToken;
 
     let isCorrectRegistrationRequest = validateRegistration();
-    if (isCorrectRegistrationRequest) {
-      try {
+    if (!isCorrectRegistrationRequest) return;
 
-        let response = await accountService.register(userRegistration.value);
+    const response = await accountService.register(userRegistration.value);
+    await router.push('/login');
 
-        try {
-          await router.push('/login');
-        } catch (err) {
-          console.error("Error during redirection:", err);
-        }
-      } catch (error) {
-        if (error.response && error.response.status === 409) {
-          registrationError.value = "Username, email or phone number is already registered";
-        } else {
-          registrationError.value = "Invalid tokens. Try again";
-        }
-      }
-    }
   } catch (error) {
-    console.error("Error during registration:", error);
-    registrationError.value = "Error processing the registration. Please try again.";
+    if (error.response && error.response.status === 409) {
+      registrationError.value = "Username, email or phone number is already registered";
+    } else {
+      registrationError.value = "Error processing the registration. Please try again.";
+      console.error("Error during registration:", error);
+    }
   }
 };
 
