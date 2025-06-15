@@ -21,6 +21,13 @@ app.use(PrimeVue);
 app.use(router);
 app.use(i18n);
 
+app.use(VueReCaptcha, {
+  siteKey: import.meta.env.VITE_RECAPTCHA_SITE_KEY,
+  loaderOptions: {
+    autoHideBadge: true
+  }
+});
+
 app.component('pv-card',Card);
 app.component('pv-inputText',InputText);
 app.component('pv-sidebar',Sidebar);

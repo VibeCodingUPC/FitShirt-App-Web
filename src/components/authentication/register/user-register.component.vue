@@ -5,8 +5,6 @@ import { AccountApiService } from "@/services/account-api.service";
 import router from "@/routes";
 
 onMounted(() => {
-  const script = document.createElement('script');
-  script.src = "https://www.google.com/recaptcha/api.js";
   script.async = true;
   script.defer = true;
   document.head.appendChild(script);
@@ -148,9 +146,6 @@ const handleRegistration = async () => {
       <p class="cwhite">{{ $t('register.userRole') }}</p>
       <pv-select class="mb10" v-model="userRegistration.userRole" :options="options" option-label="label"
         option-value="value" aria-labelledby="basic" />
-
-      <div class="g-recaptcha" data-sitekey="6LfI7WErAAAAABAcrIXL6JUOV3GPsewbd2SneXNZ" @verify="onCaptchaVerified">
-      </div>
 
       <p class="cwhite mb100 tac">{{ registrationError }}</p>
 

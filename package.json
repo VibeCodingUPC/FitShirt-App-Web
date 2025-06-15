@@ -16,6 +16,7 @@
     "primevue": "^3.51.0",
     "vue": "^3.4.21",
     "vue-i18n": "^9.13.1",
+    "vue-recaptcha-v3": "^2.0.1",
     "vue-router": "^4.3.2"
   },
   "devDependencies": {
