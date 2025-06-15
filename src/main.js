@@ -13,6 +13,7 @@ import Sidebar from "primevue/sidebar";
 import Checkbox from "primevue/checkbox";
 import SelectButton from 'primevue/selectbutton';
 import i18n from './locale/i18n';
+import { VueReCaptcha } from 'vue-recaptcha-v3';
 import 'primeicons/primeicons.css'
 
 const app = createApp(App);
