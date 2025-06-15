@@ -149,7 +149,7 @@ const handleRegistration = async () => {
       <pv-select class="mb10" v-model="userRegistration.userRole" :options="options" option-label="label"
         option-value="value" aria-labelledby="basic" />
 
-      <div class="g-recaptcha" data-sitekey="6LcsgGsqAAAAAKvtF90CX_OMRukq7SyWOkyhjFUb" @verify="onCaptchaVerified">
+      <div class="g-recaptcha" data-sitekey="6LfI7WErAAAAABAcrIXL6JUOV3GPsewbd2SneXNZ" @verify="onCaptchaVerified">
       </div>
 
       <p class="cwhite mb100 tac">{{ registrationError }}</p>
