@@ -6,11 +6,14 @@ import {ShieldApiService} from "@/services/shield-api.service.js";
 import { environment } from "@/environments/environment";
 import router from "@/routes";
 import { AccountApiService } from "@/services/account-api.service";
+import axios from 'axios';
 
 const colorService = new ColorApiService();
 const designService = new DesignsApiService();
 const shieldService = new ShieldApiService();
 const authApiService = new AccountApiService();
+const customPrompt = ref('');
+
 
 let designInformation = ref ({
   "name": "",
@@ -32,20 +35,34 @@ const aiImageUrl = ref('');
 
 
 const generateDynamicImageUrl = async () => {
-  const primaryColor = colors.value.find(color => color.id === designInformation.value.primaryColorId)?.name;
-  const secondaryColor = colors.value.find(color => color.id === designInformation.value.secondaryColorId)?.name;
-  const tertiaryColor = colors.value.find(color => color.id === designInformation.value.tertiaryColorId)?.name;
-  let shieldTeam = shields.value.find(shield => shield.id === designInformation.value.shieldId)?.nameTeam;
-
-  let shieldTeam2 = shieldTeam.split(' ').join('_');
-
-  console.log(shieldTeam2)
-
-  const imageUrl = `https://pollinations.ai/p/A%20sporty%20${primaryColor}%20jersey%20with%20a%20vibrant%20and%20dynamic%20design,%20featuring%20sleek%20${secondaryColor}%20and%20${tertiaryColor}%20accent%20lines%20along%20the%20sides%20for%20contrast%20and%20energy.%20Crafted%20with%20high-tech,%20breathable%20fabric%20that%20conveys%20comfort%20and%20freshness%20through%20subtle%20texture.%20Includes%20a%20smooth%20V-neck%20collar%20and%20short%20sleeves,%20with%20a%20small%20${shieldTeam2}%20logo%20on%20the%20left%20chest%20and%20a%20bold%20number%20on%20the%20back.%20The%20overall%20style%20is%20clean,%20minimalistic,%20and%20tailored%20for%20high-energy%20sports%20like%20soccer%20or%20athletics.`;
-  console.log(imageUrl);
-  aiImageUrl.value = imageUrl; // Guardar la URL generada
-
+  if (!customPrompt.value.trim()) {
+    alert("Por favor escribe un prompt antes de generar la imagen.");
+    return;
+  }
+  try {
+    const response = await axios.post(
+        'https://api.openai.com/v1/images/generations',
+        {
+          model: "dall-e-3",
+          prompt: customPrompt.value,
+          n: 1,
+          size: "1024x1024"
+        },
+        {
+          headers: {
+            'Authorization': `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`,
+            'Content-Type': 'application/json'
+          }
+        }
+    );
+    aiImageUrl.value = response.data.data[0].url;
+  } catch (error) {
+    console.error("❌ Error al generar imagen con OpenAI:", error);
+    aiImageUrl.value = "/images/fallback.png"; // imagen alternativa si falla
+  }
 };
+
+
 const addDesign = async () => {
   designInformation.value.imageUrl = aiImageUrl.value;
   await designService.creatingDesign(designInformation.value);
@@ -61,28 +78,8 @@ const fetchColorData = async () => {
 }
 
 const areCorrectAllInputs = computed(() => {
-  if (designInformation.value.name === "") {
-    return false;
-  }
-
-  if (designInformation.value.primaryColorId === 0) {
-    return false;
-  }
-
-  if (designInformation.value.secondaryColorId === 0) {
-    return false;
-  }
-
-  if (designInformation.value.tertiaryColorId === 0) {
-    return false;
-  }
-
-  if (designInformation.value.shieldId === 0) {
-    return false;
-  }
-
-  return true
-})
+  return designInformation.value.name.trim() !== "" && customPrompt.value.trim() !== "";
+});
 
 const handleDesignCreation = async () => {
   console.log('Design info before creation:', designInformation.value);
@@ -145,6 +142,13 @@ onMounted(async () => {
               {{ color.name }}
             </option>
           </select>
+
+          <div class="subtitle-text">Prompt personalizado (obligatorio)</div>
+          <pv-inputText
+              class="info-container"
+              v-model="customPrompt"
+              placeholder="Ejemplo: Camiseta negra con líneas rojas y escudo de dragón"
+          />
 
           <div class="subtitle-text">{{ $t('designs.sColor') }}</div>
           <select v-model="designInformation.secondaryColorId" id="color-input">
