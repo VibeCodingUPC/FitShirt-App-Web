@@ -50,7 +50,7 @@ const generateDynamicImageUrl = async () => {
         },
         {
           headers: {
-            'Authorization': `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`,
+            'Authorization': `Bearer ${import.meta.env.VITE_OPENAI_API_KEY}`,
             'Content-Type': 'application/json'
           }
         }
