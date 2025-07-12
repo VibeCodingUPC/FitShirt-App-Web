@@ -78,19 +78,8 @@
       onMounted(() => {
         fetchClientInformation(route.params.id);
       });
+
   
-      // Enlace dinámico de WhatsApp con un mensaje predefinido usando el número de teléfono del cliente
-      const whatsappLink = computed(() => {
-        if (clientInformation.value) {
-          return `https://wa.me/${clientInformation.value.phoneNumber}?text=Hola, estoy interesado en el pedido de ${clientInformation.value.name}.`;
-        }
-        return "#";
-      });
-  
-      return {
-        clientInformation,
-        whatsappLink,
-      };
     },
   };
   </script>
